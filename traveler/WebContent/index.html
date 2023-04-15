@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dayOFF</title>
+    <link
+      href="/assets/img/logo.png"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/styles/global.css" />
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+  </head>
+  <body>
+    <!-- 로그인 모달  -->
+    <div class="modal login_modal hidden">
+      <div class="modal_overlay"></div>
+      <div class="modal_main">
+        <button class="closeBtn">
+          <img
+            src="./assets/img/closeBtn.png"
+            width="15px"
+            height="15px"
+            alt=""
+          />
+        </button>
+        <div class="modal_head">
+          <h1 class="modal_title">로그인</h1>
+        </div>
+        <div class="modal_content">
+          <input type="text" placeholder="아이디" />
+          <input type="text" placeholder="비밀번호" />
+          <button class="login_btn" type="submit">로그인</button>
+          <div class="signup_content">
+            아직 회원이 아니신가요?
+            <button class="go_signup_btn">회원 가입하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 회원가입 모달  -->
+    <div class="modal signup_modal hidden">
+      <div class="modal_overlay"></div>
+      <div class="modal_main">
+        <button class="closeBtn">
+          <img
+            src="./assets/img/closeBtn.png"
+            width="15px"
+            height="15px"
+            alt=""
+          />
+        </button>
+        <div class="modal_head">
+          <h1 class="modal_title">회원가입</h1>
+        </div>
+        <div class="modal_content">
+          <input type="text" placeholder="아이디" />
+          <input type="text" placeholder="비밀번호" />
+          <button class="signup_btn">회원가입</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- header -->
+    <header>
+      <!-- navigation -->
+      <nav>
+        <!-- 로고 -->
+        <ul class="logo">
+          <li class="logo_img">
+            <img src="./assets/img/logo.png" alt="" width="60px" />
+          </li>
+          <li class="logo_title">
+            <h2 id="title"><a href="">dayOFF</a></h2>
+          </li>
+        </ul>
+        <!-- 카테고리-->
+        <!-- 로그인 전-->
+
+        <ul class="category">
+          <li><a href="" id="category_login_btn">로그인</a></li>
+          <li><a href="" id="category_signup_btn">회원가입</a></li>
+        </ul>
+        <!-- 로그인 후-->
+        <ul class="category_logout">
+          <li class="none">로그아웃</li>
+        </ul>
+      </nav>
+    </header>
+    <!-- main -->
+
+    <main>
+      <!-- 배너 -->
+      <section>
+        <div class="main_text">
+          <h1>STRESS SWITCH <span class="highlight">OFF</span></h1>
+          <h1>HAPPY SWITCH <span class="highlight">ON</span></h1>
+        </div>
+      </section>
+      <section class="center_contents">
+        <div
+          id="slide_show"
+          onmouseover="remove_interval()"
+          onmouseleave="start_interval()"
+        >
+          <ul class="slides">
+            <li class="areas">
+              <img
+                src="./assets/img/banner_tour_img/tour0001.png"
+                alt="서울"
+              />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0001.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0001.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0001.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0002.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0002.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0002.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0002.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0003.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0003.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0003.png" alt="" />
+            </li>
+            <li class="areas">
+              <img src="./assets/img/banner_tour_img/tour0003.png" alt="" />
+            </li>
+          </ul>
+          <p class="controller">
+            <span class="prev">&lang;</span>
+            <span class="next">&rang;</span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./api.js"></script>
+    <script src="./assets/js/localStorage.js"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/logout.js"></script>
+    <script src="./assets/js/center_contents.js"></script>
+    <script src="./assets/js/signup.js"></script>
+  </body>
+</html>

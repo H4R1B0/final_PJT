@@ -1,0 +1,18 @@
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+*.launch
+*.iml
+*.ipr
+*.iws
+bin/
+target/
+/.metadata/
+/Servers/

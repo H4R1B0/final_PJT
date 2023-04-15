@@ -1,0 +1,242 @@
+button:hover {
+  cursor: pointer;
+}
+
+/* 모달 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.modal_overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.modal_main {
+  width: 30rem;
+  height: 30rem;
+  position: relative;
+  padding: 30px 30px;
+  background-color: white;
+  text-align: center;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.closeBtn {
+  float: right;
+  border: none;
+  background-color: white;
+}
+
+.closeBtn:hover {
+  cursor: pointer;
+}
+
+.modal_head {
+  display: inline;
+  background-color: beige;
+}
+
+.modal_title {
+  font-family: Cafe24Ssurround;
+  margin: 0;
+  padding: 30px;
+}
+.hidden {
+  display: none;
+}
+.modal_content {
+  padding: 0px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 20rem;
+}
+
+.modal_content input {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  font-size: 1em;
+}
+
+.modal_content input:focus {
+  outline: none;
+}
+
+.login_btn,
+.signup_btn {
+  font-family: Cafe24SsurroundAir;
+  width: 100%;
+  height: 2em;
+  border: none;
+  border-radius: 20px;
+  background-color: #636dff;
+  color: white;
+  font-size: 1.2em;
+  /* font-size: 1em; */
+  padding: 0px;
+}
+
+.signup_content {
+  font-size: 0.8em;
+}
+
+.go_signup_btn {
+  background-color: white;
+  text-decoration: underline;
+  color: #636dff;
+  border: none;
+}
+
+/* body에 이미지 넣기 */
+body {
+  width: 100vw;
+  height: 100vh;
+  background: url("../img/bodyImg.jpg") no-repeat center fixed;
+  background-size: cover;
+}
+
+/* header의 구조*/
+nav {
+  display: flex;
+  justify-content: space-around;
+  /* border: 1px solid black; */
+  color: white;
+  font-family: Cafe24SsurroundAir;
+  font-weight: 600;
+  font-size: 1.2em;
+  height: 5rem;
+}
+
+/* 로고 */
+ul.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 10em;
+}
+
+/* 로고 글씨 */
+.logo_title h2#title > a {
+  font-family: Cafe24Ssurround;
+}
+
+/* 카테고리 */
+ul.category {
+  display: flex;
+  align-items: center;
+  width: 10em;
+  justify-content: space-between;
+}
+
+/* 로그인 후 display:flex로 변경 */
+ul.category_login {
+  display: none;
+  align-items: center;
+}
+
+/* 로그인 후 display:flex로 변경 */
+ul.category_logout {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.category_logout:hover {
+  cursor: pointer;
+}
+
+main {
+  height: calc(100vh - 5rem);
+}
+
+.main_text {
+  font-family: Cafe24Ssurround;
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 2.5em;
+  top: 2em;
+}
+
+/* 메인 */
+.highlight {
+  color: rgb(255, 225, 0);
+}
+
+/* 슬라이드 쇼 */
+#slide_show {
+  height: 26em;
+  position: relative;
+  overflow: hidden;
+  margin-top: 13em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+/* 슬라이드 */
+.slides {
+  height: 26em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: left 0.5s ease-out;
+  margin-left: -10px;
+}
+/* 슬라이드 첫번 째 */
+.slides li:first-child {
+  margin-left: 4em;
+}
+/* 슬라이드 */
+.slides li {
+  padding-top: 0.7em;
+  float: left;
+  margin-left: 4em;
+}
+
+.slides li:hover {
+  cursor: pointer;
+}
+
+/* 슬라이드 이미지 */
+#slide_show ul > li > img {
+  border-radius: 20px;
+  width: 18em;
+  box-shadow: 0 0 10px;
+}
+/* 슬라이드 좌우 */
+.controller span {
+  position: absolute;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  padding: 50px 10px;
+  top: 20%;
+  font-size: 5em;
+  cursor: pointer;
+}
+/* 좌 */
+.prev {
+  left: 0px;
+}
+.prev:hover {
+  transform: translateX(-10px);
+}
+/* 우 */
+.next {
+  right: 0px;
+}
+.next:hover {
+  transform: translateX(10px);
+}
