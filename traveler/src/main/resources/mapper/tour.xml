@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ssafy.traveler.tour.model.mapper.TourMapper">
+
+	<!-- 키워드(제목, 주소) 포함 관광지 조회 -->
+	<select id="selectByKeyword" parameterType="map" resultType="TourDto">
+		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
+		from attraction_info
+		where ${keyword} like concat('%', #{content}, '%')
+	</select>
+
+	<!-- content_id 상세 조회 -->
+	<select id="selectByContentId" parameterType="String" resultType="TourDto">
+		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, latitude, longitude
+		from attraction_info
+		where content_id=#{contentId}
+	</select>
+
+</mapper>
