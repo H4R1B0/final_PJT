@@ -31,4 +31,17 @@
 		values (#{member_id}, #{member_name}, #{member_password}, #{email}, #{member_salt})
 	</insert>
 
+	<!-- 마이페이지 -->
+	<select id="getMemberDto" parameterType="String" resultType="MemberDto">
+		select member_id memberId, member_name memberName, email
+		from member
+		where member_id = #{memberId}
+	</select>
+
+	<!--회원 탈퇴-->
+	<delete id="withdrawal" parameterType="String">
+		delete from member
+		where member_id = #{memberId}
+	</delete>
+
 </mapper>
