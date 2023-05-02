@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.traveler.board.review.model.mapper.ReviewMapper">
+
+    <!-- 후기 전체 목록 가져오기 -->
+    <select id="selectAllReviews" resultType="ReviewDto">
+        select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount, content
+        from review_board
+    </select>
+
+    <!-- 후기 글 쓰기 -->
+    <insert id="join" parameterType="ReviewDto">
+        insert into review_board (title, writer, content)
+        values (#{title}, #{writer}, #{content})
+    </insert>
+
+</mapper>
