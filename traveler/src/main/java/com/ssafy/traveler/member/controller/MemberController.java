@@ -32,8 +32,10 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody Map<String, String> data) throws SQLException {
         log.debug(data.get("member_id") + " " + data.get("member_password"));
         MemberDto member = memberService.login(data);
-        if (member == null)
+        if (member == null) {
             log.debug("존재 안함");
+        }
+        log.debug(member.toString());
         return ResponseEntity.ok(member);
     }
 
@@ -44,7 +46,7 @@ public class MemberController {
      * @return
      * @throws SQLException
      */
-    @PostMapping("/join")
+    @PostMapping
     public ResponseEntity<?> join(@RequestBody Map<String, String> data) throws SQLException {
         log.debug(data.get("member_id") + " " + data.get("member_password"));
         memberService.join(data);
