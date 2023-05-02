@@ -98,4 +98,17 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 회원 정보 수정
+     *
+     * @param data
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<?> modify(@RequestBody Map<String, String> data) throws SQLException {
+        log.debug("회원 정보 수정");
+        memberService.modify(data);
+        return ResponseEntity.ok().build();
+    }
+
 }

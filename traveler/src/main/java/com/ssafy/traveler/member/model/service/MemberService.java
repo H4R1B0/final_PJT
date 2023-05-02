@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.ssafy.traveler.member.dto.MemberDto;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public interface MemberService {
     /**
@@ -35,10 +36,10 @@ public interface MemberService {
     /**
      * 회원 정보 수정
      *
-     * @param member
+     * @param data
      * @throws SQLException
      */
-    void modify(MemberDto member) throws SQLException;
+    void modify(@RequestBody Map<String, String> data) throws SQLException;
 
     /**
      * 회원 탈퇴

@@ -38,6 +38,13 @@
 		where member_id = #{memberId}
 	</select>
 
+	<!-- 회원 정보 수정 -->
+	<update id="modify" parameterType="map">
+		update member
+		set email = #{email}
+		where member_id = #{member_id}
+	</update>
+
 	<!--회원 탈퇴-->
 	<delete id="withdrawal" parameterType="String">
 		delete from member
