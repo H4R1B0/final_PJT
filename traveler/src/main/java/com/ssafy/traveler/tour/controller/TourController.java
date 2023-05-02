@@ -25,29 +25,27 @@ public class TourController {
 	@Autowired
 	private TourService tourService;
 	
-	//제목 포함 조회
-//	@GetMapping
-//	public ResponseEntity<?> getListByTitle(@RequestParam("title") String searchTitle) throws SQLException {
-//		
-//		List<TourDto> tourList = tourService.selectByTitle(searchTitle);
-//		log.debug("tourList", tourList);
-//		return new ResponseEntity<>(tourList, HttpStatus.OK);
-//	}
-
-	//키워드에 따라 관광지 검색
-	@GetMapping
+	//키워드에 따라 관광지 검색 (전체 조회)
+	@GetMapping("/search")
 	public ResponseEntity<?> getListByKeyword(@RequestParam Map<String, String> param) throws SQLException {
-
 		System.out.println(param);
 		return ResponseEntity.ok().body(tourService.selectByKeyword(param));
 	}
 
+	//contentTypeId로 관광지 타입별 검색 (타입별로 조회)
+	@GetMapping("/type")
+	public ResponseEntity<?> getListByContentType(@RequestParam Map<String, String> param) throws SQLException {
+		return ResponseEntity.ok().body(tourService.selectByContentTypeId(param));
+	}
+
+
 	//contentId로 관광지 검색 (상세 조회)
 	@GetMapping("/{contentId}")
-	public ResponseEntity<?> getDetailByContentId(@PathVariable String contentId) throws SQLException {
+	public ResponseEntity<?> getDetailByContentId(@PathVariable int contentId) throws SQLException {
 		System.out.println(contentId);
 		return ResponseEntity.ok().body(tourService.selectByContentId(contentId));
 	}
+
 
 	//좋아요 증감
 //	@PutMapping("/{contentId}/{memberId}")

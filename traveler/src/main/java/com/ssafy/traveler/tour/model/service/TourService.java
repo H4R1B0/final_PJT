@@ -22,6 +22,14 @@ public interface TourService {
 	 * @return
 	 * @throws SQLException
 	 */
-	TourDto selectByContentId(String contentId) throws SQLException;
+	TourDto selectByContentId(int contentId) throws SQLException;
+
+	/**
+	 * contentTypeId로 관광지 타입별 조회
+	 * @param contentTypeId
+	 * @return 검색된 관광지 타입별 리스트
+	 * @throws SQLException
+	 */
+	List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException;
 
 }

@@ -22,8 +22,13 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public TourDto selectByContentId(String contentId) throws SQLException {
+	public TourDto selectByContentId(int contentId) throws SQLException {
 		return tourMapper.selectByContentId(contentId);
+	}
+
+	@Override
+	public List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException {
+		return tourMapper.selectByContentTypeId(param);
 	}
 
 }

@@ -20,12 +20,21 @@ public interface TourMapper {
 	List<TourDto> selectByKeyword(Map<String, String> param) throws SQLException;
 
 	/**
-	 * contentId로 조회 (상세 조회)
-	 * @param contentId
+	 * contentTypeId로 관광지 타입별 조회
+	 * @param param 검색 된 내용에서 타입별 조회
+	 * @param contentTypeId
 	 * @return
 	 * @throws SQLException
 	 */
-	TourDto selectByContentId(String contentId) throws SQLException;
+	List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException;
+
+	/**
+	 * contentId로 상세 조회
+	 * @param contentId pk인 contentId
+	 * @return 조회 결과 TourDto 타입 한 개 반환
+	 * @throws SQLException
+	 */
+	TourDto selectByContentId(int contentId) throws SQLException;
 
 
 }

@@ -4,22 +4,30 @@
     
 <mapper namespace="com.ssafy.traveler.tour.model.mapper.TourMapper">
 
-	<!-- 키워드(제목, 주소) 포함 관광지 조회 -->
+	<!-- 키워드(제목, 주소)가 포함된 관광지 조회 -->
 	<select id="selectByKeyword" parameterType="map" resultType="TourDto">
 		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
 		from attraction_info
 		where ${keyword} like concat('%', #{content}, '%')
 	</select>
 
-	<!-- content_id 상세 조회 -->
-	<select id="selectByContentId" parameterType="String" resultType="TourDto">
+	<!-- content_type_id로 관광지 타입별 조회 -->
+	<select id="selectByContentTypeId" parameterType="map" resultType="TourDto">
+		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
+		from attraction_info
+		where ${keyword} like concat('%', #{content}, '%') and content_type_id=cast(#{code} as signed)
+	</select>
+
+	<!-- content_id로 상세 조회 -->
+	<select id="selectByContentId" parameterType="int" resultType="TourDto">
 		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, latitude, longitude
 		from attraction_info
 		where content_id=#{contentId}
 	</select>
 
+	<!-- 좋아요 부분 시작 -->
 	<!-- 좋아요 눌렀는지 확인 -->
-	<select id="findInterestInMember">
+	<select id="isExistInterestInMember">
 		select * from member_interest where member_id=#{memberId} and content_id=#{contentId}
 	</select>
 
@@ -29,7 +37,7 @@
 	</update>
 
 	<!-- attraction-interest에서 최초로 있는 경우 확인 -->
-	<select id="findInterestInAttraction">
+	<select id="isExistInterestInAttraction">
 		select * from attraction_interest where content_id=#{contentId}
 	</select>
 
@@ -52,5 +60,6 @@
 <!--	<delete id="">-->
 <!--		-->
 <!--	</delete>-->
+	<!-- 좋아요 부분 끝 -->
 
 </mapper>
