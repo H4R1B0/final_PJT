@@ -2,8 +2,10 @@ package com.ssafy.traveler.member.model.mapper;
 
 import java.lang.reflect.Member;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import com.ssafy.traveler.tour.dto.TourDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.traveler.member.dto.MemberDto;
@@ -80,4 +82,6 @@ public interface MemberMapper {
      */
 
     void withdrawal(String memberId) throws SQLException;
+
+    List<TourDto> getInterestList(String memberId) throws SQLException;
 }

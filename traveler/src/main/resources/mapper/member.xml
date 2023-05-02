@@ -1,54 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.traveler.member.model.mapper.MemberMapper">
 
-	<!-- 로그인 -->
-	<select id="login" parameterType="map" resultType="MemberDto">
-		select member_id memberId, member_name memberName, email
-		from member
-		where member_id=#{member_id} and member_password=#{member_password}
-	</select>
-	
-	<!-- salt값 가져오기 -->
-	<select id="getSalt" parameterType="String" resultType="String">
-		select member_salt
-		from member
-		where member_id=#{memberId}
-	</select>
-	
-	<!-- 아이디 존재 확인 -->
-	<select id="idCheck" parameterType="String" resultType="int">
-		select count(member_id)
-		from member
-		where member_id = #{memberId}
-	</select>
+    <!-- 로그인 -->
+    <select id="login" parameterType="map" resultType="MemberDto">
+        select member_id memberId, member_name memberName, email
+        from member
+        where member_id = #{member_id}
+          and member_password = #{member_password}
+    </select>
 
-	<!-- 회원 가입 -->
-	<insert id="join" parameterType="map">
-		insert into member (member_id, member_name, member_password, email, member_salt)
-		values (#{member_id}, #{member_name}, #{member_password}, #{email}, #{member_salt})
-	</insert>
+    <!-- salt값 가져오기 -->
+    <select id="getSalt" parameterType="String" resultType="String">
+        select member_salt
+        from member
+        where member_id = #{memberId}
+    </select>
 
-	<!-- 마이페이지 -->
-	<select id="getMemberDto" parameterType="String" resultType="MemberDto">
-		select member_id memberId, member_name memberName, email
-		from member
-		where member_id = #{memberId}
-	</select>
+    <!-- 아이디 존재 확인 -->
+    <select id="idCheck" parameterType="String" resultType="int">
+        select count(member_id)
+        from member
+        where member_id = #{memberId}
+    </select>
 
-	<!-- 회원 정보 수정 -->
-	<update id="modify" parameterType="map">
-		update member
-		set email = #{email}
-		where member_id = #{member_id}
-	</update>
+    <!-- 회원 가입 -->
+    <insert id="join" parameterType="map">
+        insert into member (member_id, member_name, member_password, email, member_salt)
+        values (#{member_id}, #{member_name}, #{member_password}, #{email}, #{member_salt})
+    </insert>
 
-	<!--회원 탈퇴-->
-	<delete id="withdrawal" parameterType="String">
-		delete from member
-		where member_id = #{memberId}
-	</delete>
+    <!-- 마이페이지 -->
+    <select id="getMemberDto" parameterType="String" resultType="MemberDto">
+        select member_id memberId, member_name memberName, email
+        from member
+        where member_id = #{memberId}
+    </select>
+
+    <!-- 회원 정보 수정 -->
+    <update id="modify" parameterType="map">
+        update member
+        set email = #{email}
+        where member_id = #{member_id}
+    </update>
+
+    <!--회원 탈퇴-->
+    <delete id="withdrawal" parameterType="String">
+        delete
+        from member
+        where member_id = #{memberId}
+    </delete>
+
+    <!-- 좋아요한 관광지 가져오기 -->
+    <select id="getInterestList" parameterType="String" resultType="TourDto">
+        select ai.content_id contentId, ai.content_type_id contentTypeId, ai.title, ai.addr1 addr, ai.first_image img
+        from member_interest mi
+                 join attraction_info ai on mi.content_id = ai.content_id
+        where mi.member_id = #{memberId}
+    </select>
 
 </mapper>
