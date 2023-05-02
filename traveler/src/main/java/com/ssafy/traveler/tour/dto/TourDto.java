@@ -1,8 +1,10 @@
 package com.ssafy.traveler.tour.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class TourDto {
 
 	private int contentId;

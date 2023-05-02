@@ -27,36 +27,39 @@
 
 	<!-- 좋아요 부분 시작 -->
 	<!-- 좋아요 눌렀는지 확인 -->
-	<select id="isExistInterestInMember">
-		select * from member_interest where member_id=#{memberId} and content_id=#{contentId}
+	<select id="isInterestInMember" parameterType="MemberInterestDto" resultType="int">
+		select count(*) from member_interest where member_id=#{memberId} and content_id=#{contentId}
 	</select>
 
-	<!-- 사용자가 누르지 않았다면 attraction-interest 좋아요 카운트 증가 -->
-	<update id="upCountInterest">
+	<!-- 사용자가 누르지 않았다면 -->
+	<!-- attraction_interest -->
+	<!-- attraction-interest에서 최초인 경우 확인 -->
+	<select id="isInterestInAttraction" parameterType="int" resultType="int">
+		select count(*) from attraction_interest where content_id=#{contentId}
+	</select>
+
+	<!-- 최초인 경우 초기값 추가 -->
+	<insert id="insertNewAttractionInterest" parameterType="int">
+		insert into attraction_interest values (#{contentId}, 1)
+	</insert>
+
+	<!-- 최초가 아닌 경우 좋아요 카운트 증가 -->
+	<update id="updateInterestCount" parameterType="int">
 		update attraction_interest set interest_count = interest_count+1 where content_id=#{contentId}
 	</update>
 
-	<!-- attraction-interest에서 최초로 있는 경우 확인 -->
-	<select id="isExistInterestInAttraction">
-		select * from attraction_interest where content_id=#{contentId}
-	</select>
-
-	<!-- attraction-interest에 최초로 있는 경우 초기값 추가 -->
-	<insert id="">
-		insert into attraction_interest values (#{contentId}, 0)
-	</insert>
-
-	<!-- 사용자가 누르지 않았다면 member_interest에 추가 -->
-	<insert id="insertInterest">
+	<!-- member_interest -->
+	<!-- member_interest에 추가 -->
+	<insert id="insertMemberInterest" parameterType="MemberInterestDto">
 		insert into member_interest values (#{memberId}, #{contentId});
 	</insert>
 
-<!--	&lt;!&ndash; 사용자가 이미 눌렀다면 attraction-interest 좋아요 카운트 감소 &ndash;&gt;-->
+	<!-- 사용자가 이미 눌렀다면 attraction-interest 좋아요 카운트 감소 -->
 <!--	<update id="downCountInterest">-->
 <!--		update attraction_interest set interest_count = interest_count-1 where content_id=#{contentId}-->
 <!--	</update>-->
 
-<!--	&lt;!&ndash; 사용자가 이미 눌렀다면 member_interest에 삭제 &ndash;&gt;-->
+	<!-- 사용자가 이미 눌렀다면 member_interest에 삭제 -->
 <!--	<delete id="">-->
 <!--		-->
 <!--	</delete>-->
