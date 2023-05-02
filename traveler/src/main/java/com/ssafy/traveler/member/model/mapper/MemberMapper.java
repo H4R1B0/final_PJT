@@ -1,6 +1,5 @@
 package com.ssafy.traveler.member.model.mapper;
 
-import java.lang.reflect.Member;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public interface MemberMapper {
     /**
      * 회원가입
      *
-     * @param member member의 정보
+     * @param data member의 정보
      * @throws SQLException
      */
     void join(Map<String, String> data) throws SQLException;
