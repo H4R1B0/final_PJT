@@ -31,7 +31,7 @@
 		select count(*) from member_interest where member_id=#{memberId} and content_id=#{contentId}
 	</select>
 
-	<!-- 사용자가 누르지 않았다면 -->
+	<!-- 사용자가 누르지 않은 경우 -->
 	<!-- attraction_interest -->
 	<!-- attraction-interest에서 최초인 경우 확인 -->
 	<select id="isInterestInAttraction" parameterType="int" resultType="int">
@@ -44,7 +44,7 @@
 	</insert>
 
 	<!-- 최초가 아닌 경우 좋아요 카운트 증가 -->
-	<update id="updateInterestCount" parameterType="int">
+	<update id="addInterestCount" parameterType="int">
 		update attraction_interest set interest_count = interest_count+1 where content_id=#{contentId}
 	</update>
 
@@ -54,15 +54,16 @@
 		insert into member_interest values (#{memberId}, #{contentId});
 	</insert>
 
-	<!-- 사용자가 이미 눌렀다면 attraction-interest 좋아요 카운트 감소 -->
-<!--	<update id="downCountInterest">-->
-<!--		update attraction_interest set interest_count = interest_count-1 where content_id=#{contentId}-->
-<!--	</update>-->
+	<!-- 사용자가 이미 누른 경우 -->
+	<!-- attraction-interest 좋아요 카운트 감소 -->
+	<update id="subInterestCount" parameterType="int">
+		update attraction_interest set interest_count = interest_count-1 where content_id=#{contentId}
+	</update>
 
-	<!-- 사용자가 이미 눌렀다면 member_interest에 삭제 -->
-<!--	<delete id="">-->
-<!--		-->
-<!--	</delete>-->
+	<!-- member_interest 데이터 삭제 -->
+	<delete id="deleteMemberInterest" parameterType="MemberInterestDto">
+		delete from member_interest where member_id=#{memberId} and content_id=#{contentId}
+	</delete>
 	<!-- 좋아요 부분 끝 -->
 
 </mapper>
