@@ -44,12 +44,18 @@ public interface TourService {
 	void insertNewAttractionInterest(int contentId) throws SQLException;
 
 	//최초가 아닌 경우 좋아요 카운트 증가
-	void updateInterestCount(int contentId) throws SQLException;
+	void addInterestCount(int contentId) throws SQLException;
 
 	//member_interest에 추가
 	void insertMemberInterest(MemberInterestDto memberInterest) throws SQLException;
 
+	//사용자가 눌렀다면 attraction_interest에서 좋아요 카운트 감소
+	void subInterestCount(int contentId) throws SQLException;
+
+	//사용자가 눌렀다면 member-interest에서 데이터 삭제
+	void deleteMemberInterest(MemberInterestDto memberInterest) throws SQLException;
+
 	//좋아요 증감
-	public void upDownInterest(MemberInterestDto memberInterest) throws SQLException;
+	void upDownInterest(MemberInterestDto memberInterest) throws SQLException;
 
 }
