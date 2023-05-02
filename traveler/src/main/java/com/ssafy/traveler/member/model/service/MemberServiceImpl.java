@@ -1,8 +1,10 @@
 package com.ssafy.traveler.member.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import com.ssafy.traveler.tour.dto.TourDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +64,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto getMemberDto(String memberId) throws SQLException {
         return memberMapper.getMemberDto(memberId);
+    }
+
+    @Override
+    public List<TourDto> getInterestList(String memberId) throws SQLException {
+        return memberMapper.getInterestList(memberId);
     }
 
 }

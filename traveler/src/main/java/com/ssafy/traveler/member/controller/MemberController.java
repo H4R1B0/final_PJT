@@ -111,4 +111,17 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 좋아요한 관광지 가져오기
+     *
+     * @param memberId
+     * @return
+     * @throws SQLException
+     */
+    @GetMapping("/interest/{memberId}")
+    public ResponseEntity<?> getInterestList(@PathVariable String memberId) throws SQLException {
+        log.debug("좋아요한 관광지 가져오기");
+        return ResponseEntity.ok(memberService.getInterestList(memberId));
+    }
+
 }

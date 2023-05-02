@@ -1,9 +1,11 @@
 package com.ssafy.traveler.member.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.ssafy.traveler.member.dto.MemberDto;
+import com.ssafy.traveler.tour.dto.TourDto;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface MemberService {
@@ -68,4 +70,6 @@ public interface MemberService {
     abstract void withdrawal(String memberId) throws SQLException;
 
     abstract MemberDto getMemberDto(String memberId) throws SQLException;
+
+    List<TourDto> getInterestList(String memberId) throws SQLException;
 }
