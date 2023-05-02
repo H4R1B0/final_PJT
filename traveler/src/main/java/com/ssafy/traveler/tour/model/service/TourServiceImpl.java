@@ -56,14 +56,26 @@ public class TourServiceImpl implements TourService {
 
 	//처음이 아니라면 좋아요 수 증가
 	@Override
-	public void updateInterestCount(int contentId) throws SQLException {
-		tourMapper.updateInterestCount(contentId);
+	public void addInterestCount(int contentId) throws SQLException {
+		tourMapper.addInterestCount(contentId);
 	}
 
-	//사용자의 좋아요 목록에 추가
+	//사용자가 누르지 않았다면 사용자의 좋아요 목록에 추가
 	@Override
 	public void insertMemberInterest(MemberInterestDto memberInterest) throws SQLException {
 		tourMapper.insertMemberInterest(memberInterest);
+	}
+
+	//사용자가 눌렀다면 attraction_interest에서 좋아요 카운트 감소
+	@Override
+	public void subInterestCount(int contentId) throws SQLException {
+		tourMapper.subInterestCount(contentId);
+	}
+
+	//사용자가 눌렀다면 member-interest에서 데이터 삭제
+	@Override
+	public void deleteMemberInterest(MemberInterestDto memberInterest) throws SQLException {
+		tourMapper.deleteMemberInterest(memberInterest);
 	}
 
 	//좋아요 증감
@@ -75,14 +87,17 @@ public class TourServiceImpl implements TourService {
 			if(isInterestInAttraction(memberInterest.getContentId()) == 0) {
 				insertNewAttractionInterest(memberInterest.getContentId());
 			}
+			//이미 좋아요를 받은 관광지인 경우
 			else {
-				updateInterestCount(memberInterest.getContentId());
+				addInterestCount(memberInterest.getContentId());
 			}
 			insertMemberInterest(memberInterest);
 		}
+		//사용자가 좋아요를 이미 누른 경우
+		else {
+			subInterestCount(memberInterest.getContentId());
+			deleteMemberInterest(memberInterest);
+		}
 	}
-
-
-
 
 }
