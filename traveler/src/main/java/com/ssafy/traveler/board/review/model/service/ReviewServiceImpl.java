@@ -23,4 +23,14 @@ public class ReviewServiceImpl implements ReviewService {
     public void writeReview(ReviewDto reviewDto) throws SQLException {
         reviewMapper.writeReview(reviewDto);
     }
+
+    @Override
+    public ReviewDto getReviewDetail(int no) throws SQLException {
+        return reviewMapper.getReviewDetail(no);
+    }
+
+    @Override
+    public void updateReview(ReviewDto reviewDto) throws SQLException {
+        reviewMapper.updateReview(reviewDto);
+    }
 }

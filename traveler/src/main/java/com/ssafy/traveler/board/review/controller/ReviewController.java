@@ -32,11 +32,36 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.selectAllReviews());
     }
 
+    /**
+     * 후기 게시판 글쓰기
+     *
+     * @param reviewDto
+     * @return
+     * @throws SQLException
+     */
     @PostMapping
     public ResponseEntity<?> writeReview(@RequestBody ReviewDto reviewDto) throws SQLException {
         log.debug("글 쓰기");
         log.debug(reviewDto.toString());
         reviewService.writeReview(reviewDto);
+        return ResponseEntity.ok().build();
+    }
+
+    /**후기 게시판 상세 조회
+     * @param no 상세 조회할 번호
+     * @return
+     * @throws SQLException
+     */
+    @GetMapping("/{no}")
+    public ResponseEntity<?> getReviewDetail(@PathVariable int no) throws SQLException {
+        log.debug("후기 게시판 상세 조회");
+        return ResponseEntity.ok(reviewService.getReviewDetail(no));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto) throws SQLException {
+        log.debug("후기 게시판 수정");
+        reviewService.updateReview(reviewDto);
         return ResponseEntity.ok().build();
     }
 
