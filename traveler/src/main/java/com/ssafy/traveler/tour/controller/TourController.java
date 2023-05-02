@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.traveler.member.dto.MemberInterestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +49,11 @@ public class TourController {
 
 
 	//좋아요 증감
-//	@PutMapping("/{contentId}/{memberId}")
-//	public ResponseEntity<?> pushInterest(@PathVariable String contentId, @PathVariable String memberId) {
-//
-//	}
+	@PutMapping("/{memberId}/{contentId}")
+	public ResponseEntity<?> pushInterest(@PathVariable String memberId, @PathVariable int contentId) throws SQLException {
+		MemberInterestDto memberInterest = new MemberInterestDto(memberId, contentId);
+		tourService.upDownInterest(memberInterest);
+		return ResponseEntity.ok().build();
+	}
 
 }
