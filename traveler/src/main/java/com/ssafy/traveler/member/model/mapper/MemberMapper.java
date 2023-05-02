@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.traveler.member.dto.MemberDto;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Mapper
 public interface MemberMapper {
@@ -52,7 +53,7 @@ public interface MemberMapper {
      * @param member
      * @throws SQLException
      */
-    void modify(MemberDto member) throws SQLException;
+    void modify(@RequestBody Map<String, String> data) throws SQLException;
 
     /**
      * 회원 탈퇴

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.traveler.member.dto.MemberDto;
 import com.ssafy.traveler.member.model.mapper.MemberMapper;
 import com.ssafy.traveler.util.SHA256Util;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -39,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void modify(MemberDto member) throws SQLException {
-        memberMapper.modify(member);
+    public void modify(@RequestBody Map<String, String> data) throws SQLException {
+        memberMapper.modify(data);
     }
 
     @Override
