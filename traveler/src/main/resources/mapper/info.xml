@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.traveler.board.info.model.mapper.InfoMapper">
+
+    <!-- 공지사항 전체 조회 -->
+    <select id="selectAll" resultType="InfoDto">
+        select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount
+        from info_board
+    </select>
+
+    <!-- 공지사항 상세 조회 -->
+    <select id="selectByNo" parameterType="int" resultType="InfoDto">
+        select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount, content
+        from info_board
+        where no=#{no}
+    </select>
+
+    <!-- 공지사항 등록 -->
+    <insert id="insertInfoBoard" parameterType="InfoDto">
+        insert into info_board (title, writer, content)
+        values (#{title}, #{writer}, #{content})
+    </insert>
+
+    <!-- 공지사항 수정 -->
+    <update id="updateInfoBoard" parameterType="InfoDto">
+        update info_board
+        set title = #{title}, content = #{content}
+        where no = #{no}
+    </update>
+
+    <!-- 공지사항 삭제 -->
+    <delete id="deleteInfoBoard" parameterType="int">
+        delete
+        from info_board
+        where no = #{no}
+    </delete>
+
+</mapper>

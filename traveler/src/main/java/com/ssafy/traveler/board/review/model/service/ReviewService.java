@@ -15,4 +15,6 @@ public interface ReviewService {
     ReviewDto getReviewDetail(int no) throws SQLException;
 
     void updateReview(ReviewDto reviewDto) throws SQLException;
+
+    void deleteReview(int no) throws SQLException;
 }
