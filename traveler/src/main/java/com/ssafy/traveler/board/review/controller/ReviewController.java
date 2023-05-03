@@ -3,6 +3,7 @@ package com.ssafy.traveler.board.review.controller;
 import com.ssafy.traveler.board.review.dto.ReviewDto;
 import com.ssafy.traveler.board.review.model.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,13 @@ public class ReviewController {
     public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto) throws SQLException {
         log.debug("후기 게시판 수정");
         reviewService.updateReview(reviewDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{no}")
+    public ResponseEntity<?> deleteReview(@PathVariable int no) throws SQLException {
+        log.debug("후기 삭제");
+        reviewService.deleteReview(no);
         return ResponseEntity.ok().build();
     }
 

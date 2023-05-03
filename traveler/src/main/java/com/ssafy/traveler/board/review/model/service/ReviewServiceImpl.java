@@ -33,4 +33,9 @@ public class ReviewServiceImpl implements ReviewService {
     public void updateReview(ReviewDto reviewDto) throws SQLException {
         reviewMapper.updateReview(reviewDto);
     }
+
+    @Override
+    public void deleteReview(int no) throws SQLException {
+        reviewMapper.deleteReview(no);
+    }
 }

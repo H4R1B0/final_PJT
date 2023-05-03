@@ -16,7 +16,7 @@
         values (#{title}, #{writer}, #{content})
     </insert>
 
-    <!-- 게시판 상세 조회 -->
+    <!-- 후기 게시판 상세 조회 -->
     <select id="getReviewDetail" parameterType="int" resultType="ReviewDto">
         select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount, content
         from review_board
@@ -29,5 +29,12 @@
         set title = #{title}, content = #{content}
         where no = #{no}
     </select>
+
+    <!-- 후기 게시판 삭제 -->
+    <delete id="deleteReview" parameterType="int">
+        delete
+        from review_board
+        where no = #{no}
+    </delete>
 
 </mapper>
