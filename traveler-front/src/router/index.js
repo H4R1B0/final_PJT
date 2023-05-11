@@ -15,6 +15,11 @@ const routes = [
     component: () => import("@/views/TravelerLogin.vue"),
   },
   {
+    path: "/tour",
+    name: "tour",
+    component: () => import("@/views/tour/TourMain.vue"),
+  },
+  {
     path: "/join",
     name: "join",
     component: () => import("@/views/TravelerJoin.vue"),
