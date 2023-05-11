@@ -1,9 +1,13 @@
 package com.ssafy.traveler.member.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.ssafy.traveler.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,9 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     /**
      * 로그인
      *
@@ -29,14 +36,20 @@ public class MemberController {
      * @throws SQLException
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> data) throws SQLException {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> data) throws SQLException, UnsupportedEncodingException {
         log.debug(data.get("member_id") + " " + data.get("member_password"));
         MemberDto member = memberService.login(data);
-        if (member == null) {
-            log.debug("존재 안함");
+
+        //로그인 성공
+        if (member != null) {
+            String token = jwtUtil.createToken(member, 60 * 60);    //60초 * 60분
+            Map<String, String> result = new HashMap<>();
+            result.put("token", token);
+            return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
         }
-        log.debug(member.toString());
-        return ResponseEntity.ok(member);
+
+        //로그인 실패
+        return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
