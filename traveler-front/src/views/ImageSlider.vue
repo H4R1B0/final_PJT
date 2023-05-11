@@ -89,14 +89,6 @@ export default {
     },
   },
   watch: {},
-  mounted() {
-    this.$nextTick(() => {
-      const swiperTop = this.$refs.swiperTop.$swiper;
-      const swiperThumbs = this.$refs.swiperThumbs.$swiper;
-      swiperTop.controller.control = swiperThumbs;
-      swiperThumbs.controller.control = swiperTop;
-    });
-  },
 };
 </script>
 <style lang="scss">
