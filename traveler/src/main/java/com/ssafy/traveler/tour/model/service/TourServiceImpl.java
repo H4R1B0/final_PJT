@@ -25,9 +25,14 @@ public class TourServiceImpl implements TourService {
 	}
 
 	//contentTypeId로 관광지 타입별 조회
+//	@Override
+//	public List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException {
+//		return tourMapper.selectByContentTypeId(param);
+//	}
+
 	@Override
-	public List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException {
-		return tourMapper.selectByContentTypeId(param);
+	public int getTotalCount(Map<String, String> param) throws SQLException {
+		return tourMapper.getTotalCount(param);
 	}
 
 	//contentId로 상세 조회

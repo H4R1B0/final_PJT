@@ -39,14 +39,21 @@ public class TourController {
     }
 
     //contentTypeId로 관광지 타입별 검색 (타입별로 조회)
-    @GetMapping("/type")
-    public ResponseEntity<?> getListByContentType(@RequestParam Map<String, String> param) throws SQLException {
-        int page = Integer.parseInt(param.getOrDefault("page", "1"));
-        page = (page - 1) * LIMIT;
-        param.put("page", Integer.toString(page));
-        param.put("LIMIT", Integer.toString(LIMIT));
+//    @GetMapping("/type")
+//    public ResponseEntity<?> getListByContentType(@RequestParam Map<String, String> param) throws SQLException {
+//        int page = Integer.parseInt(param.getOrDefault("page", "1"));
+//        page = (page - 1) * LIMIT;
+//        param.put("page", Integer.toString(page));
+//        param.put("LIMIT", Integer.toString(LIMIT));
+//        log.debug(param.toString());
+//        return ResponseEntity.ok().body(tourService.selectByContentTypeId(param));
+//    }
+
+    //contentTypeId로 관광지 타입별 검색 (타입별로 조회)
+    @GetMapping("/total")
+    public ResponseEntity<?> getTotalCount(@RequestParam Map<String, String> param) throws SQLException {
         log.debug(param.toString());
-        return ResponseEntity.ok().body(tourService.selectByContentTypeId(param));
+        return ResponseEntity.ok().body(tourService.getTotalCount(param));
     }
 
 

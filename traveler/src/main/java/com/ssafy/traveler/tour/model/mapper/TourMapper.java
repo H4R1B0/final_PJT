@@ -27,7 +27,15 @@ public interface TourMapper {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException;
+//	List<TourDto> selectByContentTypeId(Map<String, String> param) throws SQLException;
+
+	/**
+	 * param 결과로 조회한 전체 개수 조회
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	int getTotalCount(Map<String, String> param) throws SQLException;
 
 	/**
 	 * contentId로 상세 조회
