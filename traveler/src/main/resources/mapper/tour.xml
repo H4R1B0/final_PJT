@@ -1,69 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ssafy.traveler.tour.model.mapper.TourMapper">
 
-	<!-- 키워드(제목, 주소)가 포함된 관광지 조회 -->
-	<select id="selectByKeyword" parameterType="map" resultType="TourDto">
-		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
-		from attraction_info
-		where ${keyword} like concat('%', #{content}, '%')
-	</select>
+    <!-- 키워드로 관광지 조회 -->
+    <select id="selectByKeyword" parameterType="map" resultType="TourDto">
+        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
+        from attraction_info
+        where true
+        <if test="content != null and !(content eq '')">
+            and ${keyword} like concat('%', #{content}, '%')
+        </if>
+        <if test="code != null and !(code eq '')">
+            and content_type_id = cast(#{code} as signed)
+        </if>
+        LIMIT ${LIMIT} OFFSET ${page}
+    </select>
 
-	<!-- content_type_id로 관광지 타입별 조회 -->
-	<select id="selectByContentTypeId" parameterType="map" resultType="TourDto">
-		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
-		from attraction_info
-		where ${keyword} like concat('%', #{content}, '%') and content_type_id=cast(#{code} as signed)
-	</select>
+    <!-- content_type_id로 관광지 타입별 조회 -->
+<!--    <select id="selectByContentTypeId" parameterType="map" resultType="TourDto">-->
+<!--        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img-->
+<!--        from attraction_info-->
+<!--        where ${keyword} like concat('%', #{content}, '%')-->
+<!--          and content_type_id = cast(#{code} as signed)-->
+<!--        LIMIT ${LIMIT} OFFSET ${page}-->
+<!--    </select>-->
 
-	<!-- content_id로 상세 조회 -->
-	<select id="selectByContentId" parameterType="int" resultType="TourDto">
-		select content_id contentId, content_type_id contentTypeId, title, addr1 addr, latitude, longitude
-		from attraction_info
-		where content_id=#{contentId}
-	</select>
+    <!-- 키워드에 따라 관광지 조회 개수 -->
+    <select id="getTotalCount" parameterType="map" resultType="Int">
+        select count(*) totalCount
+        from attraction_info
+        <if test="content != null and !(content eq '')">
+            where ${keyword} like concat('%', #{content}, '%')
+            <if test="code != null and !(code eq '')">
+                and content_type_id = cast(#{code} as signed)
+            </if>
+        </if>
+    </select>
 
-	<!-- 좋아요 부분 시작 -->
-	<!-- 좋아요 눌렀는지 확인 -->
-	<select id="isInterestInMember" parameterType="MemberInterestDto" resultType="int">
-		select count(*) from member_interest where member_id=#{memberId} and content_id=#{contentId}
-	</select>
+    <!-- content_id로 상세 조회 -->
+    <select id="selectByContentId" parameterType="int" resultType="TourDto">
+        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, latitude, longitude
+        from attraction_info
+        where content_id = #{contentId}
+    </select>
 
-	<!-- 사용자가 누르지 않은 경우 -->
-	<!-- attraction_interest -->
-	<!-- attraction-interest에서 최초인 경우 확인 -->
-	<select id="isInterestInAttraction" parameterType="int" resultType="int">
-		select count(*) from attraction_interest where content_id=#{contentId}
-	</select>
+    <!-- 좋아요 부분 시작 -->
+    <!-- 좋아요 눌렀는지 확인 -->
+    <select id="isInterestInMember" parameterType="MemberInterestDto" resultType="int">
+        select count(*)
+        from member_interest
+        where member_id = #{memberId}
+          and content_id = #{contentId}
+    </select>
 
-	<!-- 최초인 경우 초기값 추가 -->
-	<insert id="insertNewAttractionInterest" parameterType="int">
-		insert into attraction_interest values (#{contentId}, 1)
-	</insert>
+    <!-- 사용자가 누르지 않은 경우 -->
+    <!-- attraction_interest -->
+    <!-- attraction-interest에서 최초인 경우 확인 -->
+    <select id="isInterestInAttraction" parameterType="int" resultType="int">
+        select count(*)
+        from attraction_interest
+        where content_id = #{contentId}
+    </select>
 
-	<!-- 최초가 아닌 경우 좋아요 카운트 증가 -->
-	<update id="addInterestCount" parameterType="int">
-		update attraction_interest set interest_count = interest_count+1 where content_id=#{contentId}
-	</update>
+    <!-- 최초인 경우 초기값 추가 -->
+    <insert id="insertNewAttractionInterest" parameterType="int">
+        insert into attraction_interest
+        values (#{contentId}, 1)
+    </insert>
 
-	<!-- member_interest -->
-	<!-- member_interest에 추가 -->
-	<insert id="insertMemberInterest" parameterType="MemberInterestDto">
-		insert into member_interest values (#{memberId}, #{contentId});
-	</insert>
+    <!-- 최초가 아닌 경우 좋아요 카운트 증가 -->
+    <update id="addInterestCount" parameterType="int">
+        update attraction_interest
+        set interest_count = interest_count + 1
+        where content_id = #{contentId}
+    </update>
 
-	<!-- 사용자가 이미 누른 경우 -->
-	<!-- attraction-interest 좋아요 카운트 감소 -->
-	<update id="subInterestCount" parameterType="int">
-		update attraction_interest set interest_count = interest_count-1 where content_id=#{contentId}
-	</update>
+    <!-- member_interest -->
+    <!-- member_interest에 추가 -->
+    <insert id="insertMemberInterest" parameterType="MemberInterestDto">
+        insert into member_interest
+        values (#{memberId}, #{contentId});
+    </insert>
 
-	<!-- member_interest 데이터 삭제 -->
-	<delete id="deleteMemberInterest" parameterType="MemberInterestDto">
-		delete from member_interest where member_id=#{memberId} and content_id=#{contentId}
-	</delete>
-	<!-- 좋아요 부분 끝 -->
+    <!-- 사용자가 이미 누른 경우 -->
+    <!-- attraction-interest 좋아요 카운트 감소 -->
+    <update id="subInterestCount" parameterType="int">
+        update attraction_interest
+        set interest_count = interest_count - 1
+        where content_id = #{contentId}
+    </update>
+
+    <!-- member_interest 데이터 삭제 -->
+    <delete id="deleteMemberInterest" parameterType="MemberInterestDto">
+        delete
+        from member_interest
+        where member_id = #{memberId}
+          and content_id = #{contentId}
+    </delete>
+    <!-- 좋아요 부분 끝 -->
 
 </mapper>
