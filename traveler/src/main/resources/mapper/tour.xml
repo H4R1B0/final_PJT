@@ -12,7 +12,7 @@
         <if test="content != null and !(content eq '')">
             and ${keyword} like concat('%', #{content}, '%')
         </if>
-        <if test="code != null and !(code eq '')">
+        <if test="code != null and !(code == 0)">
             and content_type_id = cast(#{code} as signed)
         </if>
         LIMIT ${LIMIT} OFFSET ${page}
