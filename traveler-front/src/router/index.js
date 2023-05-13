@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+// import TourMain from "@/views/tour/TourMain.vue";
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,7 @@ const routes = [
     path: "/tour",
     name: "tour",
     component: () => import("@/views/tour/TourMain.vue"),
+    // component: TourMain,
   },
   {
     path: "/join",

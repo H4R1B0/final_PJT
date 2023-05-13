@@ -3,20 +3,22 @@
     <!-- 로고 -->
     <div class="column logo">
       <h1>
-        <router-link :to="{ name: 'main' }">
-          <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" />
+        <router-link to="/">
+          <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" @click="resetSearchData" />
         </router-link>
         Traveler
       </h1>
     </div>
     <!-- 검색 -->
     <div class="column search">
-      <select class="search-keyword" name="keyword">
-        <option value="title">제목</option>
-        <option value="address">주소</option>
+      <select class="search-keyword" name="keyword" v-model="keyword">
+        <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
-      <input class="search-input" type="text" placeholder="검색어 입력" />
-      <input type="button" class="search-image" />
+      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" />
+      <router-link :to="{ name: 'tour' }">
+        <input type="button" class="search-image" v-on:click="commitKeywordContent" />
+      </router-link>
+      <!-- <input type="button" class="search-image" /> -->
     </div>
     <!-- 게시판 -->
     <div class="column board" v-on:mouseover="showHiddenBoard" v-on:mouseout="showHiddenBoard">
@@ -34,9 +36,24 @@
 
 <script>
 export default {
+  created() {
+    // console.log($storage.getters.getTwoPowerCounter);
+    // console.log(this.$store.getters.keyword);
+    // console.log(this.$store.getters.content);
+    this.keyword = "title";
+    this.content = "";
+    this.code = 0;
+  },
   data() {
     return {
       hiddenToggle: true,
+      keyword: "title",
+      content: "",
+      code: 0,
+      selectList: [
+        { name: "제목", value: "title" },
+        { name: "주소", value: "addr1" },
+      ],
     };
   },
   methods: {
@@ -51,6 +68,22 @@ export default {
         this.hiddenToggle = !this.hiddenToggle;
       }
     },
+    commitKeywordContent() {
+      console.log("commitKeywordContent");
+      // keyword vuex에 저장
+      this.$store.commit("setKeyword", this.keyword);
+      // content vuex에 저장
+      this.$store.commit("setContent", this.content);
+      this.$store.commit("setCode", this.code);
+    },
+    resetSearchData() {
+      this.keyword = "title";
+      this.content = "";
+      this.code = 0;
+      this.$store.commit("setKeyword", this.keyword);
+      this.$store.commit("setContent", this.content);
+      this.$store.commit("setCode", this.code);
+    },
   },
 };
 </script>
@@ -61,7 +94,9 @@ export default {
   margin: 0;
 }
 
-li ol ul {
+li,
+ol,
+ul {
   list-style: none;
 }
 a {
@@ -104,7 +139,7 @@ input.search-input {
   height: 28px;
   outline: none;
 }
-input.search-image {
+.search-image {
   background-size: 32px 32px;
   width: 32px;
   height: 32px;
