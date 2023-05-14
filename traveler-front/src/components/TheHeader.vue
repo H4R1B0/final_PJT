@@ -16,7 +16,7 @@
       </select>
       <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" />
       <router-link :to="{ name: 'tour' }">
-        <input type="button" class="search-image" v-on:click="commitKeywordContent" />
+        <input type="button" class="search-image" v-on:click="commitSearchData" />
       </router-link>
       <!-- <input type="button" class="search-image" /> -->
     </div>
@@ -37,6 +37,9 @@
 <script>
 export default {
   created() {
+    // 테스트
+    // console.log(this.$store.state.SearchData.keyword);
+
     // console.log($storage.getters.getTwoPowerCounter);
     // console.log(this.$store.getters.keyword);
     // console.log(this.$store.getters.content);
@@ -49,7 +52,6 @@ export default {
       hiddenToggle: true,
       keyword: "title",
       content: "",
-      code: 0,
       selectList: [
         { name: "제목", value: "title" },
         { name: "주소", value: "addr1" },
@@ -68,21 +70,35 @@ export default {
         this.hiddenToggle = !this.hiddenToggle;
       }
     },
-    commitKeywordContent() {
-      console.log("commitKeywordContent");
+    // commitKeywordContent() {
+    //   console.log("commitKeywordContent");
+    //   // keyword vuex에 저장
+    //   this.$store.commit("setKeyword", this.keyword);
+    //   // content vuex에 저장
+    //   this.$store.commit("setContent", this.content);
+    //   this.$store.commit("setCode", this.code);
+    // },
+    commitSearchData() {
+      console.log("commitSearchData");
+      let searchData = {
+        keyword: this.keyword,
+        content: this.content,
+      };
+      this.$store.commit("setSearchData", searchData);
       // keyword vuex에 저장
-      this.$store.commit("setKeyword", this.keyword);
+      // this.$store.commit("setKeyword", this.keyword);
       // content vuex에 저장
-      this.$store.commit("setContent", this.content);
-      this.$store.commit("setCode", this.code);
+      // this.$store.commit("setContent", this.content);
+      // this.$store.commit("setCode", this.code);
     },
     resetSearchData() {
       this.keyword = "title";
       this.content = "";
-      this.code = 0;
-      this.$store.commit("setKeyword", this.keyword);
-      this.$store.commit("setContent", this.content);
-      this.$store.commit("setCode", this.code);
+      // let searchData = {
+      //   keyword: this.keyword,
+      //   content: this.content,
+      // };
+      this.$store.commit("initSearchData");
     },
   },
 };

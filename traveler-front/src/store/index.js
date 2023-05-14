@@ -5,52 +5,38 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    keyword: "_",
-    content: "_",
-    code: 0,
+    //검색 데이터
+    SearchData: {},
   },
   getters: {
-    keyword: (state) => {
-      return state.keyword;
-    },
-    content: (state) => {
-      return state.content;
-    },
-    code: (state) => {
-      return state.code;
-    },
+    //검색 데이터 getter
     searchData: (state) => {
-      let data = {
-        keyword: state.keyword,
-        content: state.content,
-        code: state.code,
-      };
-      return data;
+      return state.SearchData;
     },
   },
   mutations: {
-    setKeyword: (state, keyword) => {
-      state.keyword = keyword;
+    //검색 데이터 세팅
+    setSearchData: (state, SearchData) => {
+      state.SearchData = SearchData;
     },
-    setContent: (state, content) => {
-      state.content = content;
-    },
-    setCode: (state, code) => {
-      state.code = code;
+    //검색 데이터 초기화
+    initSearchData: (state) => {
+      state.SearchData = {
+        keyword: "title",
+        content: "",
+      };
     },
   },
   actions: {
-    setKeyword: ({ commit, state }, keyword) => {
+    //검색 데이터 commit
+    setSearchData: ({ commit, state }, SearchData) => {
       console.log(state);
-      commit("setKeyword", keyword);
+      commit("setSearchData", SearchData);
     },
-    setContent: ({ commit, state }, content) => {
+    //검색 데이터 초기화 commit
+    initSearchData: ({ commit, state }) => {
       console.log(state);
-      commit("setContent", content);
-    },
-    setCode: ({ commit, state }, code) => {
-      console.log(state);
-      commit("setCode", code);
+      commit("initSearchData");
     },
   },
   modules: {},

@@ -73,6 +73,7 @@ export default {
     },
   },
   created() {
+    // console.log("페이징:", this.$store.getters.code);
     this.getPosts();
   },
   filters: {

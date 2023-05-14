@@ -22,35 +22,35 @@ export default {
   data() {
     return {
       attractions: [],
-      totalCount: 0,
-      keyword: "",
-      content: "",
-      code: "0",
+      // totalCount: 0,
+      // keyword: "",
+      // content: "",
+      // code: "0",
     };
   },
   created() {
     // this.keyword = "title";
     // this.content = "";
     // this.code = 0;
-    console.log(this.content);
-    console.log(this.$store.getters.content);
+    // console.log(this.content);
+    console.log("TourMain", this.$store.getters.searchData.keyword);
     this.setAttractions();
   },
   methods: {
     // 페이지 전체 조회 개수 저장
-    getTotalPage() {
-      axios.get(`http://localhost/traveler/tour/total?keyword=${this.keyword}&content=${this.content}&code=${this.code}`).then((res) => {
-        console.log(res.data);
-        this.totalCount = res.data;
-      });
-    },
+    // getTotalPage() {
+    //   axios.get(`http://localhost/traveler/tour/total?keyword=${this.keyword}&content=${this.content}&code=${this.code}`).then((res) => {
+    //     console.log(res.data);
+    //     this.totalCount = res.data;
+    //   });
+    // },
     // 관광지 변경
     setAttractions() {
       let searchData = this.$store.getters.searchData;
       console.log("setAttractions 호출");
       console.log(searchData);
-      console.log(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`);
-      axios.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`).then((res) => {
+      // console.log(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`);
+      axios.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
         console.log(res.data);
         this.attractions = res.data;
       });
@@ -61,27 +61,10 @@ export default {
     checkSearchData() {
       return this.$store.getters.searchData;
     },
-    checkKeyword() {
-      return this.$store.getters.keyword;
-    },
-    checkContent() {
-      return this.$store.getters.content;
-    },
-    checkCode() {
-      return this.$store.getters.code;
-    },
   },
   watch: {
-    checkKeyword() {
-      this.keyword = this.checkSearchData.keyword;
-      this.setAttractions();
-    },
-    checkContent() {
-      this.content = this.checkSearchData.content;
-      this.setAttractions();
-    },
-    checkCode() {
-      this.code = this.checkSearchData.code;
+    checkSearchData() {
+      // this.keyword = this.checkSearchData.keyword;
       this.setAttractions();
     },
   },
