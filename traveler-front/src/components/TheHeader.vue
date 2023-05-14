@@ -46,12 +46,14 @@ export default {
     this.keyword = "title";
     this.content = "";
     this.code = 0;
+    this.page = 1;
   },
   data() {
     return {
       hiddenToggle: true,
       keyword: "title",
       content: "",
+      page: 1,
       selectList: [
         { name: "제목", value: "title" },
         { name: "주소", value: "addr1" },
@@ -83,6 +85,7 @@ export default {
       let searchData = {
         keyword: this.keyword,
         content: this.content,
+        page: this.page,
       };
       this.$store.commit("setSearchData", searchData);
       // keyword vuex에 저장
@@ -94,6 +97,8 @@ export default {
     resetSearchData() {
       this.keyword = "title";
       this.content = "";
+      this.code = 0;
+      this.page = 1;
       // let searchData = {
       //   keyword: this.keyword,
       //   content: this.content,

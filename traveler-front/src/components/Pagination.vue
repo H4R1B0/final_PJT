@@ -77,7 +77,13 @@ export default {
     //   return this.paginate(this.posts);
     // },
     checkSearchData() {
-      return this.$store.getters.searchData;
+      let searchData = this.$store.getters.searchData;
+      let data = {
+        keyword: searchData.keyword,
+        content: searchData.content,
+        code: searchData.code,
+      };
+      return data;
     },
   },
   watch: {
@@ -90,6 +96,20 @@ export default {
     },
     totalCount() {
       this.setPages();
+    },
+    page() {
+      // let searchData = this.$store.getters.searchData;
+      // let data = {
+      //   keyword: searchData.keyword,
+      //   content: searchData.content,
+      //   page: this.page,
+      // };
+      console.log("페이지 변경");
+      console.log("현재 페이지", this.page);
+      // this.$store.commit("setSearchData", data);
+      this.$store.commit("setPage", this.page);
+      console.log(this.$store.getters.searchData.page);
+      console.log(this.$store.getters.page);
     },
   },
   filters: {

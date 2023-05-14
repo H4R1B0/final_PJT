@@ -33,7 +33,7 @@ export default {
     // this.content = "";
     // this.code = 0;
     // console.log(this.content);
-    console.log("TourMain", this.$store.getters.searchData.keyword);
+    // console.log("TourMain", this.$store.getters.searchData.keyword);
     this.setAttractions();
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
       console.log("setAttractions 호출");
       console.log(searchData);
       // console.log(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`);
-      axios.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+      axios.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}&page=${searchData.page}`).then((res) => {
         console.log(res.data);
         this.attractions = res.data;
       });
@@ -59,14 +59,27 @@ export default {
   updated() {},
   computed: {
     checkSearchData() {
-      return this.$store.getters.searchData;
+      let searchData = this.$store.getters.searchData;
+      let data = {
+        keyword: searchData.keyword,
+        content: searchData.content,
+        code: searchData.code,
+        page: searchData.page,
+      };
+      return data;
     },
+    // checkPage() {
+    //   return this.$store.getters.searchData.page;
+    // },
   },
   watch: {
     checkSearchData() {
       // this.keyword = this.checkSearchData.keyword;
       this.setAttractions();
     },
+    // checkPage() {
+    //   this.setAttractions();
+    // },
   },
 };
 </script>
