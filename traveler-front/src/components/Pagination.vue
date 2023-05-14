@@ -20,36 +20,46 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  created() {
+    let searchData = this.$store.getters.searchData;
+    axios.get(`http://localhost/traveler/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+      console.log("Pagination", res.data);
+      this.totalCount = res.data;
+    });
+  },
   data() {
     return {
-      posts: [""],
+      // posts: [""],
       page: 1,
       perPage: 10,
       pages: [],
       startPage: 0,
       endPage: 10,
+      totalCount: 0,
     };
   },
   methods: {
-    getPosts() {
-      // let data = [];
-      for (let i = 0; i < 500; i++) {
-        this.posts.push({ first: "John", last: "Doe", suffix: "#" + (i + 1) });
-      }
+    setTotalCount() {
+      let searchData = this.$store.getters.searchData;
+      console.log("searchData:", searchData);
+      axios.get(`http://localhost/traveler/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+        console.log("Pagination", res.data);
+        this.totalCount = res.data;
+        // return res.data;
+      });
+      this.page = 1;
+      this.startPage = 0;
+      this.endPage = 10;
     },
     setPages() {
-      let numberOfPages = (this.posts.length + this.perPage - 1) / this.perPage;
+      this.pages = [];
+      let numberOfPages = (this.totalCount + this.perPage - 1) / this.perPage;
+      console.log("전체 페이지:", numberOfPages);
       for (let index = this.startPage + 1; index < this.startPage + numberOfPages; index++) {
         this.pages.push(index);
       }
-    },
-    paginate(posts) {
-      let page = this.page;
-      let perPage = this.perPage;
-      let from = page * perPage - perPage;
-      let to = page * perPage;
-      return posts.slice(from + 1, to + 1);
     },
     setPrev() {
       this.startPage -= this.perPage;
@@ -63,23 +73,29 @@ export default {
     },
   },
   computed: {
-    displayedPosts() {
-      return this.paginate(this.posts);
+    // displayedPosts() {
+    //   return this.paginate(this.posts);
+    // },
+    checkSearchData() {
+      return this.$store.getters.searchData;
     },
   },
   watch: {
-    posts() {
+    // posts() {
+    //   this.setPages();
+    // },
+    checkSearchData() {
+      // this.keyword = this.checkSearchData.keyword;
+      this.setTotalCount();
+    },
+    totalCount() {
       this.setPages();
     },
   },
-  created() {
-    // console.log("페이징:", this.$store.getters.code);
-    this.getPosts();
-  },
   filters: {
-    trimWords(value) {
-      return value.split(" ").splice(0, 20).join(" ") + "...";
-    },
+    // trimWords(value) {
+    //   return value.split(" ").splice(0, 20).join(" ") + "...";
+    // },
   },
 };
 </script>
