@@ -5,52 +5,57 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    keyword: "_",
-    content: "_",
-    code: 0,
+    //검색 데이터
+    SearchData: {
+      keyword: "title",
+      content: "",
+      code: 0,
+      page: 1,
+    },
   },
   getters: {
-    keyword: (state) => {
-      return state.keyword;
-    },
-    content: (state) => {
-      return state.content;
-    },
-    code: (state) => {
-      return state.code;
-    },
+    //검색 데이터 getter
     searchData: (state) => {
-      let data = {
-        keyword: state.keyword,
-        content: state.content,
-        code: state.code,
-      };
-      return data;
+      return state.SearchData;
+    },
+    //검색 page getter
+    page: (state) => {
+      return state.SearchData.page;
     },
   },
   mutations: {
-    setKeyword: (state, keyword) => {
-      state.keyword = keyword;
+    //검색 데이터 세팅
+    setSearchData: (state, SearchData) => {
+      state.SearchData = SearchData;
     },
-    setContent: (state, content) => {
-      state.content = content;
+    //검색 데이터 초기화
+    initSearchData: (state) => {
+      state.SearchData = {
+        keyword: "title",
+        content: "",
+        code: 0,
+        page: 1,
+      };
     },
-    setCode: (state, code) => {
-      state.code = code;
+    setPage: (state, page) => {
+      state.SearchData.page = page;
     },
   },
   actions: {
-    setKeyword: ({ commit, state }, keyword) => {
+    //검색 데이터 commit
+    setSearchData: ({ commit, state }, SearchData) => {
       console.log(state);
-      commit("setKeyword", keyword);
+      commit("setSearchData", SearchData);
     },
-    setContent: ({ commit, state }, content) => {
+    //검색 데이터 초기화 commit
+    initSearchData: ({ commit, state }) => {
       console.log(state);
-      commit("setContent", content);
+      commit("initSearchData");
     },
-    setCode: ({ commit, state }, code) => {
+    //검색 페이지 세팅
+    setPage: ({ commit, state }, page) => {
       console.log(state);
-      commit("setCode", code);
+      commit("setPage", page);
     },
   },
   modules: {},
