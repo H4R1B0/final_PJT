@@ -12,7 +12,7 @@
         <if test="content != null and !(content eq '')">
             and ${keyword} like concat('%', #{content}, '%')
         </if>
-        <if test="code != null and !(code == 0)">
+        <if test="code != null and !(code == 'undefined') and !(code == 0)">
             and content_type_id = cast(#{code} as signed)
         </if>
         LIMIT ${LIMIT} OFFSET ${page}
@@ -31,11 +31,12 @@
     <select id="getTotalCount" parameterType="map" resultType="Int">
         select count(*) totalCount
         from attraction_info
+        where true
         <if test="content != null and !(content eq '')">
-            where ${keyword} like concat('%', #{content}, '%')
-            <if test="code != null and !(code eq '')">
-                and content_type_id = cast(#{code} as signed)
-            </if>
+            and ${keyword} like concat('%', #{content}, '%')
+        </if>
+        <if test="code != null and !(code == 'undefined') and !(code == 0)">
+            and content_type_id = cast(#{code} as signed)
         </if>
     </select>
 
