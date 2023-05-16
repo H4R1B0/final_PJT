@@ -34,6 +34,12 @@ export default {
   methods: {
     login() {
       console.log("로그인");
+      let loginResult = this.$store.dispatch("login", this.member);
+      if (loginResult) {
+        this.$router.push("/");
+      } else {
+        alert("아이디 또는 비밀번호를 다시 확인 해주세요.");
+      }
       // const url = "http://localhost/member/login";
     },
   },

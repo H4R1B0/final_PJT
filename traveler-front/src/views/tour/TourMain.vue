@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http";
+// import axios from "axios";
 // import { eventBus } from "@/main";
 import TourItem from "@/views/tour/TourItem.vue";
 import Pagination from "@/components/Pagination.vue";
@@ -50,7 +51,7 @@ export default {
       console.log("setAttractions 호출");
       console.log(searchData);
       // console.log(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`);
-      axios.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}&page=${searchData.page}`).then((res) => {
+      http.get(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}&page=${searchData.page}`).then((res) => {
         console.log(res.data);
         this.attractions = res.data;
       });

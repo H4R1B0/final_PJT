@@ -3,10 +3,10 @@
     <!-- 로고 -->
     <div class="column logo">
       <h1>
-        <router-link to="/">
-          <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" @click="resetSearchData" />
-        </router-link>
-        Traveler
+        <a href="/">
+          <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" />
+          Traveler
+        </a>
       </h1>
     </div>
     <!-- 검색 -->
@@ -29,7 +29,9 @@
       </ul>
     </div>
     <div class="column login">
-      <router-link :to="{ name: 'login' }"> 로그인 </router-link>
+      <router-link v-if="token == null" :to="{ name: 'login' }"> 로그인 </router-link>
+      <!-- <button v-else @click="logout">로그아웃</button> -->
+      <span v-else @click="logout">로그아웃</span>
     </div>
   </header>
 </template>
@@ -105,6 +107,16 @@ export default {
       // };
       this.$store.commit("initSearchData");
     },
+    logout() {
+      console.log("로그아웃");
+      this.$store.commit("CLEAR_MEMBER");
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
   },
 };
 </script>
@@ -137,6 +149,10 @@ header {
   font-weight: 600;
   font-size: 1.2em;
   /* box-shadow: 0 0 4px black; */
+}
+
+.column {
+  cursor: pointer;
 }
 
 /* 로고 */
