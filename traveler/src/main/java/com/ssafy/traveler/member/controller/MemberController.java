@@ -75,7 +75,7 @@ public class MemberController {
      */
     @GetMapping("/{member_id}")
     public ResponseEntity<?> idCheck(@PathVariable("member_id") String memberId) throws SQLException {
-        return ResponseEntity.ok(memberService.idCheck(memberId));
+        return new ResponseEntity<Integer>(memberService.idCheck(memberId), HttpStatus.OK);
     }
 
     /**

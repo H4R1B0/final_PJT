@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class JwtUtil {
-	private final String SECRET_KEY = "ssafy";
+	private final String SECRET_KEY = "traveler";
 
 	public boolean validateToken(String token) {
 		try {
@@ -33,8 +33,8 @@ public class JwtUtil {
 				.setHeaderParam("typ", "JWT")
 				.setHeaderParam("alg","HS256")
 				//payload
-				.claim("id", memberDto.getMemberId())
-				.claim("name", memberDto.getMemberName())
+				.claim("member_id", memberDto.getMemberId())
+				.claim("member_name", memberDto.getMemberName())
 				.claim("email", memberDto.getEmail())
 				.setExpiration( new Date(System.currentTimeMillis() + 1000 * expirationSecond) )
 				//singature
