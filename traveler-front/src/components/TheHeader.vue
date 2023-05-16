@@ -3,20 +3,22 @@
     <!-- 로고 -->
     <div class="column logo">
       <h1>
-        <router-link :to="{ name: 'main' }">
+        <a href="/">
           <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" />
-        </router-link>
-        Traveler
+          Traveler
+        </a>
       </h1>
     </div>
     <!-- 검색 -->
     <div class="column search">
-      <select class="search-keyword" name="keyword">
-        <option value="title">제목</option>
-        <option value="address">주소</option>
+      <select class="search-keyword" name="keyword" v-model="keyword">
+        <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
-      <input class="search-input" type="text" placeholder="검색어 입력" />
-      <input type="button" class="search-image" />
+      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" />
+      <router-link :to="{ name: 'tour' }">
+        <input type="button" class="search-image" v-on:click="commitSearchData" />
+      </router-link>
+      <!-- <input type="button" class="search-image" /> -->
     </div>
     <!-- 게시판 -->
     <div class="column board" v-on:mouseover="showHiddenBoard" v-on:mouseout="showHiddenBoard">
@@ -27,16 +29,37 @@
       </ul>
     </div>
     <div class="column login">
-      <router-link :to="{ name: 'login' }"> 로그인 </router-link>
+      <router-link v-if="token == null" :to="{ name: 'login' }"> 로그인 </router-link>
+      <!-- <button v-else @click="logout">로그아웃</button> -->
+      <span v-else @click="logout">로그아웃</span>
     </div>
   </header>
 </template>
 
 <script>
 export default {
+  created() {
+    // 테스트
+    // console.log(this.$store.state.SearchData.keyword);
+
+    // console.log($storage.getters.getTwoPowerCounter);
+    // console.log(this.$store.getters.keyword);
+    // console.log(this.$store.getters.content);
+    this.keyword = "title";
+    this.content = "";
+    this.code = 0;
+    this.page = 1;
+  },
   data() {
     return {
       hiddenToggle: true,
+      keyword: "title",
+      content: "",
+      page: 1,
+      selectList: [
+        { name: "제목", value: "title" },
+        { name: "주소", value: "addr1" },
+      ],
     };
   },
   methods: {
@@ -51,6 +74,49 @@ export default {
         this.hiddenToggle = !this.hiddenToggle;
       }
     },
+    // commitKeywordContent() {
+    //   console.log("commitKeywordContent");
+    //   // keyword vuex에 저장
+    //   this.$store.commit("setKeyword", this.keyword);
+    //   // content vuex에 저장
+    //   this.$store.commit("setContent", this.content);
+    //   this.$store.commit("setCode", this.code);
+    // },
+    commitSearchData() {
+      console.log("commitSearchData");
+      let searchData = {
+        keyword: this.keyword,
+        content: this.content,
+        page: this.page,
+      };
+      this.$store.commit("setSearchData", searchData);
+      // keyword vuex에 저장
+      // this.$store.commit("setKeyword", this.keyword);
+      // content vuex에 저장
+      // this.$store.commit("setContent", this.content);
+      // this.$store.commit("setCode", this.code);
+    },
+    resetSearchData() {
+      this.keyword = "title";
+      this.content = "";
+      this.code = 0;
+      this.page = 1;
+      // let searchData = {
+      //   keyword: this.keyword,
+      //   content: this.content,
+      // };
+      this.$store.commit("initSearchData");
+    },
+    logout() {
+      console.log("로그아웃");
+      this.$store.commit("CLEAR_MEMBER");
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
   },
 };
 </script>
@@ -61,7 +127,9 @@ export default {
   margin: 0;
 }
 
-li ol ul {
+li,
+ol,
+ul {
   list-style: none;
 }
 a {
@@ -81,6 +149,10 @@ header {
   font-weight: 600;
   font-size: 1.2em;
   /* box-shadow: 0 0 4px black; */
+}
+
+.column {
+  cursor: pointer;
 }
 
 /* 로고 */
@@ -104,7 +176,7 @@ input.search-input {
   height: 28px;
   outline: none;
 }
-input.search-image {
+.search-image {
   background-size: 32px 32px;
   width: 32px;
   height: 32px;

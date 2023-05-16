@@ -4,8 +4,8 @@
     <form v-on:submit.prevent="join">
       아이디
       <br />
-      <input type="text" name="member_id" id="member_id" autofocus placeholder="아이디" v-model.trim="member.member_id" />
-      <br />
+      <input type="text" name="member_id" id="member_id" autofocus placeholder="아이디" v-model.trim="member.member_id" @blur="idCheck" />
+      <p :style="{ color: count == 1 ? 'red' : 'blue' }">{{ msg }}</p>
       이름
       <br />
       <input type="text" name="member_name" id="member_name" autofocus placeholder="이름" v-model.trim="member.member_name" />
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -37,12 +38,33 @@ export default {
         member_password: "",
         email: "",
       },
+      msg: "",
+      count: -1,
     };
   },
   methods: {
     join() {
       console.log("회원가입");
+      axios
+        .post("http://localhost/traveler/member", this.member)
+        .then((res) => {
+          console.log(res.data);
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          console.log("회원가입 실패", err);
+        });
       // const url = "http://localhost/member/login";
+    },
+    async idCheck() {
+      console.log("아이디 체크");
+      this.count = (await axios.get(`http://localhost/traveler/member/${this.member.member_id}`)).data;
+      // console.log("아이디 중복 개수:", count);
+      if (this.count == 0) {
+        this.msg = "사용 가능한 아이디 입니다.";
+      } else {
+        this.msg = "이미 사용중인 아이디 입니다.";
+      }
     },
   },
 };

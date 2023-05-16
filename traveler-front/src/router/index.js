@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+// import TourMain from "@/views/tour/TourMain.vue";
 
 Vue.use(VueRouter);
 
@@ -15,14 +16,21 @@ const routes = [
     component: () => import("@/views/TravelerLogin.vue"),
   },
   {
-    path: "/tour",
-    name: "tour",
-    component: () => import("@/views/tour/TourMain.vue"),
-  },
-  {
     path: "/join",
     name: "join",
     component: () => import("@/views/TravelerJoin.vue"),
+  },
+  {
+    path: "/tour",
+    name: "tour",
+    component: () => import("@/views/tour/TourMain.vue"),
+    // component: TourMain,
+  },
+  {
+    path: "/tour/detail",
+    name: "tour-detail",
+    component: () => import("@/views/tour/TourDetail.vue"),
+    // component: TourMain,
   },
   {
     path: "/info-list",
