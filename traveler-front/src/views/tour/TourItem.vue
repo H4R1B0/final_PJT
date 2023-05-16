@@ -1,5 +1,5 @@
 <template>
-  <li class="tour-list-item">
+  <li class="tour-list-item" @click="goTourDetail">
     <img class="item-image" :src="attraction.img" alt="관광지" />
     <ul>
       <li class="item-title">{{ attraction.title }}</li>
@@ -13,6 +13,12 @@ export default {
   props: {
     attraction: Object,
   },
+  methods: {
+    goTourDetail() {
+      console.log("상세히 보기 이동");
+      this.$router.push({ name: "tour-detail", query: { content_id: this.attraction.contentId } });
+    },
+  },
 };
 </script>
 
@@ -22,6 +28,7 @@ export default {
   flex-basis: 30%;
   margin-bottom: 2em;
   margin-left: 10%;
+  cursor: pointer;
 }
 .item-image {
   width: 10em;

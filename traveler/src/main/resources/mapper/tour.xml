@@ -42,7 +42,7 @@
 
     <!-- content_id로 상세 조회 -->
     <select id="selectByContentId" parameterType="int" resultType="TourDto">
-        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, latitude, longitude
+        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img, readcount, latitude, longitude
         from attraction_info
         where content_id = #{contentId}
     </select>

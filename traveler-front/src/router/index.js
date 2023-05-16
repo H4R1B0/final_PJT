@@ -16,15 +16,21 @@ const routes = [
     component: () => import("@/views/TravelerLogin.vue"),
   },
   {
+    path: "/join",
+    name: "join",
+    component: () => import("@/views/TravelerJoin.vue"),
+  },
+  {
     path: "/tour",
     name: "tour",
     component: () => import("@/views/tour/TourMain.vue"),
     // component: TourMain,
   },
   {
-    path: "/join",
-    name: "join",
-    component: () => import("@/views/TravelerJoin.vue"),
+    path: "/tour/detail",
+    name: "tour-detail",
+    component: () => import("@/views/tour/TourDetail.vue"),
+    // component: TourMain,
   },
 ];
 
