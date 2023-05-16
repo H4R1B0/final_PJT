@@ -32,6 +32,11 @@ const routes = [
     component: () => import("@/views/tour/TourDetail.vue"),
     // component: TourMain,
   },
+  {
+    path: "/info-list",
+    name: "info-list",
+    component: () => import("@/views/board/InfoList.vue"),
+  },
 ];
 
 const router = new VueRouter({
