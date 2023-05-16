@@ -37,6 +37,11 @@ const routes = [
     name: "info-list",
     component: () => import("@/views/board/InfoList.vue"),
   },
+  {
+    path: "/info-write",
+    name: "info-write",
+    component: () => import("@/views/board/InfoWrite.vue"),
+  },
 ];
 
 const router = new VueRouter({
