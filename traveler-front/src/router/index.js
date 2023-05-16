@@ -24,6 +24,11 @@ const routes = [
     name: "join",
     component: () => import("@/views/TravelerJoin.vue"),
   },
+  {
+    path: "/info-list",
+    name: "info-list",
+    component: () => import("@/views/board/InfoList.vue"),
+  },
 ];
 
 const router = new VueRouter({
