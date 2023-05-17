@@ -24,7 +24,8 @@
     <div class="column board" v-on:mouseover="showHiddenBoard" v-on:mouseout="showHiddenBoard">
       <span>게시판</span>
       <ul class="hidden-board">
-        <li><a href="">공지 사항</a></li>
+        <li><router-link :to="{ name: 'info-list' }">공지 사항</router-link></li>
+
         <li><a href="">후기 게시판</a></li>
       </ul>
     </div>
@@ -110,7 +111,9 @@ export default {
     logout() {
       console.log("로그아웃");
       this.$store.commit("CLEAR_MEMBER");
-      this.$router.push("/");
+      this.$router.push("/").catch((err) => {
+        console.log(err);
+      });
     },
   },
   computed: {
