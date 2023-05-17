@@ -42,6 +42,11 @@ const routes = [
     name: "info-write",
     component: () => import("@/views/board/InfoWrite.vue"),
   },
+  {
+    path: "/info-detail",
+    name: "info-detail",
+    component: () => import("@/views/board/InfoDetail.vue"),
+  },
 ];
 
 const router = new VueRouter({

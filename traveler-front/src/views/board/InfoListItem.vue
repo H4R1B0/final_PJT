@@ -1,5 +1,5 @@
 <template>
-  <tr class="info-item">
+  <tr class="info-item" @click="goInfoDetail">
     <td>{{ infoComponent.no }}</td>
     <td>{{ infoComponent.title }}</td>
     <td>{{ infoComponent.writer }}</td>
@@ -12,6 +12,11 @@
 export default {
   props: {
     infoComponent: Object,
+  },
+  methods: {
+    goInfoDetail() {
+      this.$router.push({ name: "info-detail", query: { no: this.infoComponent.no } });
+    },
   },
 };
 </script>
