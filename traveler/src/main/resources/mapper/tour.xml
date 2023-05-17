@@ -6,7 +6,9 @@
 
     <!-- 키워드로 관광지 조회 -->
     <select id="selectByKeyword" parameterType="map" resultType="TourDto">
-        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img
+        select ai.content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img,
+        if(mi.member_id is null, false, true) interest
+        from (select attraction_info.content_id, content_type_id, title, addr1, first_image
         from attraction_info
         where true
         <if test="content != null and !(content eq '')">
@@ -15,7 +17,11 @@
         <if test="code != null and !(code == 'undefined') and !(code == 0)">
             and content_type_id = cast(#{code} as signed)
         </if>
-        LIMIT ${LIMIT} OFFSET ${page}
+        LIMIT ${LIMIT} OFFSET ${page}) as ai
+        left join (select *
+        from member_interest mi
+        where (mi.member_id is null or strcmp(mi.member_id, #{member_id}) = 0)) as mi
+        on ai.content_id = mi.content_id;
     </select>
 
     <!-- content_type_id로 관광지 타입별 조회 -->

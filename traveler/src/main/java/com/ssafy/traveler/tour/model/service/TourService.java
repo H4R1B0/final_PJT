@@ -68,6 +68,6 @@ public interface TourService {
     void deleteMemberInterest(MemberInterestDto memberInterest) throws SQLException;
 
     //좋아요 증감
-    void upDownInterest(MemberInterestDto memberInterest) throws SQLException;
+    boolean upDownInterest(MemberInterestDto memberInterest) throws SQLException;
 
 }

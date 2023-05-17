@@ -20,5 +20,5 @@ public class TourDto {
 	private int gugunCode;
 	private double latitude;
 	private double longitude;
-
+	private boolean interest;
 }
