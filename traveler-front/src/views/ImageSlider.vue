@@ -14,10 +14,10 @@
           <!-- <h6>slider 2 <span>(center)</span></h6> -->
           <swiper class="swiper" :options="swiperOption2">
             <swiper-slide v-for="attraction in attractions" :key="attraction.contentId">
-              <div class="attraction">
-                <img class="attraction-image" :src="attraction.img" alt="" @click="goTourDetail(attraction.contentId)" />
+              <router-link class="attraction" :to="{ name: 'tour-detail', query: { content_id: attraction.contentId } }">
+                <img class="attraction-image" :src="attraction.img" alt="" />
                 <p class="attraction-text">{{ attraction.title }}</p>
-              </div>
+              </router-link>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
@@ -85,10 +85,6 @@ export default {
       } catch (err) {
         //console.error(err)
       }
-    },
-    goTourDetail(content_id) {
-      console.log("상세히 보기 이동");
-      this.$router.push({ name: "tour-detail", query: { content_id: content_id } });
     },
   },
   watch: {},
