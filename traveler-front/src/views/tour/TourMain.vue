@@ -2,6 +2,46 @@
   <section class="tour-list-container" v-cloak>
     <!-- <component-to-re-render key="router.state" /> -->
     <h1 class="tour-list-title">관광지 조회</h1>
+    <!-- 12 자연/휴양림, 14 문화/박물관, 15 축제, 25 여행 프로그램, 28 스포츠/레저, 32 숙박, 38 시장, 39 맛집 -->
+    <ul class="category">
+      <li @click="setCode(12)">
+        <img src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-4/24/home-512.png" alt="" />
+        전체
+      </li>
+      <li @click="setCode(12)">
+        <img src="https://cdn2.iconfinder.com/data/icons/spring-flat-11/272/spring-tree-plant-garden-nature-wood-forest-1024.png" alt="" />
+        자연/휴양림
+      </li>
+      <li @click="setCode(14)">
+        <img src="https://cdn-icons-png.flaticon.com/512/554/554099.png" alt="" />
+        문화/박물관
+      </li>
+      <li @click="setCode(15)">
+        <img src="https://cdn3.iconfinder.com/data/icons/new-year-2102/200/new_year-gr-02-1024.png" alt="" />
+        축제
+      </li>
+      <li @click="setCode(25)">
+        <img src="https://cdn-icons-png.flaticon.com/512/2831/2831972.png" alt="" />
+        여행 프로그램
+      </li>
+      <li @click="setCode(28)">
+        <img src="https://cdn-icons-png.flaticon.com/512/1944/1944142.png" alt="" />
+        스포츠/레저
+      </li>
+      <li @click="setCode(32)">
+        <img src="https://cdn-icons-png.flaticon.com/512/9296/9296428.png" alt="" />
+        숙박
+      </li>
+      <li @click="setCode(38)">
+        <img src="https://cdn-icons-png.flaticon.com/512/9420/9420511.png" alt="" />
+        시장
+      </li>
+      <li @click="setCode(39)">
+        <img src="https://cdn-icons-png.flaticon.com/512/281/281631.png" alt="" />
+        맛집
+      </li>
+    </ul>
+    <br />
     <ul class="tour-list">
       <tour-item v-for="attraction in attractions" :key="attraction.contentId" :attraction="attraction"></tour-item>
     </ul>
@@ -56,6 +96,9 @@ export default {
         this.attractions = res.data;
       });
     },
+    setCode(code) {
+      this.$store.commit("SET_CODE", { code });
+    },
   },
   updated() {},
   computed: {
@@ -90,6 +133,15 @@ li,
 ol,
 ul {
   list-style: none;
+}
+.category {
+  display: flex;
+  margin: 0 5rem;
+  justify-content: space-around;
+  cursor: pointer;
+}
+.category > li > img {
+  width: 24px;
 }
 .tour-list-title {
   padding: 4rem 0rem 0rem 5rem;

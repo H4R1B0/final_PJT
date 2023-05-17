@@ -25,13 +25,13 @@
     </select>
 
     <!-- content_type_id로 관광지 타입별 조회 -->
-<!--    <select id="selectByContentTypeId" parameterType="map" resultType="TourDto">-->
-<!--        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img-->
-<!--        from attraction_info-->
-<!--        where ${keyword} like concat('%', #{content}, '%')-->
-<!--          and content_type_id = cast(#{code} as signed)-->
-<!--        LIMIT ${LIMIT} OFFSET ${page}-->
-<!--    </select>-->
+    <!--    <select id="selectByContentTypeId" parameterType="map" resultType="TourDto">-->
+    <!--        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img-->
+    <!--        from attraction_info-->
+    <!--        where ${keyword} like concat('%', #{content}, '%')-->
+    <!--          and content_type_id = cast(#{code} as signed)-->
+    <!--        LIMIT ${LIMIT} OFFSET ${page}-->
+    <!--    </select>-->
 
     <!-- 키워드에 따라 관광지 조회 개수 -->
     <select id="getTotalCount" parameterType="map" resultType="Int">
@@ -48,7 +48,14 @@
 
     <!-- content_id로 상세 조회 -->
     <select id="selectByContentId" parameterType="int" resultType="TourDto">
-        select content_id contentId, content_type_id contentTypeId, title, addr1 addr, first_image img, readcount, latitude, longitude
+        select content_id      contentId,
+               content_type_id contentTypeId,
+               title,
+               addr1           addr,
+               first_image     img,
+               readcount,
+               latitude,
+               longitude
         from attraction_info
         where content_id = #{contentId}
     </select>
@@ -107,5 +114,14 @@
           and content_id = #{contentId}
     </delete>
     <!-- 좋아요 부분 끝 -->
+
+    <!-- 메인화면 슬라이더 부분 랜덤으로 가져오기 -->
+    <select id="selectByRandom" resultType="TourDto">
+        SELECT content_id contentId, title, first_image img, sido_code sidoCode
+        FROM attraction_info
+        where first_image != ''
+        ORDER BY RAND()
+        LIMIT 9;
+    </select>
 
 </mapper>

@@ -66,4 +66,6 @@ public interface TourMapper {
 	//사용자가 눌렀다면 member-interest에서 데이터 삭제
 	void deleteMemberInterest(MemberInterestDto memberInterest) throws SQLException;
 
+	//메인화면 슬라이더에 들어간 랜덤 관광지
+	List<TourDto> selectByRandom() throws SQLException;
 }

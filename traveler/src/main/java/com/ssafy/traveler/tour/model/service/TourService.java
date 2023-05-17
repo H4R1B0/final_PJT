@@ -70,4 +70,5 @@ public interface TourService {
     //좋아요 증감
     boolean upDownInterest(MemberInterestDto memberInterest) throws SQLException;
 
+    List<TourDto> selectByRandom() throws SQLException;
 }

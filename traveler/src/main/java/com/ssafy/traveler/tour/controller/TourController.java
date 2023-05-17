@@ -42,7 +42,7 @@ public class TourController {
         final String token = request.getHeader("Authorization");
         log.debug("Authorization 헤더 : {}", token);
         //토큰 존재여부 체크
-        if (token != null && token.startsWith("Bearer ")){
+        if (token != null && token.startsWith("Bearer ")) {
             String jwt = token.substring(7);
             log.debug("헤더에서 추출한 토큰 정보 : {}", jwt);
             if (jwtUtil.validateToken(jwt)) {
@@ -100,6 +100,13 @@ public class TourController {
 //        tourService.upDownInterest(memberInterest);
         return new ResponseEntity<Boolean>(tourService.upDownInterest(memberInterest), HttpStatus.OK);
 //        return ResponseEntity.ok().build();
+    }
+
+    //메인화면 슬라이더에 들어간 랜덤 관광지
+    @GetMapping("/random")
+    public ResponseEntity<?> selectByRandom() throws SQLException {
+        log.debug(tourService.selectByRandom().toString());
+        return ResponseEntity.ok().body(tourService.selectByRandom());
     }
 
 }
