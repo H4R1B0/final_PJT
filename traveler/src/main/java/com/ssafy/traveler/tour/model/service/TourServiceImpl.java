@@ -84,7 +84,7 @@ public class TourServiceImpl implements TourService {
 	}
 
 	//좋아요 증감
-	public void upDownInterest(MemberInterestDto memberInterest) throws SQLException {
+	public boolean upDownInterest(MemberInterestDto memberInterest) throws SQLException {
 		
 		//사용자가 좋아요를 누르지 않은 경우
 		if(isInterestInMember(memberInterest) == 0) {
@@ -97,11 +97,13 @@ public class TourServiceImpl implements TourService {
 				addInterestCount(memberInterest.getContentId());
 			}
 			insertMemberInterest(memberInterest);
+			return true;
 		}
 		//사용자가 좋아요를 이미 누른 경우
 		else {
 			subInterestCount(memberInterest.getContentId());
 			deleteMemberInterest(memberInterest);
+			return false;
 		}
 	}
 
