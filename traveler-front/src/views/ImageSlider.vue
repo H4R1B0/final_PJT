@@ -13,15 +13,12 @@
         <div class="slider-wrap">
           <!-- <h6>slider 2 <span>(center)</span></h6> -->
           <swiper class="swiper" :options="swiperOption2">
-            <swiper-slide>Slide 1</swiper-slide>
-            <swiper-slide>Slide 2</swiper-slide>
-            <swiper-slide>Slide 3</swiper-slide>
-            <swiper-slide>Slide 4</swiper-slide>
-            <swiper-slide>Slide 5</swiper-slide>
-            <swiper-slide>Slide 6</swiper-slide>
-            <swiper-slide>Slide 7</swiper-slide>
-            <swiper-slide>Slide 8</swiper-slide>
-            <swiper-slide>Slide 9</swiper-slide>
+            <swiper-slide v-for="attraction in attractions" :key="attraction.contentId">
+              <div class="attraction">
+                <img class="attraction-image" :src="attraction.img" alt="" @click="goTourDetail(attraction.contentId)" />
+                <p class="attraction-text">{{ attraction.title }}</p>
+              </div>
+            </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
             <div class="swiper-button-next" slot="button-next"></div>
@@ -42,13 +39,15 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  props: {},
+  props: {
+    attractions: Array,
+  },
   data() {
     return {
       swiperOption2: {
-        centeredSlides: true,
+        centeredSlides: false,
         autoplay: {
-          delay: 3000,
+          delay: 4000,
         },
         slidesPerView: 3,
         spaceBetween: 30,
@@ -87,11 +86,15 @@ export default {
         //console.error(err)
       }
     },
+    goTourDetail(content_id) {
+      console.log("상세히 보기 이동");
+      this.$router.push({ name: "tour-detail", query: { content_id: content_id } });
+    },
   },
   watch: {},
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .slider-content {
   padding-bottom: 170px;
 }
@@ -113,24 +116,6 @@ export default {
       font-weight: bold;
       background-size: cover;
       background-position: center;
-      &.slide-1 {
-        background-image: url("@/assets/img/banner_tour_img/tour0001.png");
-      }
-      &.slide-2 {
-        background-image: url("@/assets/img/banner_tour_img/tour0002.png");
-      }
-      &.slide-3 {
-        background-image: url("@/assets/img/banner_tour_img/tour0001.png");
-      }
-      &.slide-4 {
-        background-image: url("@/assets/img/banner_tour_img/tour0002.png");
-      }
-      &.slide-5 {
-        background-image: url("@/assets/img/banner_tour_img/tour0001.png");
-      }
-      &.slide-6 {
-        background-image: url("@/assets/img/banner_tour_img/tour0002.png");
-      }
     }
     .gallery-top {
       height: 80%;
@@ -143,7 +128,7 @@ export default {
     .gallery-thumbs .swiper-slide {
       width: 25%;
       height: 100%;
-      opacity: 0.4;
+      opacity: 1;
     }
     .gallery-thumbs .swiper-slide-active {
       opacity: 1;
@@ -152,15 +137,15 @@ export default {
 }
 .swiper {
   width: 100%;
-  height: 300px;
+  height: 400px;
   .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-weight: bold;
-    background: #fdde88;
-    opacity: 0.7;
+    // background: #fdde88;
+    opacity: 1;
     img {
       width: 100%;
     }
@@ -208,6 +193,27 @@ export default {
       }
     }
   }
+}
+.attraction {
+  position: relative;
+  height: 300px;
+  cursor: pointer;
+}
+.attraction > .attraction-text {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  // left: 50%;
+  // text-align: center;
+  color: white;
+  font-size: 120%;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+  font-family: Cafe24Ssurround;
+}
+.attraction-image {
+  height: 300px;
+  width: 200px;
+  border-radius: 10px;
 }
 
 @keyframes progress {

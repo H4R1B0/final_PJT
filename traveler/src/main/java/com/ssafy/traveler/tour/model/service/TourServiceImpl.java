@@ -107,4 +107,9 @@ public class TourServiceImpl implements TourService {
 		}
 	}
 
+	//메인화면 슬라이더에 들어간 랜덤 관광지
+	public List<TourDto> selectByRandom() throws SQLException{
+		return tourMapper.selectByRandom();
+	}
+
 }

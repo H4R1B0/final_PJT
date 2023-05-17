@@ -3,10 +3,14 @@
     <!-- 로고 -->
     <div class="column logo">
       <h1>
-        <a href="/">
+        <router-link to="/" @click="this.$store.commit('initSearchData')">
           <img src="https://cdn-icons-png.flaticon.com/512/3541/3541533.png" alt="traveler" />
-          Traveler
-        </a>
+          <img src="@/assets/img/traveler.png" alt="traveler" style="width: 10rem; height: 4rem" />
+          <!-- Traveler -->
+        </router-link>
+        <!-- <a href="/">
+          
+        </a> -->
       </h1>
     </div>
     <!-- 검색 -->
@@ -56,6 +60,7 @@ export default {
       keyword: "title",
       content: "",
       page: 1,
+      code: 0,
       selectList: [
         { name: "제목", value: "title" },
         { name: "주소", value: "addr1" },
@@ -88,6 +93,7 @@ export default {
         keyword: this.keyword,
         content: this.content,
         page: this.page,
+        code: this.code,
       };
       this.$store.commit("setSearchData", searchData);
       // keyword vuex에 저장

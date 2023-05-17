@@ -60,6 +60,11 @@ export default new Vuex.Store({
       state.memberInfo = {};
       state.token = null;
     },
+    SET_CODE(state, payload) {
+      console.log(payload);
+      console.log(payload.code);
+      state.SearchData.code = payload.code;
+    },
   },
   actions: {
     //검색 데이터 commit
