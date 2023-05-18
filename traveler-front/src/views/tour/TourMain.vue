@@ -181,7 +181,7 @@ ul {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 20px;
   width: 60%;
-  height: 1000px;
+  height: auto;
   margin: 0 auto;
   padding-bottom: 2rem;
 }

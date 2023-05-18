@@ -27,14 +27,15 @@
       <span>게시판</span>
       <ul class="hidden-board">
         <li><router-link :to="{ name: 'info-list' }">공지 사항</router-link></li>
-
         <li><a href="">후기 게시판</a></li>
       </ul>
     </div>
-    <div class="column login">
+    <div class="column member">
       <router-link v-if="token == null" :to="{ name: 'login' }"> 로그인 </router-link>
-      <!-- <button v-else @click="logout">로그아웃</button> -->
-      <span v-else @click="logout">로그아웃</span>
+      <div class="login-after" v-else>
+        <router-link :to="{ name: 'mypage' }">마이페이지</router-link>
+        <span @click="logout">로그아웃</span>
+      </div>
     </div>
   </header>
 </template>
@@ -222,5 +223,9 @@ input {
 .board > .hidden-board > li {
   background-color: transparent;
   border-top: 0 white solid;
+}
+/* 멤버 */
+.login-after > * {
+  margin: 0 0.5rem;
 }
 </style>
