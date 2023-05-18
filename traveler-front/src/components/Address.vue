@@ -1,14 +1,32 @@
 <template>
-  <div>
+  <div class="address-container">
     <!-- <input type="text" v-model="postcode" placeholder="우편번호" /> -->
-    <input type="button" @click="execDaumPostcode()" value="우편번호 찾기" />
+    <h3>소요시간 계산</h3>
+    <input class="address-text" type="text" v-model="address" placeholder="주소" readonly />
+    <input class="address-search" type="button" @click="execDaumPostcode()" value="주소 검색" />
     <br />
-    <input type="text" v-model="address" placeholder="주소" readonly />
-    <br />
-    <button v-if="address != ''" @click="getLatLng">소요시간 검색</button>
-    <div v-if="Address">
+    <button class="time-calculate" v-if="address != ''" @click="getLatLng">확인하기</button>
+    <!-- <div v-if="routes.length != 0"></div>
       <p>{{ Address.x }}</p>
       <p>{{ Address.y }}</p>
+    </div> -->
+    <div class="time-calculate-result" v-if="Object.keys(route).length > 0">
+      <p>
+        <label>거리</label>
+        <input class="result-distance" type="text" readonly :value="route.distance" />
+      </p>
+      <p>
+        <label>시간</label>
+        <input class="result-duration" type="text" readonly :value="route.duration" />
+      </p>
+      <p>
+        <label>택시 요금</label>
+        <input class="result-taxi" type="text" readonly :value="route.taxi" />
+      </p>
+      <p>
+        <label>톨게이트 비용</label>
+        <input class="result-toll" type="text" readonly :value="route.toll" />
+      </p>
     </div>
     <!-- <input type="text" id="detailAddress" placeholder="상세주소" /> -->
     <!-- <input type="text" id="extraAddress" placeholder="참고항목" /> -->
@@ -23,6 +41,7 @@ export default {
       postcode: "",
       address: "",
       extraAddress: "",
+      route: {},
     };
   },
   props: {
@@ -91,18 +110,97 @@ export default {
             )
             .then((res) => {
               console.log(res.data);
-              console.log(res.data.routes[0].summary.distance, "미터");
-              console.log(res.data.routes[0].summary.duration, "초");
-              console.log("택시 요금", res.data.routes[0].summary.fare.taxi, "원");
-              console.log("톨게이트 요금", res.data.routes[0].summary.fare.toll, "원");
+              // this.routes = res.data;
+              let distance = this.getDistance(res.data.routes[0].summary.distance);
+              let duration = this.getDuration(res.data.routes[0].summary.duration);
+              let taxi = this.getTaxi(res.data.routes[0].summary.fare.taxi);
+              let toll = this.getToll(res.data.routes[0].summary.fare.toll);
+
+              let data = {
+                distance: distance,
+                duration: duration,
+                taxi: taxi,
+                toll: toll,
+              };
+              this.route = data;
+              console.log(data);
+              // console.log(res.data.routes[0].summary.distance, "미터");
+              // console.log(res.data.routes[0].summary.duration, "초");
+              // console.log("택시 요금", res.data.routes[0].summary.fare.taxi, "원");
+              // console.log("톨게이트 요금", res.data.routes[0].summary.fare.toll, "원");
             });
         }
       };
 
       geocoder.addressSearch(this.address, callback);
     },
+    getDistance(dist) {
+      return dist / 1000 + "km";
+    },
+    getDuration(time) {
+      let h = Math.floor(time / 3600);
+      let m = Math.ceil((time % 3600) / 60);
+      let result = m + "분";
+      if (h != 0) {
+        result = h + "시간 " + result;
+      }
+      return result;
+    },
+    getTaxi(taxi) {
+      return taxi + "원";
+    },
+    getToll(toll) {
+      return toll + "원";
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.address-container {
+  width: 80%;
+  height: 20rem;
+  margin: 0 auto;
+}
+.address-text {
+  width: 20rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+.address-search {
+  height: 2rem;
+  width: 5rem;
+  border-radius: 5px;
+  border: none;
+  margin-left: 0.5rem;
+  background-color: #ddf5ff;
+  font-size: 1rem;
+}
+.address-text:focus {
+  outline: none;
+}
+.time-calculate {
+  height: 2rem;
+  width: 5rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 0.5rem;
+  background-color: #ddf5ff;
+  font-size: 1rem;
+}
+.time-calculate-result > p {
+  margin-top: 1rem;
+}
+.time-calculate-result > p > input {
+  width: auto;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  margin-left: 1rem;
+  background: #ffffffb3;
+  text-align: center;
+}
+</style>

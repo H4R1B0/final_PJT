@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- 배너 -->
-    <section>
-      <div class="main_text">
-        <h1>STRESS SWITCH <span class="highlight">OFF</span></h1>
-        <h1>HAPPY SWITCH <span class="highlight">ON</span></h1>
-      </div>
-    </section>
     <!-- 슬라이더 -->
     <section>
       <div class="content slider-content">

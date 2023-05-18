@@ -149,8 +149,9 @@ a {
 header {
   flex-flow: row wrap;
   display: flex;
-  width: 100%;
+  width: 60%;
   height: auto;
+  margin: 0 auto;
   background-color: transparent;
   justify-content: space-around;
   align-items: center;
