@@ -1,21 +1,22 @@
 <template>
   <div class="login-content">
     <h1>로그인</h1>
+    <br />
     <form v-on:submit.prevent="login">
       아이디
       <br />
-      <input type="text" name="member_id" id="member_id" autofocus placeholder="아이디" v-model.trim="member.member_id" />
+      <input class="login-text" type="text" name="member_id" id="member_id" autofocus placeholder="아이디" v-model.trim="member.member_id" />
       <br />
       비밀번호
       <br />
       <input type="password" name="member_password" id="member_password" autofocus placeholder="비밀번호" v-model.trim="member.member_password" />
       <br />
-      <input type="checkbox" v-model="member.save_id" />아이디 기억하기
-      <br />
+      <!-- <input type="checkbox" v-model="member.save_id" />아이디 기억하기
+      <br /> -->
       <span>아직 회원이 아니신가요? </span>
       <router-link :to="{ name: 'join' }">회원가입 </router-link>
       <br />
-      <input type="submit" value="로그인" />
+      <input class="login-button" type="submit" value="로그인" />
     </form>
   </div>
 </template>
@@ -46,4 +47,29 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.login-content {
+  width: 20rem;
+  height: auto;
+  margin: 3rem auto 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding: 2rem;
+}
+.login-content > h1 {
+  text-align: center;
+}
+.login-content > form > * {
+  margin: 0.5rem 0;
+}
+.login-content > form > input {
+  width: 20rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+.login-button {
+  background-color: #b9cbeb;
+}
+</style>
