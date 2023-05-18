@@ -38,6 +38,7 @@ public class TourServiceImpl implements TourService {
 	//contentId로 상세 조회
 	@Override
 	public TourDto selectByContentId(int contentId) throws SQLException {
+		tourMapper.hit(contentId);
 		return tourMapper.selectByContentId(contentId);
 	}
 
