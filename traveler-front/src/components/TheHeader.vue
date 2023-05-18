@@ -43,7 +43,7 @@
 export default {
   created() {
     // 테스트
-    // console.log(this.$store.state.SearchData.keyword);
+    console.log("aaaaa");
 
     // console.log($storage.getters.getTwoPowerCounter);
     // console.log(this.$store.getters.keyword);
@@ -95,7 +95,9 @@ export default {
         code: this.code,
       };
       this.$store.commit("setSearchData", searchData);
-      this.$router.push({ name: "tour" });
+      this.$router.push({ name: "tour" }).catch(() => {
+        window.location.reload;
+      });
       // keyword vuex에 저장
       // this.$store.commit("setKeyword", this.keyword);
       // content vuex에 저장
