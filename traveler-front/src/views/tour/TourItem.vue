@@ -1,7 +1,9 @@
 <template>
   <li class="tour-list-item" @click="goTourDetail">
-    <img class="item-image" :src="attraction.img" alt="관광지" />
-    <img class="item-heart" :src="heartState ? require('@/assets/img/fill_heart.png') : require('@/assets/img/empty_heart.png')" alt="empty_heart" @click.stop="setInterest" />
+    <div class="item-set">
+      <img class="item-image" :src="attraction.img == '' ? 'https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-6/32/no-image-512.png' : attraction.img" alt="관광지" />
+      <img class="item-heart" :src="heartState ? require('@/assets/img/fill_heart.png') : require('@/assets/img/white_heart.png')" alt="empty_heart" @click.stop="setInterest" />
+    </div>
     <ul>
       <li class="item-title">{{ attraction.title }}</li>
       <li class="item-addr">{{ attraction.addr }}</li>
@@ -60,8 +62,17 @@ export default {
   margin-left: 10%;
   cursor: pointer;
 }
+.item-set {
+  position: relative;
+}
+.item-set > .item-heart {
+  position: absolute;
+  right: 10%;
+  bottom: 5%;
+}
 .item-image {
-  width: 10em;
+  width: 10rem;
+  height: 7rem;
   border-radius: 10px;
   margin-top: 0.5em;
   margin-right: 1em;

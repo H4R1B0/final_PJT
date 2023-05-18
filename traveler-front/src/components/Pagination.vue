@@ -123,7 +123,6 @@ export default {
 <style>
 .pagination {
   display: flex;
-  padding-left: 0;
   border-radius: 10px;
 }
 *,
@@ -142,8 +141,8 @@ button:disabled {
 }
 .page-link {
   position: relative;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
+  padding: 0.3rem 0.3rem;
+  /* margin-left: -1px; */
   line-height: 1.25;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -152,8 +151,8 @@ button:disabled {
   cursor: pointer;
 }
 .offset {
-  width: 1000px !important;
-  /* height: 100px; */
-  margin: 20px auto;
+  width: auto !important;
+  display: flex;
+  justify-content: center;
 }
 </style>

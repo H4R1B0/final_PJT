@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- 배너 -->
-    <section>
-      <div class="main_text">
-        <h1>STRESS SWITCH <span class="highlight">OFF</span></h1>
-        <h1>HAPPY SWITCH <span class="highlight">ON</span></h1>
-      </div>
-    </section>
     <!-- 슬라이더 -->
     <section>
       <div class="content slider-content">
@@ -14,10 +7,10 @@
           <!-- <h6>slider 2 <span>(center)</span></h6> -->
           <swiper class="swiper" :options="swiperOption2">
             <swiper-slide v-for="attraction in attractions" :key="attraction.contentId">
-              <div class="attraction">
-                <img class="attraction-image" :src="attraction.img" alt="" @click="goTourDetail(attraction.contentId)" />
+              <router-link class="attraction" :to="{ name: 'tour-detail', query: { content_id: attraction.contentId } }">
+                <img class="attraction-image" :src="attraction.img" alt="" />
                 <p class="attraction-text">{{ attraction.title }}</p>
-              </div>
+              </router-link>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
@@ -86,17 +79,13 @@ export default {
         //console.error(err)
       }
     },
-    goTourDetail(content_id) {
-      console.log("상세히 보기 이동");
-      this.$router.push({ name: "tour-detail", query: { content_id: content_id } });
-    },
   },
   watch: {},
 };
 </script>
 <style lang="scss" scoped>
 .slider-content {
-  padding-bottom: 170px;
+  padding: 2rem 1rem 5rem;
 }
 .slider-wrap {
   h6 {

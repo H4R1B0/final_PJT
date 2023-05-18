@@ -1,6 +1,7 @@
 <template>
-  <div id="map">
-    <h3>카카오 맵</h3>
+  <div class="map-container">
+    <h3>위치</h3>
+    <div class="kakao-map"></div>
   </div>
 </template>
 
@@ -29,13 +30,14 @@ export default {
   methods: {
     loadScript() {
       const script = document.createElement("script");
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`; // &autoload=false api를 로드한 후 맵을 그리는 함수가 실행되도록 구현
+      // &autoload=false api를 로드한 후 맵을 그리는 함수가 실행되도록 구현
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
       script.onload = () => window.kakao.maps.load(this.loadMap); // 스크립트 로드가 끝나면 지도를 실행될 준비가 되어 있다면 지도가 실행되도록 구현
 
       document.head.appendChild(script); // html>head 안에 스크립트 소스를 추가
     },
     loadMap() {
-      const container = document.getElementById("map"); // 지도를 담을 DOM 영역
+      const container = document.querySelector(".kakao-map"); // 지도를 담을 DOM 영역
       const options = {
         // 지도를 생성할 때 필요한 기본 옵션
         center: new window.kakao.maps.LatLng(this.latitude, this.longitude), // 지도의 중심좌표
@@ -60,8 +62,20 @@ export default {
 </script>
 
 <style scoped>
-#map {
-  width: 60%;
-  height: 500px;
+/* 맵 출력 */
+.map-container {
+  width: 100%;
+  height: 25rem;
+  padding-top: 5%;
+}
+.map-container > h3 {
+  margin-left: 10%;
+  margin-bottom: 1%;
+}
+.kakao-map {
+  width: 80%;
+  height: 80%;
+  margin: 0 10%;
+  border-radius: 10px;
 }
 </style>

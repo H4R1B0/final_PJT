@@ -19,9 +19,7 @@
         <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
       <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" />
-      <router-link :to="{ name: 'tour' }">
-        <input type="button" class="search-image" v-on:click="commitSearchData" />
-      </router-link>
+      <input type="button" class="search-image" v-on:click="commitSearchData" />
       <!-- <input type="button" class="search-image" /> -->
     </div>
     <!-- 게시판 -->
@@ -97,6 +95,7 @@ export default {
         code: this.code,
       };
       this.$store.commit("setSearchData", searchData);
+      this.$router.push({ name: "tour" });
       // keyword vuex에 저장
       // this.$store.commit("setKeyword", this.keyword);
       // content vuex에 저장
@@ -149,8 +148,9 @@ a {
 header {
   flex-flow: row wrap;
   display: flex;
-  width: 100%;
+  width: 60%;
   height: auto;
+  margin: 1rem auto 1rem;
   background-color: transparent;
   justify-content: space-around;
   align-items: center;
@@ -173,16 +173,24 @@ header {
 }
 
 /* 검색 */
+.search {
+  position: relative;
+}
+.search > .search-image {
+  position: absolute;
+  right: 0px;
+}
 .search-keyword {
-  height: 30px;
+  height: 32px;
   border: 1px solid #bcbcbc;
 }
 input {
   vertical-align: middle;
 }
-input.search-input {
+.search > .search-input {
   border: 1px solid #bcbcbc;
-  height: 28px;
+  height: 32px;
+  width: 12rem;
   outline: none;
 }
 .search-image {
