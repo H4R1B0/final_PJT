@@ -26,6 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewDto getReviewDetail(int no) throws SQLException {
+        reviewMapper.hit(no);
         return reviewMapper.getReviewDetail(no);
     }
 

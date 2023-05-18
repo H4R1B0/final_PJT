@@ -45,7 +45,7 @@ export default {
       let info = {
         title: this.title,
         writer: this.writer,
-        content: this.content,
+        content: this.changeA(this.content),
       };
       http
         .post(`/board/info`, info)
@@ -58,7 +58,11 @@ export default {
         });
     },
     moveList() {
-      this.$router.push({ path: "info-list" });
+      this.$router.push({ path: "/info-list" });
+    },
+    changeA() {
+      let str = document.getElementById("content").value;
+      return str.replaceAll("<br/>", "\r\n");
     },
   },
 };
@@ -80,6 +84,7 @@ label {
   margin-top: 2rem;
   /* padding: 2rem 2rem 2rem 2rem; */
 }
+/* 등록 화면 제목 */
 .regist-title {
   color: #5a5a5a;
   font-size: 3rem;

@@ -19,7 +19,7 @@
             <th>작성일</th>
           </tr>
         </thead>
-        <info-list-item v-for="info in infos" :key="info.no" :infoComponent="info"></info-list-item>
+        <info-list-item class="info-item" v-for="(info, idx) in infos" :key="info.no" :infoComponent="info" :idx="idx"></info-list-item>
       </table>
       <div class="info-regist">
         <button @click="goRegist" class="info-regist-button">공지 등록</button>
@@ -84,6 +84,9 @@ export default {
   width: 70%;
   text-align: center;
   margin: auto;
+}
+.info-item {
+  cursor: pointer;
 }
 .info-regist {
   text-align: right;

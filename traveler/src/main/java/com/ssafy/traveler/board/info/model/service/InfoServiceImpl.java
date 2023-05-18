@@ -23,6 +23,7 @@ public class InfoServiceImpl implements InfoService{
     //공지사항 상세 조회
     @Override
     public InfoDto selectByNo(int no) throws SQLException {
+        infoMapper.hit(no);
         return infoMapper.selectByNo(no);
     }
 

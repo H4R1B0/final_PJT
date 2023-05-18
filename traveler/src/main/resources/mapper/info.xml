@@ -37,4 +37,11 @@
         where no = #{no}
     </delete>
 
+    <!-- 조회수 증가 -->
+    <update id="hit" parameterType="int">
+        update info_board
+        set read_count = read_count +1
+        where no = #{no}
+    </update>
+
 </mapper>
