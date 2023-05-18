@@ -18,4 +18,6 @@ public interface ReviewMapper {
     void updateReview(ReviewDto reviewDto) throws SQLException;
 
     void deleteReview(int no) throws SQLException;
+
+    void hit(int no) throws SQLException;
 }

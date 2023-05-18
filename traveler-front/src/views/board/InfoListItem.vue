@@ -1,6 +1,6 @@
 <template>
   <tr class="info-item" @click="goInfoDetail">
-    <td>{{ infoComponent.no }}</td>
+    <td>{{ idx + 1 }}</td>
     <td>{{ infoComponent.title }}</td>
     <td>{{ infoComponent.writer }}</td>
     <td>{{ infoComponent.readCount }}</td>
@@ -12,6 +12,9 @@
 export default {
   props: {
     infoComponent: Object,
+    idx: {
+      type: String,
+    },
   },
   methods: {
     goInfoDetail() {

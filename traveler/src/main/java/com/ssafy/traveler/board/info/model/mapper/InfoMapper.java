@@ -25,4 +25,6 @@ public interface InfoMapper {
     //삭제
     void deleteInfoBoard(int no) throws SQLException;
 
+    void hit(int no) throws SQLException;
+
 }
