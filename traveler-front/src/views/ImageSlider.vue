@@ -85,7 +85,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .slider-content {
-  padding-bottom: 170px;
+  padding: 2rem 1rem 5rem;
 }
 .slider-wrap {
   h6 {
