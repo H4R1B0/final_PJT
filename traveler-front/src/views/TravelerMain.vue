@@ -40,6 +40,7 @@ export default {
   color: white;
   font-size: 2rem;
   margin-top: 2rem;
+  z-index: -1;
 }
 /* 베너 하이라이트 */
 .highlight {

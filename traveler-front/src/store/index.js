@@ -111,6 +111,30 @@ export default new Vuex.Store({
           // alert("아이디 또는 비밀번호를 다시 확인 해주세요.");
         });
     },
+    modify(context, modifyInfo) {
+      http
+        .put("/member", modifyInfo)
+        .then((res) => {
+          //토큰 재발행
+          const token = res.data.token;
+          context.commit("SET_TOKEN", { token });
+
+          //token decode
+          const decodeToken = jwtDecode(token);
+          console.log("decode token:", decodeToken);
+          context.commit("SET_MEMBER_INFO", {
+            member_id: decodeToken.member_id,
+            member_name: decodeToken.member_name,
+            email: decodeToken.email,
+          });
+          console.log(this.state.memberInfo);
+          return true;
+        })
+        .catch(() => {
+          console.log("수정 실패");
+          return false;
+        });
+    },
   },
   modules: {},
 });

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.traveler.tour.dto.TourDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.ssafy.traveler.util.SHA256Util;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -42,8 +44,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void modify(@RequestBody Map<String, String> data) throws SQLException {
-        memberMapper.modify(data);
+    public int modify(@RequestBody Map<String, String> data) throws SQLException {
+        int changeCount = memberMapper.modify(data);
+        if (changeCount == 1) {
+            log.debug("개인 정보 변경됨");
+        } else {
+            log.debug("개인 정보 변경 오류");
+        }
+        return changeCount;
     }
 
     @Override
