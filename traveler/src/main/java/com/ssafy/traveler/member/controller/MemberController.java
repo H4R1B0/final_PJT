@@ -120,10 +120,23 @@ public class MemberController {
      * @return
      */
     @PutMapping
-    public ResponseEntity<?> modify(@RequestBody Map<String, String> data) throws SQLException {
+    public ResponseEntity<?> modify(@RequestBody Map<String, String> data) throws SQLException, UnsupportedEncodingException {
         log.debug("회원 정보 수정");
-        memberService.modify(data);
-        return ResponseEntity.ok().build();
+        //변경된 행 수
+        int modifyResult = memberService.modify(data);
+        //변경 완료
+        if (modifyResult == 1) {
+            MemberDto member = new MemberDto();
+            member.setMemberName(data.get("member_name"));
+            member.setMemberId(data.get("member_id"));
+            member.setEmail(data.get("email"));
+            String token = jwtUtil.createToken(member, 60 * 60);
+            Map<String, String> result = new HashMap<>();
+            result.put("token", token);
+            return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
+        }
+        //수정 실패
+        return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**

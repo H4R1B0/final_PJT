@@ -21,6 +21,11 @@ const routes = [
     component: () => import("@/views/TravelerJoin.vue"),
   },
   {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("@/views/member/MyPage.vue"),
+  },
+  {
     path: "/tour",
     name: "tour",
     component: () => import("@/views/tour/TourMain.vue"),

@@ -42,7 +42,7 @@
     <!-- 회원 정보 수정 -->
     <update id="modify" parameterType="map">
         update member
-        set email = #{email}
+        set member_name = #{member_name}, email = #{email}
         where member_id = #{member_id}
     </update>
 

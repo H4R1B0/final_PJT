@@ -41,7 +41,7 @@ public interface MemberService {
      * @param data
      * @throws SQLException
      */
-    void modify(@RequestBody Map<String, String> data) throws SQLException;
+    int modify(@RequestBody Map<String, String> data) throws SQLException;
 
     /**
      * 회원 탈퇴

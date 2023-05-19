@@ -27,14 +27,15 @@
       <span>게시판</span>
       <ul class="hidden-board">
         <li><router-link :to="{ name: 'info-list' }">공지 사항</router-link></li>
-
         <li><router-link :to="{ name: 'review-list' }">후기 게시판</router-link></li>
       </ul>
     </div>
-    <div class="column login">
+    <div class="column member">
       <router-link v-if="token == null" :to="{ name: 'login' }"> 로그인 </router-link>
-      <!-- <button v-else @click="logout">로그아웃</button> -->
-      <span v-else @click="logout">로그아웃</span>
+      <div class="login-after" v-else>
+        <router-link :to="{ name: 'mypage' }">마이페이지</router-link>
+        <span @click="logout">로그아웃</span>
+      </div>
     </div>
   </header>
 </template>
@@ -43,7 +44,7 @@
 export default {
   created() {
     // 테스트
-    // console.log(this.$store.state.SearchData.keyword);
+    console.log("aaaaa");
 
     // console.log($storage.getters.getTwoPowerCounter);
     // console.log(this.$store.getters.keyword);
@@ -95,7 +96,9 @@ export default {
         code: this.code,
       };
       this.$store.commit("setSearchData", searchData);
-      this.$router.push({ name: "tour" });
+      this.$router.push({ name: "tour" }).catch(() => {
+        window.location.reload;
+      });
       // keyword vuex에 저장
       // this.$store.commit("setKeyword", this.keyword);
       // content vuex에 저장
@@ -220,5 +223,9 @@ input {
 .board > .hidden-board > li {
   background-color: transparent;
   border-top: 0 white solid;
+}
+/* 멤버 */
+.login-after > * {
+  margin: 0 0.5rem;
 }
 </style>
