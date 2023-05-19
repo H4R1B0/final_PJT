@@ -13,7 +13,7 @@ export default {
   props: {
     infoComponent: Object,
     idx: {
-      type: String,
+      type: Number,
     },
   },
   methods: {

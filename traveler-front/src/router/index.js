@@ -32,6 +32,7 @@ const routes = [
     component: () => import("@/views/tour/TourDetail.vue"),
     // component: TourMain,
   },
+  //공지사항 게시판
   {
     path: "/info-list",
     name: "info-list",
@@ -51,6 +52,27 @@ const routes = [
     path: "/info-update",
     name: "info-update",
     component: () => import("@/views/board/InfoUpdate.vue"),
+  },
+  //후기 게시판
+  {
+    path: "/review-list",
+    name: "review-list",
+    component: () => import("@/views/board/ReviewList.vue"),
+  },
+  {
+    path: "/review-write",
+    name: "review-write",
+    component: () => import("@/views/board/ReviewWrite.vue"),
+  },
+  {
+    path: "/review-detail",
+    name: "review-detail",
+    component: () => import("@/views/board/ReviewDetail.vue"),
+  },
+  {
+    path: "/review-update",
+    name: "review-update",
+    component: () => import("@/views/board/ReviewUpdate.vue"),
   },
 ];
 

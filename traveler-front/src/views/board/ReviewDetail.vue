@@ -1,16 +1,16 @@
 <template>
   <section class="detail-container">
     <div class="detail-title">
-      {{ infoArticle.title }}
+      {{ reviewArticle.title }}
     </div>
     <div class="detail-set">
-      <div class="detail-writer"><label class="detail-set-label">작성자 </label> {{ infoArticle.writer }}</div>
-      <div class="detail-readCnt"><label class="detail-set-label">조회수</label> {{ infoArticle.readCount }}</div>
-      <div class="detail-time"><label class="detail-set-label">작성 시각</label> {{ infoArticle.writeDate }}</div>
+      <div class="detail-writer"><label class="detail-set-label">작성자 </label> {{ reviewArticle.writer }}</div>
+      <div class="detail-readCnt"><label class="detail-set-label">조회수</label> {{ reviewArticle.readCount }}</div>
+      <div class="detail-time"><label class="detail-set-label">작성 시각</label> {{ reviewArticle.writeDate }}</div>
     </div>
     <br />
     <label class="content"> 내용</label><br />
-    <div class="content-box" v-html="infoArticle.content"></div>
+    <div class="content-box" v-html="reviewArticle.content"></div>
     <br />
     <div>
       <button class="btn" id="update-btn" @click="moveModifyArticle">수정</button>
@@ -25,34 +25,34 @@ import http from "@/util/http";
 export default {
   data() {
     return {
-      infoArticle: Object,
+      reviewArticle: Object,
     };
   },
   created() {
     console.log(this.$route);
     let no = this.$route.query.no;
-    http.get(`/board/info/${no}`).then((res) => {
+    http.get(`/board/review/${no}`).then((res) => {
       console.log(res.data);
-      this.infoArticle = res.data;
-      this.infoArticle.content = this.changeB(this.infoArticle.content);
+      this.reviewArticle = res.data;
+      this.reviewArticle.content = this.changeB(this.reviewArticle.content);
     });
   },
   methods: {
     moveList() {
-      this.$router.push({ path: "/info-list" });
+      this.$router.push({ path: "/review-list" });
     },
     deleteArticle() {
-      let no = this.infoArticle.no;
-      http.delete(`/board/info/${no}`).then((response) => {
+      let no = this.reviewArticle.no;
+      http.delete(`/board/review/${no}`).then((response) => {
         console.log(response);
-        this.$router.push({ path: "/info-list" });
+        this.$router.push({ path: "/review-list" });
       });
     },
     changeB(value) {
       return value.replace(/(?:\r\n|\r|\n)/g, "<br/>");
     },
     moveModifyArticle() {
-      this.$router.push({ path: "/info-update", query: { no: this.infoArticle.no } });
+      this.$router.push({ path: "/review-update", query: { no: this.reviewArticle.no } });
     },
   },
 };
