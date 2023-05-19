@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:style="{ transform: `rotate(${this.$store.state.deg}deg)` }">
     <the-header></the-header>
     <router-view :key="$route.fullPath" />
   </div>
@@ -23,5 +23,9 @@ export default {
 body {
   background-image: url("@/assets/img/background.jpg");
   background-size: cover;
+}
+/* test */
+#app {
+  transition: transform 2s ease-in-out;
 }
 </style>

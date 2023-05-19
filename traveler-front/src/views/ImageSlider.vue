@@ -198,6 +198,7 @@ export default {
   font-size: 120%;
   text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   font-family: Cafe24Ssurround;
+  // writing-mode: horizontal-tb;
 }
 .attraction-image {
   height: 300px;

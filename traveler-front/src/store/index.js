@@ -20,6 +20,8 @@ export default new Vuex.Store({
     token: null,
     //사용자 정보
     memberInfo: {},
+    //회전정보
+    deg: 0,
   },
   getters: {
     //검색 데이터 getter
@@ -64,6 +66,9 @@ export default new Vuex.Store({
       console.log(payload);
       console.log(payload.code);
       state.SearchData.code = payload.code;
+    },
+    SET_DEG(state) {
+      state.deg += 360;
     },
   },
   actions: {
