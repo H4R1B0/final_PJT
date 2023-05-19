@@ -1,16 +1,16 @@
 <template>
   <section class="update-container">
-    <div class="update-title">공지사항 수정</div>
+    <div class="update-title">후기 수정</div>
     <br />
     <div class="update-form">
       <div clss="update-label" style="transform: translateX(-12rem)"><label for="title">제목</label></div>
-      <input type="text" id="title" v-model="infoArticle.title" ref="title" />
+      <input type="text" id="title" v-model="reviewArticle.title" ref="title" />
       <br />
       <br />
       <div clss="update-label" style="transform: translateX(-12rem)"><label for="content">내용</label></div>
-      <textarea id="content" v-model="infoArticle.content" ref="content" cols="35" rows="5"></textarea>
+      <textarea id="content" v-model="reviewArticle.content" ref="content" cols="35" rows="5"></textarea>
       <br />
-      <button class="update-page-button" id="update-button" @click="updateInfoArticle">완료</button>
+      <button class="update-page-button" id="update-button" @click="updateReviewArticle">완료</button>
       <button class="update-page-button" @click="moveList">목록</button>
     </div>
   </section>
@@ -22,23 +22,23 @@ export default {
   data() {
     return {
       no: Number,
-      infoArticle: Object,
+      reviewArticle: Object,
     };
   },
   created() {
     this.no = this.$route.query.no;
-    http.get(`/board/info/${this.no}`).then((response) => {
+    http.get(`/board/review/${this.no}`).then((response) => {
       console.log(response);
-      this.infoArticle = response.data;
+      this.reviewArticle = response.data;
     });
   },
   methods: {
-    updateInfoArticle() {
-      console.log(this.infoArticle.no + "번글 수정 하기");
+    updateReviewArticle() {
+      console.log(this.reviewArticle.no + "번글 수정 하기");
       http
-        .put(`/board/info`, this.infoArticle)
+        .put(`/board/review`, this.reviewArticle)
         .then(() => {
-          this.$router.push({ name: "info-detail", query: { no: this.infoArticle.no } });
+          this.$router.push({ name: "review-detail", query: { no: this.reviewArticle.no } });
         })
         .catch(() => {
           let msg = "수정 불가";
@@ -46,7 +46,7 @@ export default {
         });
     },
     moveList() {
-      this.$router.push({ path: "/info-list" });
+      this.$router.push({ path: "/review-list" });
     },
   },
 };

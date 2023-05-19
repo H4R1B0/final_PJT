@@ -27,7 +27,7 @@
       <span>게시판</span>
       <ul class="hidden-board">
         <li><router-link :to="{ name: 'info-list' }">공지 사항</router-link></li>
-        <li><a href="">후기 게시판</a></li>
+        <li><router-link :to="{ name: 'review-list' }">후기 게시판</router-link></li>
       </ul>
     </div>
     <div class="column member">

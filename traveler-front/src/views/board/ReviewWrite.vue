@@ -1,14 +1,16 @@
 <template>
   <section class="regist-container">
-    <div class="regist-title">공지사항 등록</div>
+    <div class="regist-title">후기 작성</div>
     <br />
     <div class="regist-form">
       <div clss="regist-label" style="transform: translateX(-12rem)"><label for="title">제목 </label></div>
       <input type="text" id="title" v-model="title" ref="title" />
       <br />
       <br />
-      <!-- <label for="writer">작성자</label>
-      <input type="text" id="writer" v-model="writer" ref="writer" readonly /><br /> -->
+      <!-- <div style="transform: translateX(-12rem)"><label for="writer">작성자</label></div>
+      <input type="text" id="writer" v-model="writer" ref="writer" readonly />
+      <br />
+      <br /> -->
       <div clss="regist-label" style="transform: translateX(-12rem)"><label for="content">내용</label></div>
       <textarea id="content" v-model="content" ref="content" cols="35" rows="5"></textarea>
       <br />
@@ -22,7 +24,7 @@
 <script>
 import http from "@/util/http";
 export default {
-  name: "infoWrite",
+  name: "reviewoWrite",
   data() {
     return {
       title: null,
@@ -42,23 +44,23 @@ export default {
       else this.registInfo();
     },
     registInfo() {
-      let info = {
+      let review = {
         title: this.title,
         writer: this.writer,
         content: this.changeA(this.content),
       };
       http
-        .post(`/board/info`, info)
+        .post(`/board/review`, review)
         .then(() => {
           this.moveList();
         })
         .catch(() => {
-          let msg = "관리자만 작성할 수 있는 게시판입니다.";
+          let msg = "로그인 후 이용 가능한 서비스입니다.";
           alert(msg);
         });
     },
     moveList() {
-      this.$router.push({ path: "/info-list" });
+      this.$router.push({ path: "/review-list" });
     },
     changeA() {
       let str = document.getElementById("content").value;
