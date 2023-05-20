@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http";
 export default {
   created() {
     let searchData = this.$store.getters.searchData;
-    axios.get(`http://localhost/traveler/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+    http.get(`/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
       console.log("Pagination", res.data);
       this.totalCount = res.data;
     });
@@ -44,7 +44,7 @@ export default {
     setTotalCount() {
       let searchData = this.$store.getters.searchData;
       console.log("searchData:", searchData);
-      axios.get(`http://localhost/traveler/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+      http.get(`/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
         console.log("Pagination", res.data);
         this.totalCount = res.data;
         // return res.data;

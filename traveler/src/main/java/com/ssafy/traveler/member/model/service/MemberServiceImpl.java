@@ -75,8 +75,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<TourDto> getInterestList(String memberId) throws SQLException {
-        return memberMapper.getInterestList(memberId);
+    public int getInterestCount(Map<String, String> param) throws SQLException {
+        return memberMapper.getInterestCount(param);
+    }
+
+    @Override
+    public List<TourDto> getInterestList(Map<String, String> param) throws SQLException {
+        return memberMapper.getInterestList(param);
     }
 
 }

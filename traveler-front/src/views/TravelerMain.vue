@@ -24,6 +24,7 @@ export default {
     ImageSlider,
   },
   created() {
+    // console.log(window.location.hostname);
     http.get("/tour/random").then((res) => {
       this.attractions = res.data;
     });

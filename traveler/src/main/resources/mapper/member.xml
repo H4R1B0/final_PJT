@@ -53,12 +53,21 @@
         where member_id = #{memberId}
     </delete>
 
+    <!-- 좋아요한 관광지 총 개수 가져오기 -->
+    <select id="getInterestCount" parameterType="Map" resultType="Int">
+        select count(*)
+        from member_interest
+        where member_id = #{member_id}
+    </select>
+
     <!-- 좋아요한 관광지 가져오기 -->
-    <select id="getInterestList" parameterType="String" resultType="TourDto">
-        select ai.content_id contentId, ai.content_type_id contentTypeId, ai.title, ai.addr1 addr, ai.first_image img
-        from member_interest mi
-                 join attraction_info ai on mi.content_id = ai.content_id
-        where mi.member_id = #{memberId}
+    <select id="getInterestList" parameterType="Map" resultType="TourDto">
+        select title, content_id contentId, first_image img, true interest
+        from attraction_info
+        where content_id in (select content_id
+                             from member_interest
+                             where member_id = #{member_id})
+        LIMIT ${LIMIT} OFFSET ${page}
     </select>
 
 </mapper>
