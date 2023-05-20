@@ -63,14 +63,12 @@
     <ul class="tour-list">
       <tour-item v-for="attraction in attractions" :key="attraction.contentId" :attraction="attraction"></tour-item>
     </ul>
-    <Pagination />
+    <Pagination :page="page" :totalCount="totalCount" @setPage="setPage" />
   </section>
 </template>
 
 <script>
 import http from "@/util/http";
-// import axios from "axios";
-// import { eventBus } from "@/main";
 import TourItem from "@/views/tour/TourItem.vue";
 import Pagination from "@/components/Pagination.vue";
 export default {
@@ -81,7 +79,8 @@ export default {
   data() {
     return {
       attractions: [],
-      // totalCount: 0,
+      totalCount: 0,
+      page: 1,
       // keyword: "",
       // content: "",
       // code: "0",
@@ -93,29 +92,36 @@ export default {
     // this.code = 0;
     // console.log(this.content);
     // console.log("TourMain", this.$store.getters.searchData.keyword);
+    this.getTotalPage();
     this.setAttractions();
   },
   methods: {
     // 페이지 전체 조회 개수 저장
-    // getTotalPage() {
-    //   axios.get(`http://localhost/traveler/tour/total?keyword=${this.keyword}&content=${this.content}&code=${this.code}`).then((res) => {
-    //     console.log(res.data);
-    //     this.totalCount = res.data;
-    //   });
-    // },
-    // 관광지 변경
+    getTotalPage() {
+      this.totalCount = 0;
+      let searchData = this.$store.state.SearchData;
+      console.log(searchData);
+      http.get(`/tour/search.total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
+        console.log(res.data);
+        this.totalCount = res.data;
+      });
+    },
+    //관광지 변경
     setAttractions() {
       let searchData = this.$store.getters.searchData;
       console.log("setAttractions 호출");
       console.log(searchData);
       // console.log(`http://localhost/traveler/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${this.code}`);
-      http.get(`/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}&page=${searchData.page}`).then((res) => {
+      http.get(`/tour/search?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}&page=${this.page}`).then((res) => {
         console.log(res.data);
         this.attractions = res.data;
       });
     },
     setCode(code) {
       this.$store.commit("SET_CODE", { code });
+    },
+    setPage(value) {
+      this.page = value;
     },
   },
   updated() {},
@@ -126,7 +132,6 @@ export default {
         keyword: searchData.keyword,
         content: searchData.content,
         code: searchData.code,
-        page: searchData.page,
       };
       return data;
     },
@@ -137,11 +142,13 @@ export default {
   watch: {
     checkSearchData() {
       // this.keyword = this.checkSearchData.keyword;
+      this.page = 1;
+      this.getTotalPage();
       this.setAttractions();
     },
-    // checkPage() {
-    //   this.setAttractions();
-    // },
+    page() {
+      this.setAttractions();
+    },
   },
 };
 </script>

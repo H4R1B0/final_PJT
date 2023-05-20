@@ -37,7 +37,18 @@ export default {
       endPage: 10,
     };
   },
-  methods: {},
+  methods: {
+    setPrev() {
+      this.startPage -= this.perPage;
+      this.endPage = this.startPage + this.perPage;
+      this.page = this.startPage;
+    },
+    setNext() {
+      this.startPage += this.perPage;
+      this.endPage = this.startPage + this.perPage;
+      this.page = this.startPage;
+    },
+  },
   computed: {},
   watch: {
     page() {

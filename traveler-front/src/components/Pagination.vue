@@ -7,7 +7,7 @@
           <button type="button" class="page-link" v-if="startPage >= 10" @click="setPrev">Previous</button>
         </li>
         <li class="page-item">
-          <button type="button" class="page-link" v-for="pageNumber in pages.slice(startPage, endPage)" :key="pageNumber" @click="page = pageNumber" v-bind:disabled="pageNumber == page">
+          <button type="button" class="page-link" v-for="pageNumber in pages.slice(startPage - 1, endPage)" :key="pageNumber" @click="setPage(pageNumber)" v-bind:disabled="pageNumber == page">
             {{ pageNumber }}
           </button>
         </li>
@@ -20,103 +20,59 @@
 </template>
 
 <script>
-import http from "@/util/http";
+// import axios from "axios";
 export default {
   created() {
-    let searchData = this.$store.getters.searchData;
-    http.get(`/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
-      console.log("Pagination", res.data);
-      this.totalCount = res.data;
-    });
+    console.log("총 개수", this.totalCount);
+  },
+  props: {
+    totalCount: Number,
+    page: Number,
   },
   data() {
     return {
-      // posts: [""],
-      page: 1,
+      // page: 1,
       perPage: 10,
       pages: [],
-      startPage: 0,
+      startPage: 1,
       endPage: 10,
-      totalCount: 0,
     };
   },
   methods: {
-    setTotalCount() {
-      let searchData = this.$store.getters.searchData;
-      console.log("searchData:", searchData);
-      http.get(`/tour/total?keyword=${searchData.keyword}&content=${searchData.content}&code=${searchData.code}`).then((res) => {
-        console.log("Pagination", res.data);
-        this.totalCount = res.data;
-        // return res.data;
-      });
-      this.page = 1;
-      this.startPage = 0;
-      this.endPage = 10;
-    },
-    setPages() {
-      this.pages = [];
-      let numberOfPages = (this.totalCount + this.perPage - 1) / this.perPage;
-      console.log("전체 페이지:", numberOfPages);
-      for (let index = this.startPage + 1; index < this.startPage + numberOfPages; index++) {
-        this.pages.push(index);
-      }
-    },
     setPrev() {
       this.startPage -= this.perPage;
       this.endPage = this.startPage + this.perPage;
-      this.page = this.startPage + 1;
+      // this.page = this.startPage;
+      this.$emit("setPage", this.startPage);
     },
     setNext() {
       this.startPage += this.perPage;
       this.endPage = this.startPage + this.perPage;
-      this.page = this.startPage + 1;
+      // this.page = this.startPage;
+      this.$emit("setPage", this.startPage);
+    },
+    setPage(value) {
+      console.log("페이지 변경", value);
+      this.$emit("setPage", value);
     },
   },
-  computed: {
-    // displayedPosts() {
-    //   return this.paginate(this.posts);
-    // },
-    checkSearchData() {
-      let searchData = this.$store.getters.searchData;
-      let data = {
-        keyword: searchData.keyword,
-        content: searchData.content,
-        code: searchData.code,
-      };
-      return data;
-    },
-  },
+  computed: {},
   watch: {
-    // posts() {
-    //   this.setPages();
+    // page() {
+    //   console.log("페이지 변경", this.page);
+    //   this.$emit("setPage", this.page);
     // },
-    checkSearchData() {
-      // this.keyword = this.checkSearchData.keyword;
-      this.setTotalCount();
-    },
     totalCount() {
-      this.setPages();
-    },
-    page() {
-      // let searchData = this.$store.getters.searchData;
-      // let data = {
-      //   keyword: searchData.keyword,
-      //   content: searchData.content,
-      //   page: this.page,
-      // };
-      console.log("페이지 변경");
-      console.log("현재 페이지", this.page);
-      // this.$store.commit("setSearchData", data);
-      this.$store.commit("setPage", this.page);
-      console.log(this.$store.getters.searchData.page);
-      console.log(this.$store.getters.page);
+      this.pages = [];
+      let numberOfPages = Math.floor((this.totalCount + this.perPage - 1) / this.perPage);
+      console.log("전체 페이지:", numberOfPages);
+      for (let index = this.startPage; index < this.startPage + numberOfPages; index++) {
+        // console.log(index);
+        this.pages.push(index);
+      }
     },
   },
-  filters: {
-    // trimWords(value) {
-    //   return value.split(" ").splice(0, 20).join(" ") + "...";
-    // },
-  },
+  filters: {},
 };
 </script>
 
