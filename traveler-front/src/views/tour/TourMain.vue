@@ -118,6 +118,7 @@ export default {
       });
     },
     setCode(code) {
+      this.page = 1;
       this.$store.commit("SET_CODE", { code });
     },
     setPage(value) {

@@ -47,7 +47,7 @@ export default {
     },
     setNext() {
       this.startPage += this.perPage;
-      this.endPage = this.startPage + this.perPage;
+      this.endPage = this.startPage + this.perPage - 1;
       // this.page = this.startPage;
       this.$emit("setPage", this.startPage);
     },
@@ -55,14 +55,7 @@ export default {
       console.log("페이지 변경", value);
       this.$emit("setPage", value);
     },
-  },
-  computed: {},
-  watch: {
-    // page() {
-    //   console.log("페이지 변경", this.page);
-    //   this.$emit("setPage", this.page);
-    // },
-    totalCount() {
+    setPages() {
       this.pages = [];
       let numberOfPages = Math.floor((this.totalCount + this.perPage - 1) / this.perPage);
       console.log("전체 페이지:", numberOfPages);
@@ -70,6 +63,15 @@ export default {
         // console.log(index);
         this.pages.push(index);
       }
+    },
+  },
+  computed: {},
+  watch: {
+    totalCount() {
+      this.$emit("setPage", 1);
+      this.startPage = 1;
+      this.endPage = 10;
+      this.setPages();
     },
   },
   filters: {},
