@@ -68,6 +68,9 @@ export default {
   computed: {},
   watch: {
     totalCount() {
+      this.$emit("setPage", 1);
+      this.startPage = 1;
+      this.endPage = 10;
       this.setPages();
     },
   },
