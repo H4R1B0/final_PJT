@@ -71,5 +71,7 @@ public interface MemberService {
 
     abstract MemberDto getMemberDto(String memberId) throws SQLException;
 
-    List<TourDto> getInterestList(String memberId) throws SQLException;
+    abstract int getInterestCount(Map<String, String> param) throws SQLException;
+
+    List<TourDto> getInterestList(Map<String, String> param) throws SQLException;
 }

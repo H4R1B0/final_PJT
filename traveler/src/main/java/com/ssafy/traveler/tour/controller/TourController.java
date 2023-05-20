@@ -36,8 +36,14 @@ public class TourController {
     private TourService tourService;
 
     //키워드에 따라 관광지 검색 (전체 조회)
-    @GetMapping("/search")
+    @GetMapping(value={"/search", "/search.total"})
     public ResponseEntity<?> getListByKeyword(@RequestParam Map<String, String> param, HttpServletRequest request) throws SQLException, JsonProcessingException {
+        //전체 관광지 총 개수 반환
+        if(request.getServletPath().equals("/tour/search.total")){
+            return ResponseEntity.ok().body(tourService.getTotalCount(param));
+        }
+
+        //관광지 검색
         //좋아요를 눌었는지 확인 하기 위한 토큰 가져오기
         final String token = request.getHeader("Authorization");
         log.debug("Authorization 헤더 : {}", token);
@@ -78,11 +84,11 @@ public class TourController {
 //    }
 
     //contentTypeId로 관광지 타입별 검색 (타입별로 조회)
-    @GetMapping("/total")
-    public ResponseEntity<?> getTotalCount(@RequestParam Map<String, String> param) throws SQLException {
-        log.debug(param.toString());
-        return ResponseEntity.ok().body(tourService.getTotalCount(param));
-    }
+//    @GetMapping("/total")
+//    public ResponseEntity<?> getTotalCount(@RequestParam Map<String, String> param) throws SQLException {
+//        log.debug(param.toString());
+//        return ResponseEntity.ok().body(tourService.getTotalCount(param));
+//    }
 
 
     //contentId로 관광지 검색 (상세 조회)

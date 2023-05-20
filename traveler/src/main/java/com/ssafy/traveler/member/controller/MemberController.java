@@ -16,12 +16,14 @@ import com.ssafy.traveler.member.model.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/member")
 @Slf4j
 @CrossOrigin("*")
 public class MemberController {
-
+    final int LIMIT = 10; //LIMIT만큼 불러옴
     @Autowired
     MemberService memberService;
 
@@ -146,10 +148,22 @@ public class MemberController {
      * @return
      * @throws SQLException
      */
-    @GetMapping("/interest/{memberId}")
-    public ResponseEntity<?> getInterestList(@PathVariable String memberId) throws SQLException {
+    @GetMapping(value = {"/interest", "/interest.total"})
+    public ResponseEntity<?> getInterestList(@RequestParam Map<String, String> param, HttpServletRequest request) throws SQLException {
+        log.debug(request.getServletPath());
+        //사용자가 좋아요한 총 개수 가져오기
+        if (request.getServletPath().equals("/member/interest.total")) {
+            log.debug("좋아요한 관광지 총 개수");
+            return ResponseEntity.ok(memberService.getInterestCount(param));
+        }
+
         log.debug("좋아요한 관광지 가져오기");
-        return ResponseEntity.ok(memberService.getInterestList(memberId));
+        //사용자가 좋아요한 관광지들 LIMIT만큼 가져오기
+        int page = Integer.parseInt(param.getOrDefault("page", "1"));
+        page = (page - 1) * LIMIT;
+        param.put("page", Integer.toString(page));
+        param.put("LIMIT", Integer.toString(LIMIT));
+        return ResponseEntity.ok(memberService.getInterestList(param));
     }
 
 }

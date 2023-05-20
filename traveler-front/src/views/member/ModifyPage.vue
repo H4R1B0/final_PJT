@@ -44,7 +44,7 @@ export default {
 .modify-container {
   width: 50%;
   height: auto;
-  /* margin: 20% auto; */
+  margin: 20% auto;
 }
 form input {
   width: 100%;

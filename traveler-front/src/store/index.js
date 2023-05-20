@@ -14,21 +14,18 @@ export default new Vuex.Store({
       keyword: "title",
       content: "",
       code: 0,
-      page: 1,
     },
     //jwt 토큰
     token: null,
     //사용자 정보
     memberInfo: {},
+    //회전정보
+    deg: 0,
   },
   getters: {
     //검색 데이터 getter
     searchData: (state) => {
       return state.SearchData;
-    },
-    //검색 page getter
-    page: (state) => {
-      return state.SearchData.page;
     },
   },
   mutations: {
@@ -42,11 +39,7 @@ export default new Vuex.Store({
         keyword: "title",
         content: "",
         code: 0,
-        page: 1,
       };
-    },
-    setPage: (state, page) => {
-      state.SearchData.page = page;
     },
     SET_MEMBER_INFO(state, payload) {
       console.log(payload);
@@ -65,6 +58,9 @@ export default new Vuex.Store({
       console.log(payload.code);
       state.SearchData.code = payload.code;
     },
+    SET_DEG(state) {
+      state.deg += 360;
+    },
   },
   actions: {
     //검색 데이터 commit
@@ -76,11 +72,6 @@ export default new Vuex.Store({
     initSearchData: ({ commit, state }) => {
       console.log(state);
       commit("initSearchData");
-    },
-    //검색 페이지 세팅
-    setPage: ({ commit, state }, page) => {
-      console.log(state);
-      commit("setPage", page);
     },
     // loginInfo = {member_id:"", member_password:""}
     login(context, loginInfo) {

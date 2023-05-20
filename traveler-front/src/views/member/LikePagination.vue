@@ -7,7 +7,7 @@
           <button type="button" class="page-link" v-if="startPage >= 10" @click="setPrev">Previous</button>
         </li>
         <li class="page-item">
-          <button type="button" class="page-link" v-for="pageNumber in pages.slice(startPage - 1, endPage)" :key="pageNumber" @click="setPage(pageNumber)" v-bind:disabled="pageNumber == page">
+          <button type="button" class="page-link" v-for="pageNumber in pages.slice(startPage - 1, endPage)" :key="pageNumber" @click="page = pageNumber" v-bind:disabled="pageNumber == page">
             {{ pageNumber }}
           </button>
         </li>
@@ -27,11 +27,10 @@ export default {
   },
   props: {
     totalCount: Number,
-    page: Number,
   },
   data() {
     return {
-      // page: 1,
+      page: 1,
       perPage: 10,
       pages: [],
       startPage: 1,
@@ -42,28 +41,21 @@ export default {
     setPrev() {
       this.startPage -= this.perPage;
       this.endPage = this.startPage + this.perPage;
-      // this.page = this.startPage;
-      this.$emit("setPage", this.startPage);
+      this.page = this.startPage;
     },
     setNext() {
       this.startPage += this.perPage;
       this.endPage = this.startPage + this.perPage;
-      // this.page = this.startPage;
-      this.$emit("setPage", this.startPage);
-    },
-    setPage(value) {
-      console.log("페이지 변경", value);
-      this.$emit("setPage", value);
+      this.page = this.startPage;
     },
   },
   computed: {},
   watch: {
-    // page() {
-    //   console.log("페이지 변경", this.page);
-    //   this.$emit("setPage", this.page);
-    // },
+    page() {
+      // console.log("페이지 변경", this.page);
+      this.$emit("setPage", this.page);
+    },
     totalCount() {
-      this.pages = [];
       let numberOfPages = Math.floor((this.totalCount + this.perPage - 1) / this.perPage);
       console.log("전체 페이지:", numberOfPages);
       for (let index = this.startPage; index < this.startPage + numberOfPages; index++) {

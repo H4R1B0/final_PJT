@@ -56,6 +56,7 @@ export default {
   },
   data() {
     return {
+      // deg: 0,
       hiddenToggle: true,
       keyword: "title",
       content: "",
@@ -89,6 +90,19 @@ export default {
     // },
     commitSearchData() {
       console.log("commitSearchData");
+      //회전 이스터에그
+      if (this.content == "돌려라~") {
+        console.log("회전");
+        // this.deg += 360;
+        this.$store.commit("SET_DEG");
+        return;
+      }
+      //삐딱한 이스터에그
+      if (this.content == "삐딱하게") {
+        document.body.style.transform = "rotate(2deg)";
+        return;
+      }
+      document.body.style.transform = "rotate(0)";
       let searchData = {
         keyword: this.keyword,
         content: this.content,

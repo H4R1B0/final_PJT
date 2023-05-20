@@ -82,5 +82,7 @@ public interface MemberMapper {
 
     void withdrawal(String memberId) throws SQLException;
 
-    List<TourDto> getInterestList(String memberId) throws SQLException;
+    List<TourDto> getInterestList(Map<String, String> param) throws SQLException;
+
+    int getInterestCount(Map<String, String> param) throws SQLException;
 }
