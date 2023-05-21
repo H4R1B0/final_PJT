@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import jwtDecode from "jwt-decode";
 export default {
   created() {
     // 테스트
@@ -141,6 +142,18 @@ export default {
   computed: {
     token() {
       return this.$store.state.token;
+    },
+  },
+  watch: {
+    token() {
+      //token decode
+      const decodeToken = jwtDecode(this.token);
+      const exp = decodeToken.exp;
+      const currentTime = Math.floor(new Date().getTime() / 100);
+      if (currentTime > exp) {
+        console.log("토큰 만료");
+        this.logout();
+      }
     },
   },
 };
