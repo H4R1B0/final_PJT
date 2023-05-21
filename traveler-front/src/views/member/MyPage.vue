@@ -35,16 +35,17 @@ export default {
 <style>
 .mypage-container {
   display: flex;
-  width: 80%;
+  width: 60%;
   height: 30rem;
   border-radius: 10px;
   overflow: hidden;
+  margin: 0 auto;
 }
 /* 왼쪽 컨테이너 */
 .left-container {
   display: flex;
   flex-direction: column;
-  background-color: blue;
+  background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   width: 30%;
   align-items: center;
@@ -65,7 +66,7 @@ button:not(:disabled) {
 /* 오른쪽 컨테이너 */
 .right-container {
   display: block;
-  background-color: grey;
+  background-color: rgba(185, 203, 235, 0.6);
   height: 100%;
   width: 70%;
 }

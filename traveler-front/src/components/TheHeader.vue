@@ -232,7 +232,7 @@ input {
   list-style: none;
   overflow: hidden;
   transition: height ease-out 0.2s 0s;
-  /* text-align: center; */
+  position: relative;
 }
 .board > .hidden-board > li {
   background-color: transparent;
