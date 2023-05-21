@@ -3,6 +3,7 @@
     <div class="left-container">
       <button @click="rendering('modify')" :disabled="renderView == 'modify'">개인 정보 변경</button>
       <button @click="rendering('like')" :disabled="renderView == 'like'">좋아요한 관광지</button>
+      <button @click="withdrawal">회원 탈퇴</button>
     </div>
     <div class="right-container">
       <modify-page v-if="renderView === 'modify'"></modify-page>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import http from "@/util/http";
 import ModifyPage from "./ModifyPage.vue";
 import LikePage from "./LikePage.vue";
 export default {
@@ -27,6 +29,25 @@ export default {
   methods: {
     rendering(value) {
       this.renderView = value;
+    },
+    withdrawal() {
+      this.rendering("withdrawal");
+      var result = confirm("회원 탈퇴 하시겠습니까");
+      // console.log(result);
+      if (result) {
+        http
+          .delete(`/member/${this.$store.state.memberInfo.member_id}`)
+          .then(() => {
+            this.$store.commit("CLEAR_MEMBER");
+            console.log("탈퇴 완료");
+            this.$router.push({ name: "main" });
+          })
+          .catch(() => {
+            console.log("탈퇴 오류");
+          });
+      } else {
+        this.rendering("modify");
+      }
     },
   },
 };

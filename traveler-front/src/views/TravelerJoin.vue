@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http";
 export default {
   data() {
     return {
@@ -51,8 +51,8 @@ export default {
         return;
       }
 
-      axios
-        .post("http://localhost/traveler/member", this.member)
+      http
+        .post("/member", this.member)
         .then((res) => {
           console.log(res.data);
           alert("회원가입이 완료되었습니다.");
@@ -65,7 +65,7 @@ export default {
     },
     async idCheck() {
       console.log("아이디 체크");
-      this.count = (await axios.get(`http://localhost/traveler/member/${this.member.member_id}`)).data;
+      this.count = (await http.get(`/member/${this.member.member_id}`)).data;
       // console.log("아이디 중복 개수:", count);
       if (this.member.member_id.length < 6 || this.member.member_id.length > 20) {
         this.msg = "6~20자의 영문 소문자, 숫자만 사용 가능합니다.";
@@ -110,7 +110,7 @@ export default {
       return true;
     },
     isValidName() {
-      const name_reg = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+      const name_reg = /^[가-힣]{2,4}|[a-zA-Z0-9]{4,16}$/;
       const name = document.getElementById("member_name").value;
       if (name == "") {
         this.alertMsg = "이름을 입력하세요.";
@@ -155,7 +155,7 @@ export default {
   margin: 0.5rem 0;
 }
 .join-content > form > input {
-  width: 20rem;
+  width: 100%;
   height: 2rem;
   border-radius: 5px;
   border: none;

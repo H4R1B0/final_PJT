@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 좋아요 페이지 -->
+    <!-- <label v-if="totalCount == 0"> 좋아요한 관광지가 없습니다. </label> -->
     <table class="like-page" align="center">
       <tr>
         <th></th>
@@ -9,6 +10,7 @@
       </tr>
       <like-page-item v-for="(attraction, index) in attractions" :key="attraction.contentId" :attraction="attraction" :index="(page - 1) * 10 + index + 1" @setInterest="setInterest"></like-page-item>
     </table>
+    <p v-if="totalCount == 0" style="text-align: center">좋아요한 관광지가 없습니다.</p>
     <like-pagination :page="page" :totalCount="totalCount" @setPage="setPage"></like-pagination>
   </div>
 </template>
