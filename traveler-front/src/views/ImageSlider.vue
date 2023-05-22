@@ -202,7 +202,7 @@ export default {
 }
 .attraction-image {
   height: 300px;
-  width: 200px;
+  width: 400px;
   border-radius: 10px;
 }
 
