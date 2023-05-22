@@ -5,10 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface ReviewService {
 
-    List<ReviewDto> selectAllReviews() throws SQLException;
+    List<ReviewDto> selectAllReviews(Map<String, String> param) throws SQLException;
+
+    //후기목록 전체 개수
+    int getTotalCount() throws SQLException;
 
     void writeReview(ReviewDto reviewDto) throws SQLException;
 

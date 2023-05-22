@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin("*")
 public class ReviewController {
-
+    final int LIMIT = 10; //LIMIT만큼 불러옴
     @Autowired
     ReviewService reviewService;
 
@@ -26,11 +27,18 @@ public class ReviewController {
      * @return List<ReviewDto>
      * @throws SQLException
      */
-    @GetMapping
-    public ResponseEntity<?> selectAllReviews() throws SQLException {
+    @GetMapping(value = {"", "/total"})
+    public ResponseEntity<?> selectAllReviews(@RequestParam Map<String, String> param, HttpServletRequest request) throws SQLException {
         log.debug("후기 목록 가져오기");
-
-        return ResponseEntity.ok(reviewService.selectAllReviews());
+        if(request.getServletPath().equals("/board/review/total")){
+            log.debug("후기 목록 총 개수");
+            return ResponseEntity.ok(reviewService.getTotalCount());
+        }
+        int page = Integer.parseInt(param.getOrDefault("page", "1"));
+        page = (page - 1) * LIMIT;
+        param.put("page", Integer.toString(page));
+        param.put("LIMIT", Integer.toString(LIMIT));
+        return ResponseEntity.ok(reviewService.selectAllReviews(param));
     }
 
     /**
@@ -48,7 +56,9 @@ public class ReviewController {
         return ResponseEntity.ok().build();
     }
 
-    /**후기 게시판 상세 조회
+    /**
+     * 후기 게시판 상세 조회
+     *
      * @param no 상세 조회할 번호
      * @return
      * @throws SQLException

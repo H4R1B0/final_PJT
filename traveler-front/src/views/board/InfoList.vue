@@ -25,7 +25,7 @@
         <button @click="goRegist" class="info-regist-button">공지 등록</button>
       </div>
     </div>
-    <info-pagination :page="page" :totalCount="totalCount" @setPage="setPage"></info-pagination>
+    <board-pagination :page="page" :totalCount="totalCount" @setPage="setPage"></board-pagination>
     <!-- <div>게시글이 없습니다.</div> -->
   </section>
 </template>
@@ -33,13 +33,13 @@
 <script>
 import http from "@/util/http";
 import InfoListItem from "@/views/board/InfoListItem";
-import InfoPagination from "./InfoPagination.vue";
+import BoardPagination from "./BoardPagination.vue";
 
 export default {
   name: "InfoList",
   components: {
     InfoListItem,
-    InfoPagination,
+    BoardPagination,
   },
   data() {
     return {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -15,8 +16,13 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewMapper reviewMapper;
 
     @Override
-    public List<ReviewDto> selectAllReviews() throws SQLException {
-        return reviewMapper.selectAllReviews();
+    public List<ReviewDto> selectAllReviews(Map<String, String> param) throws SQLException {
+        return reviewMapper.selectAllReviews(param);
+    }
+
+    @Override
+    public int getTotalCount() throws SQLException {
+        return reviewMapper.getTotalCount();
     }
 
     @Override

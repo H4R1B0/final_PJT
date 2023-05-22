@@ -19,11 +19,12 @@
             <th>작성일</th>
           </tr>
         </thead>
-        <review-list-item class="review-item" v-for="(review, idx) in reviews" :key="review.no" :reviewComponent="review" :idx="idx"></review-list-item>
+        <review-list-item class="review-item" v-for="(review, idx) in reviews" :key="review.no" :reviewComponent="review" :idx="idx" :page="page"></review-list-item>
       </table>
       <div class="review-regist">
         <button @click="goRegist" class="review-regist-button">후기 등록</button>
       </div>
+      <board-pagination :page="page" :totalCount="totalCount" @setPage="setPage"></board-pagination>
     </div>
   </section>
 </template>
@@ -31,28 +32,48 @@
 <script>
 import http from "@/util/http";
 import ReviewListItem from "@/views/board/ReviewListItem";
-
+import BoardPagination from "./BoardPagination.vue";
 export default {
   name: "ReviewList",
   components: {
     ReviewListItem,
+    BoardPagination,
   },
   data() {
     return {
       reviews: [],
+      page: 1,
+      totalCount: 0,
     };
   },
   created() {
-    http.get(`/board/review`).then((response) => {
+    http.get("/board/review/total").then((response) => {
       console.log(response);
-      this.reviews = response.data;
-      console.log(this.reviews);
+      this.totalCount = response.data;
+      // console.log(this.infos);
     });
+    this.setReviews();
   },
   methods: {
     goRegist() {
       if (this.$store.state.token == null) alert("로그인 후 이용 가능한 서비스입니다.");
       else this.$router.push({ name: "review-write" });
+    },
+    setPage(value) {
+      // console.log("자식에게 받은 page:", value);
+      this.page = value;
+    },
+    setReviews() {
+      http.get(`/board/review?page=${this.page}`).then((response) => {
+        console.log(response);
+        this.reviews = response.data;
+        console.log(this.reviews);
+      });
+    },
+  },
+  watch: {
+    page() {
+      this.setReviews();
     },
   },
 };
