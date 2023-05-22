@@ -18,8 +18,13 @@
       <select class="search-keyword" name="keyword" v-model="keyword">
         <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
-      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" />
+      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" @input="submitAutoComplete" />
       <input type="button" class="search-image" v-on:click="commitSearchData" />
+      <div class="auto-complete disabled">
+        <div @click="searchContentAdd(res)" style="cursor: pointer" v-for="(res, i) in result" :key="i">
+          {{ res }}
+        </div>
+      </div>
       <!-- <input type="button" class="search-image" /> -->
     </div>
     <!-- 게시판 -->
@@ -42,6 +47,8 @@
 
 <script>
 // import jwtDecode from "jwt-decode";
+import titles from "@/util/titles";
+import addresses from "@/util/addresses";
 export default {
   created() {
     // 테스트
@@ -61,6 +68,7 @@ export default {
       hiddenToggle: true,
       keyword: "title",
       content: "",
+      result: null,
       page: 1,
       code: 0,
       selectList: [
@@ -90,6 +98,8 @@ export default {
     //   this.$store.commit("setCode", this.code);
     // },
     commitSearchData() {
+      window.document.querySelector(".auto-complete").classList.add("disabled");
+
       console.log("commitSearchData");
       //회전 이스터에그
       if (this.content == "돌려라~") {
@@ -138,13 +148,38 @@ export default {
         console.log(err);
       });
     },
+    submitAutoComplete() {
+      const autoComplete = document.querySelector(".auto-complete");
+      if (this.content != "") {
+        autoComplete.classList.remove("disabled");
+        if (this.keyword == "title") {
+          this.result = titles.filter((title) => {
+            return title.match(new RegExp("^" + this.content, "i"));
+          });
+        } else {
+          this.result = addresses.filter((address) => {
+            return address.match(new RegExp("^" + this.content, "i"));
+          });
+        }
+      } else {
+        autoComplete.classList.add("disabled");
+      }
+    },
+    searchContentAdd(content) {
+      console.log(content);
+      this.content = content;
+    },
   },
   computed: {
     token() {
       return this.$store.state.token;
     },
   },
-  watch: {},
+  watch: {
+    keyword() {
+      this.submitAutoComplete();
+    },
+  },
 };
 </script>
 
@@ -194,13 +229,14 @@ header {
 /* 검색 */
 .search {
   position: relative;
+  height: 2rem;
 }
 .search > .search-image {
   position: absolute;
   right: 0px;
 }
 .search-keyword {
-  height: 32px;
+  height: 2.1rem;
   border: 1px solid #bcbcbc;
 }
 input {
@@ -208,7 +244,7 @@ input {
 }
 .search > .search-input {
   border: 1px solid #bcbcbc;
-  height: 32px;
+  height: 100%;
   width: 12rem;
   outline: none;
 }
@@ -222,7 +258,22 @@ input {
   border: none;
   cursor: pointer;
 }
-
+/* 자동완성 */
+.auto-complete {
+  width: 14.8rem;
+  height: 6rem;
+  font-size: 0.8rem;
+  overflow: scroll;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* opacity: 0.6; */
+  border-radius: 0 0 10px 10px;
+}
+.auto-complete > * {
+  margin-top: 10px;
+}
+.disabled {
+  display: none;
+}
 /* 게시판 */
 .board {
   height: 50px;
