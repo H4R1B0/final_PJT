@@ -6,6 +6,20 @@ const instance = axios.create({
 });
 //axios request마다 header Authorization 헤더 추가
 instance.interceptors.request.use((config) => {
+  if (`${store.state.token}`) return config;
+  //토큰 만료 확인
+  const currentTime = new Date().getTime() / 1000;
+  console.log("현재 시간:", new Date(currentTime * 1000));
+  console.log("토큰 만료 시간:", new Date(`${store.state.exp}` * 1000));
+  if (currentTime > `${store.state.exp}`) {
+    console.log("토큰 만료");
+    alert("세션이 만료되었습니다.");
+    store.commit("CLEAR_MEMBER");
+  } else {
+    console.log("토큰 유효");
+  }
+
+  //헤더에 토큰 담기
   config.headers["Authorization"] = `Bearer ${store.state.token}`;
   console.log("config:", config);
   return config;
