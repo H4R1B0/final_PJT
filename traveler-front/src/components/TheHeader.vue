@@ -61,6 +61,12 @@ export default {
     this.content = "";
     this.code = 0;
     this.page = 1;
+    window.addEventListener("click", function (e) {
+      // console.log(e.target.classList.value == "search-input");
+      if (e.target.classList.value != "search-input") {
+        window.document.querySelector(".auto-complete").classList.add("disabled");
+      }
+    });
   },
   data() {
     return {
