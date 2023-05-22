@@ -7,17 +7,23 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class InfoServiceImpl implements InfoService{
+public class InfoServiceImpl implements InfoService {
 
     @Autowired
     private InfoMapper infoMapper;
 
     //공지사항 전체 조회
     @Override
-    public List<InfoDto> selectAll() throws SQLException {
-        return infoMapper.selectAll();
+    public List<InfoDto> selectAll(Map<String, String> param) throws SQLException {
+        return infoMapper.selectAll(param);
+    }
+
+    @Override
+    public int getTotalCount() throws SQLException {
+        return infoMapper.getTotalCount();
     }
 
     //공지사항 상세 조회

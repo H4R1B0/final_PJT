@@ -8,13 +8,20 @@
     <select id="selectAll" resultType="InfoDto">
         select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount
         from info_board
+        LIMIT ${LIMIT} OFFSET ${page}
+    </select>
+
+    <!-- 공지사항 총 개수 -->
+    <select id="getTotalCount" resultType="int">
+        select count(*)
+        from info_board
     </select>
 
     <!-- 공지사항 상세 조회 -->
     <select id="selectByNo" parameterType="int" resultType="InfoDto">
         select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount, content
         from info_board
-        where no=#{no}
+        where no = #{no}
     </select>
 
     <!-- 공지사항 등록 -->
@@ -26,7 +33,8 @@
     <!-- 공지사항 수정 -->
     <update id="updateInfoBoard" parameterType="InfoDto">
         update info_board
-        set title = #{title}, content = #{content}
+        set title   = #{title},
+            content = #{content}
         where no = #{no}
     </update>
 
@@ -40,7 +48,7 @@
     <!-- 조회수 증가 -->
     <update id="hit" parameterType="int">
         update info_board
-        set read_count = read_count +1
+        set read_count = read_count + 1
         where no = #{no}
     </update>
 
