@@ -65,6 +65,8 @@ export default {
       // console.log(e.target.classList.value == "search-input");
       if (e.target.classList.value != "search-input") {
         window.document.querySelector(".auto-complete").classList.add("disabled");
+      } else {
+        window.document.querySelector(".auto-complete").classList.remove("disabled");
       }
     });
   },
