@@ -62,12 +62,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+li {
+  list-style: none;
+}
 .tour-list-item {
   display: flex;
-  flex-basis: 30%;
+  flex-basis: 45%;
   margin-bottom: 2em;
-  margin-left: 10%;
+  padding-left: 7rem;
+  /* margin-left: 10%; */
   cursor: pointer;
 }
 .item-set {
@@ -91,9 +95,10 @@ export default {
 }
 .item-title {
   font-weight: bold;
-  width: 120px;
+  width: 12rem;
+  padding-top: 2rem;
 }
 .item-addr {
-  width: 100px;
+  width: 14rem;
 }
 </style>

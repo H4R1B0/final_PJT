@@ -32,15 +32,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* 배너 */
 .main-banner-text {
   font-family: Cafe24Ssurround;
   position: relative;
   text-align: center;
   color: white;
-  font-size: 2rem;
-  margin-top: 2rem;
+  font-size: 3rem;
+  margin-top: 7rem;
   z-index: -1;
 }
 /* 베너 하이라이트 */

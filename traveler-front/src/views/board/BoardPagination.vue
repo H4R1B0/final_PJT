@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .pagination {
   display: flex;
   border-radius: 10px;

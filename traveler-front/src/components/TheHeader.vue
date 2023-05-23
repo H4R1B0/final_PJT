@@ -130,7 +130,8 @@ export default {
       };
       this.$store.commit("setSearchData", searchData);
       this.$router.push({ name: "tour" }).catch(() => {
-        window.location.reload;
+        console.log("reload");
+        // window.location.reload;
       });
       // keyword vuex에 저장
       // this.$store.commit("setKeyword", this.keyword);
@@ -191,7 +192,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
@@ -237,29 +238,35 @@ header {
 /* 검색 */
 .search {
   position: relative;
-  height: 2rem;
+  height: 2.5rem;
+  /* border-radius: 20px; */
+  /* overflow: hidden; */
 }
 .search > .search-image {
   position: absolute;
-  right: 0px;
+  right: 5px;
+  top: 2px;
 }
 .search-keyword {
-  height: 2.1rem;
+  height: 100%;
   border: 1px solid #bcbcbc;
+  border-radius: 10px 0 0 10px;
 }
 input {
   vertical-align: middle;
 }
 .search > .search-input {
   border: 1px solid #bcbcbc;
-  height: 100%;
-  width: 12rem;
+  height: 95% !important;
+  width: 20rem;
   outline: none;
+  border-radius: 0 10px 10px 0;
+  padding-left: 0.5rem;
 }
 .search-image {
-  background-size: 32px 32px;
-  width: 32px;
-  height: 32px;
+  background-size: 38px 38px;
+  width: 35px;
+  height: 35px;
   background-image: url("https://cdn1.iconfinder.com/data/icons/unicons-line-vol-5/24/search-alt-512.png");
   background-color: transparent;
   background-repeat: no-repeat;
@@ -268,13 +275,20 @@ input {
 }
 /* 자동완성 */
 .auto-complete {
-  width: 14.8rem;
+  width: 23.7rem;
   height: 6rem;
   font-size: 0.8rem;
   overflow: scroll;
   background-color: rgba(255, 255, 255, 0.5);
   /* opacity: 0.6; */
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  /* padding-left: 0.5rem; */
+}
+.auto-complete > * {
+  padding-left: 0.5rem;
+}
+.auto-complete::-webkit-scrollbar {
+  display: none;
 }
 .auto-complete > * {
   margin-top: 10px;

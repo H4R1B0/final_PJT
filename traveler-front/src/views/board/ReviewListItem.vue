@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .review-item > td {
   padding: 7px 1px 5px 4px;
 }
