@@ -24,7 +24,7 @@ li {
   padding: 0;
 }
 a:link {
-  color: pink;
+  color: black;
 }
 a:visited {
   color: black;

@@ -163,8 +163,10 @@ export default {
   border-radius: 5px;
   border: none;
   font-size: 1rem;
+  padding-left: 0.5rem;
 }
 .join-button {
   background-color: #b9cbeb;
+  cursor: pointer;
 }
 </style>

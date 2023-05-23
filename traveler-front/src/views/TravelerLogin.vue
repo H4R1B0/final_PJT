@@ -13,6 +13,7 @@
       <br />
       <!-- <input type="checkbox" v-model="member.save_id" />아이디 기억하기
       <br /> -->
+      <br />
       <span>아직 회원이 아니신가요? </span>
       <router-link :to="{ name: 'join' }">회원가입 </router-link>
       <br />
@@ -72,8 +73,10 @@ export default {
   border-radius: 5px;
   border: none;
   font-size: 1rem;
+  padding-left: 0.5rem;
 }
 .login-button {
   background-color: #b9cbeb;
+  cursor: pointer;
 }
 </style>
