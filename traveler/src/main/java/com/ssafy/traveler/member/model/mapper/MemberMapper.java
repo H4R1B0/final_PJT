@@ -85,4 +85,6 @@ public interface MemberMapper {
     List<TourDto> getInterestList(Map<String, String> param) throws SQLException;
 
     int getInterestCount(Map<String, String> param) throws SQLException;
+
+    int getAdminCount(String memberId) throws SQLException;
 }

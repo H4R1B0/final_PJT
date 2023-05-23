@@ -64,8 +64,21 @@ export default {
         console.log(this.infos);
       });
     },
-    goRegist() {
-      this.$router.push({ name: "info-write" });
+    async goRegist() {
+      let cnt = 0;
+      try {
+        cnt = await http.get(`/member/admin/${this.$store.state.memberInfo.member_id}`).then((res) => {
+          return res.data;
+        });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        if (cnt == 1) {
+          this.$router.push({ name: "info-write" });
+        } else {
+          alert("관리자만 작성할 수 있습니다.");
+        }
+      }
     },
     setPage(value) {
       // console.log("자식에게 받은 page:", value);

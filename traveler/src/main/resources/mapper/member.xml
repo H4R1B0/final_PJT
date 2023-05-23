@@ -39,6 +39,13 @@
         where member_id = #{memberId}
     </select>
 
+<!--  admin 개수 반환  -->
+    <select id="getAdminCount" parameterType="String" resultType="Int">
+        select count(*)
+        from member
+        where member_id=#{memberId} and role='admin';
+    </select>
+
     <!-- 회원 정보 수정 -->
     <update id="modify" parameterType="map">
         update member

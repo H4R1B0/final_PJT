@@ -100,6 +100,19 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMemberDto(memberId));
     }
 
+    /**
+     * memberId가 admin 권한을 가지고 있는지 확인
+     *
+     * @param memberId
+     * @return
+     * @throws SQLException
+     */
+    @GetMapping("/admin/{memberId}")
+    public ResponseEntity<?> getAdminCount(@PathVariable String memberId) throws SQLException {
+        log.debug("admin 확인");
+        return ResponseEntity.ok().body(memberService.getAdminCount(memberId));
+    }
+
 
     /**
      * 회원 탈퇴
@@ -167,6 +180,5 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getInterestList(param));
     }
 
-    //토큰 만료로 인한 토큰 재발급
 
 }
