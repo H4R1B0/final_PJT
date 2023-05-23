@@ -35,13 +35,16 @@ export default {
 <style scoped>
 /* 배너 */
 .main-banner-text {
-  font-family: Cafe24Ssurround;
   position: relative;
   text-align: center;
   color: white;
   font-size: 3rem;
+  /* font-weight: bold; */
   margin-top: 7rem;
   z-index: -1;
+}
+.main-banner-text > * {
+  font-family: Cafe24Ssurround;
 }
 /* 베너 하이라이트 */
 .highlight {

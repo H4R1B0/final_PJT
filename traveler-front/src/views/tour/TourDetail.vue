@@ -85,7 +85,7 @@ export default {
 /* 제목 */
 .attraction-title {
   display: flex;
-  padding-top: 2%;
+  padding-top: 3rem;
   justify-content: center;
 }
 .attraction-title > .icon-image {
@@ -95,6 +95,7 @@ export default {
 /* 조회수 */
 .attraction-readcount {
   float: right;
+  padding-top: 2rem;
   padding-right: 10%;
 }
 /* 사진 */
@@ -111,5 +112,8 @@ export default {
 }
 .attraction-image > h3 {
   text-align: center;
+}
+.attraction-addr {
+  padding-top: 1rem;
 }
 </style>
