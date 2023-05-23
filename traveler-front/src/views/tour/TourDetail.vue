@@ -70,6 +70,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: Cafe24SsurroundAir;
+}
 /* 컨테이너 */
 .attraction {
   height: auto;

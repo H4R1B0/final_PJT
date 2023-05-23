@@ -8,7 +8,7 @@
   </tr>
 </template>
 
-<script>
+<script scoped>
 export default {
   props: {
     infoComponent: Object,

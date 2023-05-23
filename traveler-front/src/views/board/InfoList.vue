@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: Cafe24SsurroundAir;
 }
@@ -102,13 +102,16 @@ export default {
 } */
 /* table class */
 .info-position {
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   width: 70%;
   text-align: center;
   margin: auto;
 }
 .info-item {
   cursor: pointer;
+}
+.info-item:hover {
+  background: #f3f3ff;
 }
 .info-regist {
   text-align: right;

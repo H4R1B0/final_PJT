@@ -1,61 +1,61 @@
 <template>
   <section class="tour-list-container" v-cloak>
     <!-- <component-to-re-render key="router.state" /> -->
-    <h1 class="tour-list-title">관광지 조회</h1>
+    <p class="tour-list-title">관광지 조회</p>
     <!-- 12 자연/휴양림, 14 문화/박물관, 15 축제, 25 여행 프로그램, 28 스포츠/레저, 32 숙박, 38 시장, 39 맛집 -->
     <ul class="category">
       <li>
         <button @click="setCode(0)" :disabled="checkSearchData.code == 0">
           <img src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-4/24/home-512.png" alt="" />
-          전체
+          <label>전체</label>
         </button>
       </li>
       <li @click="setCode(12)">
         <button @click="setCode(12)" :disabled="checkSearchData.code == 12">
           <img src="https://cdn2.iconfinder.com/data/icons/spring-flat-11/272/spring-tree-plant-garden-nature-wood-forest-1024.png" alt="" />
-          자연
+          <label>자연</label>
         </button>
       </li>
       <li @click="setCode(14)">
         <button @click="setCode(14)" :disabled="checkSearchData.code == 14">
           <img src="https://cdn-icons-png.flaticon.com/512/554/554099.png" alt="" />
-          문화
+          <label>문화</label>
         </button>
       </li>
       <li @click="setCode(15)">
         <button @click="setCode(15)" :disabled="checkSearchData.code == 15">
           <img src="https://cdn3.iconfinder.com/data/icons/new-year-2102/200/new_year-gr-02-1024.png" alt="" />
-          축제
+          <label>축제</label>
         </button>
       </li>
       <li @click="setCode(25)">
         <button @click="setCode(25)" :disabled="checkSearchData.code == 25">
           <img src="https://cdn-icons-png.flaticon.com/512/2831/2831972.png" alt="" />
-          여행
+          <label>여행</label>
         </button>
       </li>
       <li @click="setCode(28)">
         <button @click="setCode(28)" :disabled="checkSearchData.code == 28">
           <img src="https://cdn-icons-png.flaticon.com/512/1944/1944142.png" alt="" />
-          스포츠
+          <label>스포츠</label>
         </button>
       </li>
       <li @click="setCode(32)">
         <button @click="setCode(32)" :disabled="checkSearchData.code == 32">
           <img src="https://cdn-icons-png.flaticon.com/512/9296/9296428.png" alt="" />
-          숙박
+          <label>숙박</label>
         </button>
       </li>
       <li @click="setCode(38)">
         <button @click="setCode(38)" :disabled="checkSearchData.code == 38">
           <img src="https://cdn-icons-png.flaticon.com/512/9420/9420511.png" alt="" />
-          시장
+          <label>시장</label>
         </button>
       </li>
       <li @click="setCode(39)">
         <button @click="setCode(39)" :disabled="checkSearchData.code == 39">
           <img src="https://cdn-icons-png.flaticon.com/512/281/281631.png" alt="" />
-          맛집
+          <label>맛집</label>
         </button>
       </li>
     </ul>
@@ -155,10 +155,18 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: Cafe24SsurroundAir;
+}
 li,
 ol,
 ul {
   list-style: none;
+}
+.tour-list-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 1.2rem;
 }
 .category {
   display: flex;
@@ -174,12 +182,16 @@ ul {
 }
 .category > li > button {
   background-color: transparent;
-  border: 1px solid #52c7c7;
+  border: 1px solid rgb(97, 118, 161);
   border-radius: 10px;
   padding: 0.3rem;
 }
 .category > li > button > * {
   vertical-align: middle;
+}
+.category > li > button > label {
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 .tour-list-title {
   padding: 4rem 0rem 0rem 5rem;

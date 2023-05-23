@@ -47,11 +47,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+* {
+  font-family: Cafe24SsurroundAir;
+}
 .login-content {
   width: 20rem;
   height: auto;
-  margin: 3rem auto 0;
+  margin: 11rem auto 0;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 10px;
   padding: 2rem;

@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: Cafe24SsurroundAir;
 }
@@ -96,13 +96,16 @@ export default {
 }
 /* table class */
 .review-position {
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   width: 70%;
   text-align: center;
   margin: auto;
 }
 .review-item {
   cursor: pointer;
+}
+.review-item:hover {
+  background: #dbe9fd;
 }
 .review-regist {
   text-align: right;
