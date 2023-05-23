@@ -84,4 +84,9 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.getInterestList(param);
     }
 
+    @Override
+    public int getAdminCount(String memberId) throws SQLException {
+        return memberMapper.getAdminCount(memberId);
+    }
+
 }
