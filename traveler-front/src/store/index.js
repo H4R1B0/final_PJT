@@ -79,35 +79,32 @@ export default new Vuex.Store({
       commit("initSearchData");
     },
     // loginInfo = {member_id:"", member_password:""}
-    login(context, loginInfo) {
+    async login(context, loginInfo) {
       //아이디 패스워드 정보 가지고 로그인
       //로그인 성공시 userInfo, token 정보 세팅
-      http
-        .post("/member/login", loginInfo)
-        .then((res) => {
-          console.log("로그인 응답 데이터:", res.data);
-          const token = res.data.token;
-          context.commit("SET_TOKEN", { token });
+      try {
+        const res = await http
+          .post("/member/login", loginInfo);
+        console.log("로그인 응답 데이터:", res.data);
+        const token = res.data.token;
+        context.commit("SET_TOKEN", { token });
 
-          //token decode
-          const decodeToken = jwtDecode(token);
-          console.log("decode token:", decodeToken);
-          context.commit("SET_MEMBER_INFO", {
-            member_id: decodeToken.member_id,
-            member_name: decodeToken.member_name,
-            email: decodeToken.email,
-          });
-          console.log(this.state.memberInfo);
-          //만료 기간 설정
-          context.commit("SET_EXP", { exp: decodeToken.exp });
-          // this.$router.push("/");
-          return true;
-        })
-        .catch(() => {
-          console.log("로그인 실패");
-          return false;
-          // alert("아이디 또는 비밀번호를 다시 확인 해주세요.");
+        //token decode
+        const decodeToken = jwtDecode(token);
+        console.log("decode token:", decodeToken);
+        context.commit("SET_MEMBER_INFO", {
+          member_id: decodeToken.member_id,
+          member_name: decodeToken.member_name,
+          email: decodeToken.email,
         });
+        console.log(this.state.memberInfo);
+        //만료 기간 설정
+        context.commit("SET_EXP", { exp: decodeToken.exp });
+        return true;
+      } catch {
+        console.log("로그인 실패");
+        return false;
+      }
     },
     modify(context, modifyInfo) {
       http
