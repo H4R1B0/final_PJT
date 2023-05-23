@@ -28,6 +28,9 @@
         <input class="result-toll" type="text" readonly :value="route.toll" />
       </p>
     </div>
+    <!-- <div v-else-if="document.querySelector('.time-calculate').disabled">
+      <h3>계산 중...</h3>
+    </div> -->
     <!-- <input type="text" id="detailAddress" placeholder="상세주소" /> -->
     <!-- <input type="text" id="extraAddress" placeholder="참고항목" /> -->
   </div>
@@ -91,6 +94,7 @@ export default {
       }).open();
     },
     getLatLng() {
+      document.querySelector(".time-calculate").disabled = true;
       let geocoder = new window.kakao.maps.services.Geocoder();
 
       let callback = (result, status) => {
@@ -151,6 +155,11 @@ export default {
     },
     getToll(toll) {
       return toll + "원";
+    },
+  },
+  watch: {
+    address() {
+      document.querySelector(".time-calculate").disabled = false;
     },
   },
 };

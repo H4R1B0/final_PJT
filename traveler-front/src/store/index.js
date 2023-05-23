@@ -17,6 +17,7 @@ export default new Vuex.Store({
     },
     //jwt 토큰
     token: null,
+    exp: "",
     //사용자 정보
     memberInfo: {},
     //회전정보
@@ -48,6 +49,10 @@ export default new Vuex.Store({
     SET_TOKEN(state, payload) {
       console.log(payload);
       state.token = payload.token;
+    },
+    SET_EXP(state, payload) {
+      console.log(payload);
+      state.exp = payload.exp;
     },
     CLEAR_MEMBER(state) {
       state.memberInfo = {};
@@ -93,6 +98,8 @@ export default new Vuex.Store({
             email: decodeToken.email,
           });
           console.log(this.state.memberInfo);
+          //만료 기간 설정
+          context.commit("SET_EXP", { exp: decodeToken.exp });
           // this.$router.push("/");
           return true;
         })
@@ -119,6 +126,8 @@ export default new Vuex.Store({
             email: decodeToken.email,
           });
           console.log(this.state.memberInfo);
+          //만료 기간 설정
+          context.commit("SET_EXP", { exp: decodeToken.exp });
           return true;
         })
         .catch(() => {

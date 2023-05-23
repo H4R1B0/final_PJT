@@ -1,7 +1,11 @@
 <template>
   <li class="tour-list-item" @click="goTourDetail">
     <div class="item-set">
-      <img class="item-image" :src="attraction.img == '' ? 'https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-6/32/no-image-512.png' : attraction.img" alt="관광지" />
+      <!-- <img class="item-image" :src="attraction.img == '' ? 'https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-6/32/no-image-512.png' : attraction.img" alt="관광지" /> -->
+      <vue-img-loader class="item-image" :src="attraction.img == '' ? 'https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-6/32/no-image-512.png' : attraction.img" alt="관광지">
+        <h1>로딩중...</h1>
+      </vue-img-loader>
+
       <img class="item-heart" :src="heartState ? require('@/assets/img/fill_heart.png') : require('@/assets/img/white_heart.png')" alt="empty_heart" @click.stop="setInterest" />
     </div>
     <ul>
@@ -12,8 +16,12 @@
 </template>
 
 <script>
+import VueImgLoader from "vue-img-loader";
 import http from "@/util/http";
 export default {
+  components: {
+    VueImgLoader,
+  },
   data() {
     return {
       heartState: false,

@@ -63,7 +63,7 @@ export default {
   margin: 0.5rem 0;
 }
 .login-content > form > input {
-  width: 20rem;
+  width: 100%;
   height: 2rem;
   border-radius: 5px;
   border: none;

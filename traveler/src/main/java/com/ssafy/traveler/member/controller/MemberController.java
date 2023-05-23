@@ -117,6 +117,7 @@ public class MemberController {
 
     /**
      * 회원 정보 수정
+     * 토큰에 있는 개인 정보 수정해서 재발급
      *
      * @param data
      * @return
@@ -165,5 +166,7 @@ public class MemberController {
         param.put("LIMIT", Integer.toString(LIMIT));
         return ResponseEntity.ok(memberService.getInterestList(param));
     }
+
+    //토큰 만료로 인한 토큰 재발급
 
 }

@@ -1,6 +1,6 @@
 <template>
   <tr class="review-item" @click="goInfoDetail">
-    <td>{{ idx + 1 }}</td>
+    <td>{{ (page - 1) * 10 + idx + 1 }}</td>
     <td>{{ reviewComponent.title }}</td>
     <td>{{ reviewComponent.writer }}</td>
     <td>{{ reviewComponent.readCount }}</td>
@@ -13,6 +13,9 @@ export default {
   props: {
     reviewComponent: Object,
     idx: {
+      type: Number,
+    },
+    page: {
       type: Number,
     },
   },

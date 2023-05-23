@@ -1,6 +1,6 @@
 <template>
   <tr class="info-item" @click="goInfoDetail">
-    <td>{{ idx + 1 }}</td>
+    <td>{{ (page - 1) * 10 + idx + 1 }}</td>
     <td>{{ infoComponent.title }}</td>
     <td>{{ infoComponent.writer }}</td>
     <td>{{ infoComponent.readCount }}</td>
@@ -13,6 +13,9 @@ export default {
   props: {
     infoComponent: Object,
     idx: {
+      type: Number,
+    },
+    page: {
       type: Number,
     },
   },

@@ -8,23 +8,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/board/info")
 @Slf4j
 @CrossOrigin("*")
 public class InfoController {
+    final int LIMIT = 10; //LIMIT만큼 불러옴
 
     @Autowired
     private InfoService infoService;
 
     //전체 조회
-    @GetMapping
-    public ResponseEntity<?> getInfoList() throws SQLException {
-        log.debug("공지사항 전체 조회");
-        return ResponseEntity.ok(infoService.selectAll());
+    @GetMapping(value = {"", "/total"})
+    public ResponseEntity<?> getInfoList(@RequestParam Map<String, String> param, HttpServletRequest request) throws SQLException {
+        log.debug("공지사항 조회");
+        log.debug(request.getServletPath());
+        if(request.getServletPath().equals("/board/info/total")){
+            log.debug("공지 사항 총 개수");
+            return ResponseEntity.ok(infoService.getTotalCount());
+        }
+        int page = Integer.parseInt(param.getOrDefault("page", "1"));
+        page = (page - 1) * LIMIT;
+        param.put("page", Integer.toString(page));
+        param.put("LIMIT", Integer.toString(LIMIT));
+        return ResponseEntity.ok(infoService.selectAll(param));
     }
 
     //상세 조회

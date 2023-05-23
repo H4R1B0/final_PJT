@@ -19,12 +19,13 @@
             <th>작성일</th>
           </tr>
         </thead>
-        <info-list-item class="info-item" v-for="(info, idx) in infos" :key="info.no" :infoComponent="info" :idx="idx"></info-list-item>
+        <info-list-item class="info-item" v-for="(info, idx) in infos" :key="info.no" :infoComponent="info" :idx="idx" :page="page"></info-list-item>
       </table>
       <div class="info-regist">
         <button @click="goRegist" class="info-regist-button">공지 등록</button>
       </div>
     </div>
+    <board-pagination :page="page" :totalCount="totalCount" @setPage="setPage"></board-pagination>
     <!-- <div>게시글이 없습니다.</div> -->
   </section>
 </template>
@@ -32,27 +33,48 @@
 <script>
 import http from "@/util/http";
 import InfoListItem from "@/views/board/InfoListItem";
+import BoardPagination from "./BoardPagination.vue";
 
 export default {
   name: "InfoList",
   components: {
     InfoListItem,
+    BoardPagination,
   },
   data() {
     return {
       infos: [],
+      page: 1,
+      totalCount: 0,
     };
   },
   created() {
-    http.get(`/board/info`).then((response) => {
-      console.log(response);
-      this.infos = response.data;
-      console.log(this.infos);
+    http.get("/board/info/total").then((response) => {
+      // console.log(response);
+      this.totalCount = response.data;
+      // console.log(this.infos);
     });
+    this.setInfos();
   },
   methods: {
+    setInfos() {
+      http.get(`/board/info?page=${this.page}`).then((response) => {
+        console.log(response);
+        this.infos = response.data;
+        console.log(this.infos);
+      });
+    },
     goRegist() {
       this.$router.push({ name: "info-write" });
+    },
+    setPage(value) {
+      // console.log("자식에게 받은 page:", value);
+      this.page = value;
+    },
+  },
+  watch: {
+    page() {
+      this.setInfos();
     },
   },
 };

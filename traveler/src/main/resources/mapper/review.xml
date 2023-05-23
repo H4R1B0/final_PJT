@@ -8,6 +8,13 @@
     <select id="selectAllReviews" resultType="ReviewDto">
         select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount
         from review_board
+        LIMIT ${LIMIT} OFFSET ${page}
+    </select>
+
+    <!-- 후기 목록 총 개수 -->
+    <select id="getTotalCount" resultType="int">
+        select count(*)
+        from review_board
     </select>
 
     <!-- 후기 글 쓰기 -->

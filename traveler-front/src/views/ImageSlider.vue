@@ -8,7 +8,7 @@
           <swiper class="swiper" :options="swiperOption2">
             <swiper-slide v-for="attraction in attractions" :key="attraction.contentId">
               <router-link class="attraction" :to="{ name: 'tour-detail', query: { content_id: attraction.contentId } }">
-                <img class="attraction-image" :src="attraction.img" alt="" />
+                <img class="attraction-image" :src="attraction.img" alt="" loading="lazy" />
                 <p class="attraction-text">{{ attraction.title }}</p>
               </router-link>
             </swiper-slide>
@@ -54,7 +54,7 @@ export default {
           prevEl: ".swiper-button-prev",
         },
       },
-
+      imageLoaded: false,
       startProgress: false,
     };
   },
@@ -202,7 +202,7 @@ export default {
 }
 .attraction-image {
   height: 300px;
-  width: 200px;
+  width: 400px;
   border-radius: 10px;
 }
 
