@@ -1,7 +1,7 @@
 <template>
   <div class="address-container">
     <!-- <input type="text" v-model="postcode" placeholder="우편번호" /> -->
-    <h3>소요시간 계산</h3>
+    <h3 class="calculate-title">소요시간 계산</h3>
     <input class="address-text" type="text" v-model="address" placeholder="주소" readonly />
     <input class="address-search" type="button" @click="execDaumPostcode()" value="주소 검색" />
     <br />
@@ -166,6 +166,9 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: Cafe24SsurroundAir;
+}
 .address-container {
   width: 80%;
   height: 20rem;
@@ -177,18 +180,34 @@ export default {
   border-radius: 5px;
   border: none;
   font-size: 1rem;
+  padding-left: 0.5rem;
 }
+/* 검색 버튼 */
 .address-search {
-  height: 2rem;
-  width: 5rem;
-  border-radius: 5px;
+  position: relative;
   border: none;
-  margin-left: 0.5rem;
-  background-color: #ddf5ff;
-  font-size: 1rem;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transition: 0.25s;
+  background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
+  color: white;
+  font-weight: bold;
 }
+
+.address-search:hover {
+  letter-spacing: 2px;
+  transform: scale(1);
+  cursor: pointer;
+}
+
 .address-text:focus {
   outline: none;
+}
+/* 소요시간 계산 제목 */
+.calculate-title {
+  padding-bottom: 0.5rem;
 }
 .time-calculate {
   height: 2rem;

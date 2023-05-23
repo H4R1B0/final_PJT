@@ -1,6 +1,7 @@
 <template>
   <div class="mypage-container">
     <div class="left-container">
+      <p id="mypage-title">My Page</p>
       <button @click="rendering('modify')" :disabled="renderView == 'modify'">개인 정보 변경</button>
       <button @click="rendering('like')" :disabled="renderView == 'like'">좋아요한 관광지</button>
       <button @click="withdrawal">회원 탈퇴</button>
@@ -61,6 +62,12 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto;
+  margin-top: 5rem;
+}
+#mypage-title {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
 }
 /* 왼쪽 컨테이너 */
 .left-container {

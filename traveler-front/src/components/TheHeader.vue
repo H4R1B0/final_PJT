@@ -18,7 +18,7 @@
       <select class="search-keyword" name="keyword" v-model="keyword">
         <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
-      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" @input="submitAutoComplete" />
+      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" @input="submitAutoComplete" @keyup.enter="commitSearchData" />
       <input type="button" class="search-image" v-on:click="commitSearchData" />
       <div class="auto-complete disabled">
         <div @click="searchContentAdd(res)" style="cursor: pointer" v-for="(res, i) in result" :key="i">
@@ -237,6 +237,7 @@ header {
 
 /* 검색 */
 .search {
+  display: flex;
   position: relative;
   height: 2.5rem;
   /* border-radius: 20px; */
@@ -257,7 +258,7 @@ input {
 }
 .search > .search-input {
   border: 1px solid #bcbcbc;
-  height: 95% !important;
+  height: 100%;
   width: 20rem;
   outline: none;
   border-radius: 0 10px 10px 0;
@@ -275,6 +276,7 @@ input {
 }
 /* 자동완성 */
 .auto-complete {
+  position: absolute;
   width: 23.7rem;
   height: 6rem;
   font-size: 0.8rem;
@@ -283,6 +285,7 @@ input {
   /* opacity: 0.6; */
   border-radius: 10px 10px 10px 10px;
   /* padding-left: 0.5rem; */
+  top: 3rem;
 }
 .auto-complete > * {
   padding-left: 0.5rem;
@@ -316,5 +319,11 @@ input {
 /* 멤버 */
 .login-after > * {
   margin: 0 0.5rem;
+}
+input,
+select {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 </style>
