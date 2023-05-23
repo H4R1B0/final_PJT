@@ -54,7 +54,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+* {
+  font-family: Cafe24SsurroundAir;
+}
 .mypage-container {
   display: flex;
   width: 60%;
@@ -62,7 +65,7 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 #mypage-title {
   margin-bottom: 1rem;
@@ -77,7 +80,9 @@ export default {
   height: 100%;
   width: 30%;
   align-items: center;
-  justify-content: center;
+  padding-top: 7.5rem;
+  /* padding-top: 10%; */
+  /* justify-content: center; */
 }
 .left-container > button {
   display: flex;
@@ -87,6 +92,7 @@ export default {
   padding: 5% 0;
   border: 0;
   font-size: 1rem;
+  justify-content: center;
 }
 button:not(:disabled) {
   cursor: pointer;

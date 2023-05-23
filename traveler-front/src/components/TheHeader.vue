@@ -277,7 +277,7 @@ input {
 /* 자동완성 */
 .auto-complete {
   position: absolute;
-  width: 23.7rem;
+  width: 23.2rem;
   height: 6rem;
   font-size: 0.8rem;
   overflow: scroll;
