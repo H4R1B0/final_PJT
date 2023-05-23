@@ -187,13 +187,14 @@ export default {
   position: relative;
   border: none;
   display: inline-block;
-  padding: 10px 15px;
+  padding: 9px 12px;
   border-radius: 10px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
   background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
   color: white;
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .address-search:hover {
@@ -210,13 +211,23 @@ export default {
   padding-bottom: 0.5rem;
 }
 .time-calculate {
-  height: 2rem;
-  width: 5rem;
-  border-radius: 5px;
+  margin-top: 1rem;
+  position: relative;
   border: none;
-  margin-top: 0.5rem;
-  background-color: #ddf5ff;
-  font-size: 1rem;
+  display: inline-block;
+  padding: 9px 12px;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transition: 0.25s;
+  background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.time-calculate:hover {
+  letter-spacing: 2px;
+  transform: scale(1);
+  cursor: pointer;
 }
 .time-calculate-result > p {
   margin-top: 1rem;
