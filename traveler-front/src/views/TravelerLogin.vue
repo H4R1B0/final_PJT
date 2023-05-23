@@ -33,9 +33,10 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
       console.log("로그인");
-      let loginResult = this.$store.dispatch("login", this.member);
+      let loginResult = await this.$store.dispatch("login", this.member);
+      console.log(loginResult);
       if (loginResult) {
         this.$router.push("/");
       } else {
