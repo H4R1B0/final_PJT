@@ -8,6 +8,7 @@
     <select id="selectAll" resultType="InfoDto">
         select no, title, writer, date_format(write_date, '%Y-%m-%d %H:%i:%s') writeDate, read_count readCount
         from info_board
+        order by no desc
         LIMIT ${LIMIT} OFFSET ${page}
     </select>
 

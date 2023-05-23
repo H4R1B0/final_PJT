@@ -91,19 +91,21 @@ export default {
 button.page-link {
   display: inline-block;
   font-size: 20px;
-  color: #29b3ed;
+  color: rgb(97, 118, 161);
   font-weight: 500;
 }
 button:disabled {
-  background-color: #e9ecef;
+  background-color: rgb(185, 203, 235);
 }
 .page-link {
   position: relative;
   padding: 0.3rem 0.3rem;
   /* margin-left: -1px; */
   line-height: 1.25;
-  background-color: #fff;
+  background-color: #f6f6f7;
   border: 1px solid #dee2e6;
+  border-radius: 15px;
+  margin-right: 0.3em;
 }
 .page-link:not(:disabled) {
   cursor: pointer;

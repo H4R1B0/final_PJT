@@ -46,8 +46,12 @@ export default {
 .main-banner-text > * {
   font-family: Cafe24Ssurround;
 }
+.main-banner-text > * > * {
+  font-family: Cafe24Ssurround;
+}
 /* 베너 하이라이트 */
 .highlight {
   color: yellow;
+  font-weight: bold;
 }
 </style>
