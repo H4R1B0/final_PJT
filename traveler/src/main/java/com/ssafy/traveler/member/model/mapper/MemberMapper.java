@@ -87,4 +87,16 @@ public interface MemberMapper {
     int getInterestCount(Map<String, String> param) throws SQLException;
 
     int getAdminCount(String memberId) throws SQLException;
+
+
+    /**
+     * 존재하는 회원인지 체크
+     */
+    MemberDto checkUserExist(String memberId) throws SQLException;
+
+    /**
+     * 변경한 비밀번호 저장
+     */
+    void updatePassword(Map<String, String> data) throws SQLException;
+
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.ssafy.traveler.member.dto.MemberDto;
 import com.ssafy.traveler.tour.dto.TourDto;
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface MemberService {
@@ -46,10 +47,10 @@ public interface MemberService {
     /**
      * 회원 탈퇴
      *
-     * @param userId
+     * @param memberId
      * @throws SQLException
      */
-    void delete(String userId) throws SQLException;
+    void delete(String memberId) throws SQLException;
 
     /**
      * 사용자의 salt값 가져오기
@@ -76,4 +77,14 @@ public interface MemberService {
     List<TourDto> getInterestList(Map<String, String> param) throws SQLException;
 
     int getAdminCount(String memberId) throws SQLException;
+
+    /**
+     * 비밀번호 찾으려는 회원이 존재하는 회원인지 확인
+     */
+    MemberDto getExistMember(String memberId) throws SQLException;
+
+    //랜덤 비밀번호 생성
+    String getRandPassword();
+
+    void updatePassword(MemberDto member) throws SQLException;
 }

@@ -21,6 +21,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+    //임시 비밀번호 발급 - 네이버 이메일
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
@@ -30,6 +32,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
     runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
+
 }
 
 tasks.withType(JavaCompile).configureEach {
