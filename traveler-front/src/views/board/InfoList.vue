@@ -66,6 +66,7 @@ export default {
     },
     async goRegist() {
       let cnt = await this.$store.dispatch("isAdmin");
+      console.log(cnt);
       if (cnt == 1) {
         this.$router.push({ name: "info-write" });
       } else {

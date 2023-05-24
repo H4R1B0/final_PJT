@@ -107,12 +107,14 @@ export default new Vuex.Store({
     },
     async isAdmin() {
       try {
-        await http.get(`/member/admin/${this.state.memberInfo.member_id}`).then((res) => {
+        return await http.get(`/member/admin/${this.state.memberInfo.member_id}`).then((res) => {
+          // console.log(res.data);
           return res.data;
         });
       } catch (e) {
         console.log(e);
       }
+      return 0;
     },
     modify(context, modifyInfo) {
       http
