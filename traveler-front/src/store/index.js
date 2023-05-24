@@ -83,8 +83,7 @@ export default new Vuex.Store({
       //아이디 패스워드 정보 가지고 로그인
       //로그인 성공시 userInfo, token 정보 세팅
       try {
-        const res = await http
-          .post("/member/login", loginInfo);
+        const res = await http.post("/member/login", loginInfo);
         console.log("로그인 응답 데이터:", res.data);
         const token = res.data.token;
         context.commit("SET_TOKEN", { token });
@@ -104,6 +103,15 @@ export default new Vuex.Store({
       } catch {
         console.log("로그인 실패");
         return false;
+      }
+    },
+    async isAdmin() {
+      try {
+        await http.get(`/member/admin/${this.state.memberInfo.member_id}`).then((res) => {
+          return res.data;
+        });
+      } catch (e) {
+        console.log(e);
       }
     },
     modify(context, modifyInfo) {

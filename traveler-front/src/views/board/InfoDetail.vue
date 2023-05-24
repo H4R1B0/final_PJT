@@ -41,18 +41,28 @@ export default {
     moveList() {
       this.$router.push({ path: "/info-list" });
     },
-    deleteArticle() {
-      let no = this.infoArticle.no;
-      http.delete(`/board/info/${no}`).then((response) => {
-        console.log(response);
-        this.$router.push({ path: "/info-list" });
-      });
+    async deleteArticle() {
+      let cnt = await this.$store.dispatch("isAdmin");
+      if (cnt == 1) {
+        let no = this.infoArticle.no;
+        http.delete(`/board/info/${no}`).then((response) => {
+          console.log(response);
+          this.$router.push({ path: "/info-list" });
+        });
+      } else {
+        alert("관리자만 삭제할 수 있습니다.");
+      }
     },
     changeB(value) {
       return value.replace(/(?:\r\n|\r|\n)/g, "<br/>");
     },
-    moveModifyArticle() {
-      this.$router.push({ path: "/info-update", query: { no: this.infoArticle.no } });
+    async moveModifyArticle() {
+      let cnt = await this.$store.dispatch("isAdmin");
+      if (cnt == 1) {
+        this.$router.push({ path: "/info-update", query: { no: this.infoArticle.no } });
+      } else {
+        alert("관리자만 수정할 수 있습니다.");
+      }
     },
   },
 };
