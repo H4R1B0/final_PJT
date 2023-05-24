@@ -1,34 +1,47 @@
 package com.ssafy.traveler.member.controller;
 
+import com.ssafy.traveler.member.dto.MemberDto;
+import com.ssafy.traveler.member.model.service.MemberService;
+import com.ssafy.traveler.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ssafy.traveler.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.ssafy.traveler.member.dto.MemberDto;
-import com.ssafy.traveler.member.model.service.MemberService;
-
-import lombok.extern.slf4j.Slf4j;
-
-import javax.servlet.http.HttpServletRequest;
-
 @RestController
 @RequestMapping("/member")
 @Slf4j
 @CrossOrigin("*")
+@RequiredArgsConstructor //오류 있으면 지우기, 근데 얘 지워도 오류
 public class MemberController {
+
+    //메일 전송
+    private final JavaMailSender javaMailSender;
+
     final int LIMIT = 10; //LIMIT만큼 불러옴
     @Autowired
     MemberService memberService;
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    //발신자 메일 주소
+    @Value("${spring.mail.username}")
+    private String from;
 
     /**
      * 로그인
@@ -178,6 +191,36 @@ public class MemberController {
         param.put("page", Integer.toString(page));
         param.put("LIMIT", Integer.toString(LIMIT));
         return ResponseEntity.ok(memberService.getInterestList(param));
+    }
+
+    /**
+     * 존재하는 회원인지 확인하고 임시 비밀번호 발급
+     */
+    @PostMapping("/tmpPwd/{memberId}")
+    public ResponseEntity<?> getTmpPassword(@PathVariable String memberId) throws SQLException, MessagingException {
+        MemberDto member = memberService.getExistMember(memberId);
+        if(member.getEmail() != null) {
+            String password = memberService.getRandPassword();
+            member.setMemberPassword(password);
+            memberService.updatePassword(member);
+
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setTo(member.getEmail());
+            mimeMessageHelper.setSubject("[Traveler] 임시 비밀번호 안내");
+
+            String msg = "<div style='border: 1px solid black; padding: 10px; font-family: verdana;'>";
+            msg += "<h2>안녕하세요. <span style='color: blue;'>" + member.getMemberName() + "</span>님.</h2>";
+            msg += "<p>초기화된 비밀번호를 전송해 드립니다. 비밀번호를 변경하여 사용하세요.</p>";
+            msg += "<p>임시 비밀번호 : <span style='color: blue;'>" + password + "</span></p></div>";
+
+            mimeMessageHelper.setText(msg, true);
+            //사진 추가하고 싶으면 사진 추가
+            javaMailSender.send(mimeMessage);
+            return ResponseEntity.ok().build();
+        }
+        else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 
