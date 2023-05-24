@@ -17,6 +17,10 @@
       <span>아직 회원이 아니신가요? </span>
       <router-link :to="{ name: 'join' }">회원가입 </router-link>
       <br />
+      <span> 비밀번호를 잊으셨나요?</span>
+      <router-link :to="{ name: 'member-forgot' }">비밀번호 찾기 </router-link>
+      <br />
+
       <input class="login-button" type="submit" value="로그인" />
     </form>
   </div>
