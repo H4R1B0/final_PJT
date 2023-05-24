@@ -24,16 +24,17 @@
         placeholder="검색어 입력"
         v-model="content"
         @input="submitAutoComplete"
-        @keyup.enter="commitSearchData"
         @keyup.up="searchKeyUp"
         @keyup.down="searchKeyDown"
+        @keyup.enter="commitSearchData"
       />
       <input type="button" class="search-image" v-on:click="commitSearchData" />
-      <div class="auto-complete disabled">
-        <div @click="searchContentAdd(res)" style="cursor: pointer" v-for="(res, i) in result" :key="i" :style="i == searchIndex ? 'background-color:white' : 'background-color: transparent'">
+      <select class="auto-complete disabled" :size="Math.min(5, result.length)">
+        <option v-if="result.length == 0">검색된 내용이 없습니다.</option>
+        <option style="cursor: pointer; margin: 1px" v-for="(res, i) in result" :key="i" :value="res" @click="searchContentAdd(res, i)">
           {{ res }}
-        </div>
-      </div>
+        </option>
+      </select>
       <!-- <input type="button" class="search-image" /> -->
     </div>
     <!-- 게시판 -->
@@ -92,7 +93,7 @@ export default {
         { name: "제목", value: "title" },
         { name: "주소", value: "addr1" },
       ],
-      searchIndex: 0,
+      searchIndex: -1,
     };
   },
   methods: {
@@ -168,7 +169,7 @@ export default {
       });
     },
     submitAutoComplete() {
-      this.searchIndex = 0;
+      this.searchIndex = -1;
       const autoComplete = document.querySelector(".auto-complete");
       if (this.content != "") {
         autoComplete.classList.remove("disabled");
@@ -184,26 +185,34 @@ export default {
       } else {
         autoComplete.classList.add("disabled");
       }
+      // console.log(this.result);
     },
     searchKeyUp() {
       console.log("key up");
-      let autoCompleteCount = document.querySelector(".auto-complete").childElementCount;
+      const autoComplete = document.querySelector(".auto-complete");
+      let autoCompleteCount = autoComplete.childElementCount;
       console.log("자동완성 개수:", autoCompleteCount);
+      if (this.searchIndex == -1) this.searchIndex = 0;
       this.searchIndex = (this.searchIndex + autoCompleteCount - 1) % autoCompleteCount;
       console.log("현재 인덱스:", this.searchIndex);
+      autoComplete.selectedIndex = this.searchIndex;
       this.content = this.result[this.searchIndex];
     },
     searchKeyDown() {
       console.log("key down");
-      let autoCompleteCount = document.querySelector(".auto-complete").childElementCount;
+      const autoComplete = document.querySelector(".auto-complete");
+      let autoCompleteCount = autoComplete.childElementCount;
       console.log("자동완성 개수:", autoCompleteCount);
       this.searchIndex = (this.searchIndex + 1) % autoCompleteCount;
       console.log("현재 인덱스:", this.searchIndex);
+      autoComplete.selectedIndex = this.searchIndex;
       this.content = this.result[this.searchIndex];
     },
-    searchContentAdd(content) {
+    searchContentAdd(content, idx) {
       console.log(content);
       this.content = content;
+      document.querySelector(".auto-complete").selectedIndex = idx;
+      this.searchIndex = idx;
     },
   },
   computed: {
@@ -307,7 +316,7 @@ input {
   width: 23.2rem;
   height: 6rem;
   font-size: 0.8rem;
-  overflow: scroll;
+  /* overflow: scroll; */
   background-color: rgba(255, 255, 255, 0.5);
   /* opacity: 0.6; */
   border-radius: 10px 10px 10px 10px;
@@ -315,14 +324,15 @@ input {
   top: 3rem;
 }
 .auto-complete > * {
-  padding-left: 0.5rem;
+  padding-left: 1rem;
+  font-size: 1rem;
 }
-.auto-complete::-webkit-scrollbar {
+/* .auto-complete::-webkit-scrollbar {
   display: none;
 }
 .auto-complete > * {
   margin-top: 10px;
-}
+} */
 .disabled {
   display: none;
 }
