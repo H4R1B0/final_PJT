@@ -84,12 +84,21 @@ th,
 td {
   /* width: 100%; */
   /* border: 1px solid #444444; */
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   height: 60%;
+  text-align: center;
+  /* margin-bottom: 1rem; */
+}
+th {
+  font-size: 1.2rem;
+}
+td {
+  font-size: 1.1rem;
 }
 .like-page {
   width: 60%;
-  margin: 5% auto 0;
+  /* margin: 5rem auto 1rem; */
+  margin: 5rem 0 1rem 12rem;
   border-spacing: 0.2rem;
 }
 </style>

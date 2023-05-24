@@ -1,6 +1,6 @@
 <template>
   <section class="review-list-container">
-    <h1 class="review-title">후기 게시판</h1>
+    <h1 class="review-title"><img class="review-img" src="https://cdn-icons-png.flaticon.com/128/889/889140.png" />후기 게시판</h1>
     <div>
       <table class="review-position">
         <colgroup class="review-item">
@@ -86,6 +86,13 @@ export default {
 .review-title {
   padding: 6rem 6rem 2rem 9rem;
   font-size: 2rem;
+}
+/* 리뷰 사진 */
+.review-img {
+  width: 2.5rem;
+  height: 3rem;
+  padding-top: 0.5rem;
+  margin-right: 0.8rem;
 }
 .review-list-container {
   background-color: rgba(255, 255, 255, 0.6);

@@ -4,6 +4,7 @@
       <img v-if="Object.keys(attraction).length > 0" class="icon-image" :src="iconSrc" alt="아이콘" />
       <h1>{{ attraction.title }}</h1>
     </div>
+    <button class="goList-button" @click="gotoList">목록</button>
     <h4 class="attraction-readcount">조회수 : {{ attraction.readcount }}</h4>
     <div class="attraction-image">
       <img :src="attraction.img == '' ? 'https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-6/32/no-image-512.png' : attraction.img" alt="관광지" />
@@ -36,6 +37,11 @@ export default {
       // console.log(this.attraction);
     });
     // console.log(this._data.atttraction);
+  },
+  methods: {
+    gotoList() {
+      this.$router.push({ name: "tour" });
+    },
   },
   computed: {
     iconSrc() {
@@ -91,6 +97,21 @@ export default {
 .attraction-title > .icon-image {
   width: 34px;
   margin-left: 2%;
+}
+/*목록으로 버튼 */
+.goList-button {
+  margin: 1.5rem 0 0 7rem;
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transition: 0.25s;
+  background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
 }
 /* 조회수 */
 .attraction-readcount {

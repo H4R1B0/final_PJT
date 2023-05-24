@@ -1,6 +1,6 @@
 <template>
   <section class="info-list-container">
-    <h1 class="info-title">공지사항</h1>
+    <h1 class="info-title"><img class="info-img" src="https://cdn-icons-png.flaticon.com/128/9498/9498078.png" />공지사항</h1>
     <div>
       <table class="info-position">
         <colgroup class="info-item">
@@ -100,6 +100,13 @@ export default {
 .info-title {
   padding: 6rem 6rem 2rem 9rem;
   font-size: 2rem;
+}
+/* 확성기 사진 */
+.info-img {
+  width: 2.5rem;
+  height: 3rem;
+  /* padding-top: 1rem; */
+  margin-right: 1rem;
 }
 .info-list-container {
   background-color: rgba(255, 255, 255, 0.6);

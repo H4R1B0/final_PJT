@@ -187,14 +187,15 @@ export default {
   position: relative;
   border: none;
   display: inline-block;
-  padding: 9px 12px;
+  padding: 8px 10px;
   border-radius: 10px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
   background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 0.9rem;
+  margin-left: 0.6rem;
 }
 
 .address-search:hover {
@@ -221,7 +222,7 @@ export default {
   transition: 0.25s;
   background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 0.9rem;
 }
 .time-calculate:hover {
