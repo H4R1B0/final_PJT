@@ -18,10 +18,19 @@
       <select class="search-keyword" name="keyword" v-model="keyword">
         <option v-for="(item, index) in selectList" :key="index" :value="item.value">{{ item.name }}</option>
       </select>
-      <input class="search-input" type="text" placeholder="검색어 입력" v-model="content" @input="submitAutoComplete" @keyup.enter="commitSearchData" />
+      <input
+        class="search-input"
+        type="text"
+        placeholder="검색어 입력"
+        v-model="content"
+        @input="submitAutoComplete"
+        @keyup.enter="commitSearchData"
+        @keyup.up="searchKeyUp"
+        @keyup.down="searchKeyDown"
+      />
       <input type="button" class="search-image" v-on:click="commitSearchData" />
       <div class="auto-complete disabled">
-        <div @click="searchContentAdd(res)" style="cursor: pointer" v-for="(res, i) in result" :key="i">
+        <div @click="searchContentAdd(res)" style="cursor: pointer" v-for="(res, i) in result" :key="i" :style="i == searchIndex ? 'background-color:white' : 'background-color: transparent'">
           {{ res }}
         </div>
       </div>
@@ -76,13 +85,14 @@ export default {
       hiddenToggle: true,
       keyword: "title",
       content: "",
-      result: null,
+      result: [],
       page: 1,
       code: 0,
       selectList: [
         { name: "제목", value: "title" },
         { name: "주소", value: "addr1" },
       ],
+      searchIndex: 0,
     };
   },
   methods: {
@@ -158,6 +168,7 @@ export default {
       });
     },
     submitAutoComplete() {
+      this.searchIndex = 0;
       const autoComplete = document.querySelector(".auto-complete");
       if (this.content != "") {
         autoComplete.classList.remove("disabled");
@@ -173,6 +184,22 @@ export default {
       } else {
         autoComplete.classList.add("disabled");
       }
+    },
+    searchKeyUp() {
+      console.log("key up");
+      let autoCompleteCount = document.querySelector(".auto-complete").childElementCount;
+      console.log("자동완성 개수:", autoCompleteCount);
+      this.searchIndex = (this.searchIndex + autoCompleteCount - 1) % autoCompleteCount;
+      console.log("현재 인덱스:", this.searchIndex);
+      this.content = this.result[this.searchIndex];
+    },
+    searchKeyDown() {
+      console.log("key down");
+      let autoCompleteCount = document.querySelector(".auto-complete").childElementCount;
+      console.log("자동완성 개수:", autoCompleteCount);
+      this.searchIndex = (this.searchIndex + 1) % autoCompleteCount;
+      console.log("현재 인덱스:", this.searchIndex);
+      this.content = this.result[this.searchIndex];
     },
     searchContentAdd(content) {
       console.log(content);
