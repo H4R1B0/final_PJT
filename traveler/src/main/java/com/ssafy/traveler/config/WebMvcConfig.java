@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //해당 요청 인터셉트
-//        registry.addInterceptor(loginInterceptor).addPathPatterns("/**/book/**");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**/board/info/**");
         //해당 요청을 제외한 나머지 요청들 인터셉트
 //        registry.addInterceptor(interceptor).excludePathPatterns("/**/auth/**");
     }
