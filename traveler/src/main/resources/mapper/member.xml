@@ -77,4 +77,16 @@
         LIMIT ${LIMIT} OFFSET ${page}
     </select>
 
+    <!-- 비밀번호 잊어버린 사용자가 존재하는지 조회 -->
+    <select id="checkUserExist" parameterType="String" resultType="MemberDto">
+        select member_id memberId, member_name memberName, email from member where member_id = #{member_id}
+    </select>
+
+    <!--  비밀번호 수정  -->
+    <update id="updatePassword" parameterType="Map">
+        update member
+        set member_password = #{member_password}
+        where member_id = #{member_id}
+    </update>
+
 </mapper>
