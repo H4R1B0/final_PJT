@@ -37,6 +37,11 @@ const routes = [
     component: () => import("@/views/tour/TourDetail.vue"),
     // component: TourMain,
   },
+  {
+    path: "/member-forgot",
+    name: "member-forgot",
+    component: () => import("@/views/member/MemberForgot.vue"),
+  },
   //공지사항 게시판
   {
     path: "/info-list",
