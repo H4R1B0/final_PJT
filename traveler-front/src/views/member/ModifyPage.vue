@@ -48,12 +48,12 @@ export default {
 .modify-container {
   width: 50%;
   height: auto;
-  margin: 20% auto;
+  margin: 24% auto;
 }
 .modify-container > h1 {
   position: absolute;
   left: 45%;
-  top: 45%;
+  top: 43%;
 }
 form input {
   width: 100%;

@@ -100,26 +100,26 @@ export default {
 .detail-writer {
   text-align: left;
   margin-top: 2rem;
-  padding-left: 15rem;
+  padding-left: 16rem;
 }
 .detail-readCnt {
-  padding-left: 15rem;
+  padding-left: 16rem;
   margin-top: 0.7rem;
 }
 .detail-time {
-  padding-left: 15rem;
+  padding-left: 16rem;
   margin-top: 0.7rem;
 }
 .content {
   color: #5a5a5a;
   font-size: 1.2rem;
   font-weight: bold;
-  padding-left: 15rem;
+  padding-left: 16rem;
 }
 .content-box {
   background-color: #fffcfc;
-  width: 49%;
-  height: 45%;
+  width: 26.5rem;
+  height: 22.5rem;
   margin: 0 auto;
   border-radius: 10px;
   padding: 1rem 1rem 1rem 1rem;
@@ -129,14 +129,14 @@ export default {
   background-color: #0a0a23;
   color: #fff;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   border-radius: 10px;
   box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
   position: relative;
   border: none;
   display: inline-block;
-  padding: 10px 20px;
+  padding: 8px 15px;
   border-radius: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   transition: 0.25s;

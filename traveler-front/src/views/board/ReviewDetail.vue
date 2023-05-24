@@ -13,8 +13,8 @@
     <div class="content-box" v-html="reviewArticle.content"></div>
     <br />
     <div>
-      <button class="btn" id="update-btn" @click="moveModifyArticle">수정</button>
-      <button class="btn" id="delete-btn" @click="deleteArticle">삭제</button>
+      <button class="btn" id="update-btn" @click="goModify">수정</button>
+      <button class="btn" id="delete-btn" @click="checkDelete">삭제</button>
       <button class="btn" id="list-btn" @click="moveList">목록</button>
     </div>
   </section>
@@ -41,18 +41,28 @@ export default {
     moveList() {
       this.$router.push({ path: "/review-list" });
     },
-    deleteArticle() {
-      let no = this.reviewArticle.no;
-      http.delete(`/board/review/${no}`).then((response) => {
-        console.log(response);
-        this.$router.push({ path: "/review-list" });
-      });
+    //수정 전 본인인지 확인
+    goModify() {
+      if (this.$store.state.memberInfo.member_id != this.reviewArticle.writer) alert("본인이 작성한 글만 수정 가능합니다.");
+      else this.moveModifyArticle();
     },
     changeB(value) {
       return value.replace(/(?:\r\n|\r|\n)/g, "<br/>");
     },
     moveModifyArticle() {
       this.$router.push({ path: "/review-update", query: { no: this.reviewArticle.no } });
+    },
+    //삭제 전 본인인지 확인
+    checkDelete() {
+      if (this.$store.state.memberInfo.member_id != this.reviewArticle.writer) alert("본인이 작성한 글만 삭제 가능합니다.");
+      else this.deleteArticle();
+    },
+    deleteArticle() {
+      let no = this.reviewArticle.no;
+      http.delete(`/board/review/${no}`).then((response) => {
+        console.log(response);
+        this.$router.push({ path: "/review-list" });
+      });
     },
   },
 };
@@ -90,26 +100,26 @@ export default {
 .detail-writer {
   text-align: left;
   margin-top: 2rem;
-  padding-left: 15rem;
+  padding-left: 16rem;
 }
 .detail-readCnt {
-  padding-left: 15rem;
+  padding-left: 16rem;
   margin-top: 0.7rem;
 }
 .detail-time {
-  padding-left: 15rem;
+  padding-left: 16rem;
   margin-top: 0.7rem;
 }
 .content {
   color: #5a5a5a;
   font-size: 1.2rem;
   font-weight: bold;
-  padding-left: 15rem;
+  padding-left: 16rem;
 }
 .content-box {
   background-color: #fffcfc;
-  width: 49%;
-  height: 45%;
+  width: 26.5rem;
+  height: 22.5rem;
   margin: 0 auto;
   border-radius: 10px;
   padding: 1rem 1rem 1rem 1rem;

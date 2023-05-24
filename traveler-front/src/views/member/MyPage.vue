@@ -61,11 +61,11 @@ export default {
 .mypage-container {
   display: flex;
   width: 60%;
-  height: 30rem;
+  height: 35rem;
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 8rem;
+  margin-top: 7rem;
 }
 #mypage-title {
   margin-bottom: 1rem;
@@ -80,7 +80,7 @@ export default {
   height: 100%;
   width: 30%;
   align-items: center;
-  padding-top: 7.5rem;
+  padding-top: 9rem;
   /* padding-top: 10%; */
   /* justify-content: center; */
 }
