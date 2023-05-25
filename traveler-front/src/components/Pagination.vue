@@ -78,8 +78,11 @@ export default {
 };
 </script>
 
-<style>
-.pagination {
+<style scoped>
+* {
+  font-family: Arial;
+}
+image.png .pagination {
   display: flex;
   border-radius: 10px;
 }
