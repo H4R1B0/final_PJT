@@ -30,7 +30,6 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             alert("메일이 발송되었습니다.");
-            this.$router.push({ name: "login" });
           }
         })
         .catch(() => {
